@@ -3,10 +3,10 @@ using Framework.ModuleBuilder;
 
 namespace Framework.Module.Parameter
 {
-    public class MinimumChannelParamPd<TChannelProcessData> : MinimumChannelParam, IProcessData<TChannelProcessData>
+    public abstract class MinimumChannelParamPdBase<TChannelProcessData> : MinimumChannelParamBase, IProcessData<TChannelProcessData>
         where TChannelProcessData : IParameter
     {
-        public MinimumChannelParamPd(string name, TChannelProcessData processData) : base(name)
+        public MinimumChannelParamPdBase(string name, TChannelProcessData processData) : base(name)
         {
             ProcessData = processData;
         }
@@ -14,5 +14,5 @@ namespace Framework.Module.Parameter
         public TChannelProcessData ProcessData { get; set; }
 
     }
-    
+
 }

@@ -2,11 +2,11 @@
 
 namespace Framework.Module.Parameter
 {
-    public abstract class MinimumDeviceParam : PropertyHandlers, IParameter
+    public abstract class MinimumDeviceParamBase : PropertyHandlers, IParameter
     {
         private string name;
 
-        public MinimumDeviceParam(string name)
+        public MinimumDeviceParamBase(string name)
         {
             this.name = name;
         }
