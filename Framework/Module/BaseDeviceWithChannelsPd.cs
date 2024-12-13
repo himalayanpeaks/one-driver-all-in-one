@@ -4,14 +4,14 @@ using System.Collections.ObjectModel;
 
 namespace Framework.Module
 {
-    public class BaseDeviceWithChannelPd<TParams, TChannel, TChannelParams, TChannelProcessData> : BaseDevice<TParams>
+    public abstract class BaseDeviceWithChannelsPd<TParams, TChannel, TChannelParams, TChannelProcessData> : BaseDevice<TParams>
         where TParams : MinimumDeviceParamBase
         where TChannel : ChannelWithProcessDataBase<TChannelParams, TChannelProcessData>
         where TChannelParams : MinimumChannelParamBase
         where TChannelProcessData : IParameter
 
     {
-        public BaseDeviceWithChannelPd(TParams parameters, IValidator validator, ObservableCollection<TChannel> elements) : base(parameters, validator)
+        public BaseDeviceWithChannelsPd(TParams parameters, IValidator validator, ObservableCollection<TChannel> elements, TChannelProcessData channelProcessData) : base(parameters, validator)
         {
             Elements = elements;
         }

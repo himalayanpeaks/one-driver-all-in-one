@@ -1,20 +1,26 @@
 ﻿using Framework.Base;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Framework.Module.DeviceValidator
 {
     public class Comport : IValidator
     {
-        public Regex ValidationRegex => throw new NotImplementedException();
+        private static readonly Regex _validationRegex = new Regex(@"^COM\d{1,3}(;[1-9]\d{3,5})?$", RegexOptions.Compiled);
+        public Regex ValidationRegex => _validationRegex;
 
         public bool Validate(string inputString)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(inputString))
+            {
+                return false;
+            }
+
+            return _validationRegex.IsMatch(inputString);
+        }
+        public string GetExample()
+        {
+            return "COM23;19200 or COM23";
         }
     }
 }

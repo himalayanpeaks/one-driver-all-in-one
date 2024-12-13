@@ -11,5 +11,6 @@ namespace Framework.Base
     {
         Regex ValidationRegex { get; }
         bool Validate(string inputString);
+        string GetExample();
     }
 }

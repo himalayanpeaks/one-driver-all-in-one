@@ -28,7 +28,7 @@ namespace Framework.Module
         {
             if (!validator.Validate(initString))
             {
-                Log.Error("Invalid init string");
+                Log.Error("Invalid init string. Example of valid: " + validator.GetExample() );
                 return DeviceError.InvalidInitString;
             }
             if(this.Parameters.IsConnected)

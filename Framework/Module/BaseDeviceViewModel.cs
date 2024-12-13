@@ -3,9 +3,9 @@ using Framework.Module;
 using Framework.Libs;
 using Framework.Module.Parameter;
 
-public class DeviceViewModel<TParams> : IDeviceViewModel where TParams : MinimumDeviceParamBase
+public abstract class DeviceViewModel<TParams> : IDeviceViewModel where TParams : MinimumDeviceParamBase
 {
-    private readonly BaseDevice<TParams> device;
+    public readonly BaseDevice<TParams> Device;
 
     public string InitString { get; set; } = string.Empty;
     public ICommand ConnectCommand { get; }
@@ -13,7 +13,7 @@ public class DeviceViewModel<TParams> : IDeviceViewModel where TParams : Minimum
 
     public DeviceViewModel(BaseDevice<TParams> device)
     {
-        this.device = device;
+        Device = device;
 
         ConnectCommand = new RelayCommand(
             execute: _ => Connect(),
@@ -28,7 +28,7 @@ public class DeviceViewModel<TParams> : IDeviceViewModel where TParams : Minimum
 
     private void Connect()
     {
-        var result = device.Connect(InitString);
+        var result = Device.Connect(InitString);
         if (result != Definition.DeviceError.NoError)
         {
             // Handle connection error (e.g., log or notify the user)
@@ -37,7 +37,7 @@ public class DeviceViewModel<TParams> : IDeviceViewModel where TParams : Minimum
 
     private void Disconnect()
     {
-        var result = device.Disconnect();
+        var result = Device.Disconnect();
         if (result != Definition.DeviceError.NoError)
         {
             // Handle disconnection error (e.g., log or notify the user)
