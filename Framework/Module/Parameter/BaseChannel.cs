@@ -2,12 +2,12 @@
 
 namespace Framework.Module.Parameter
 {
-    public abstract class ChannelBase<TChannelParam> : IConfigurable<TChannelParam>
-            where TChannelParam : MinimumChannelParamBase
+    public abstract class BaseChannel<TChannelParam> : IConfigurable<TChannelParam>
+            where TChannelParam : BaseChannelParam
     {
         public TChannelParam Parameters { get; set; }
 
-        public ChannelBase(TChannelParam parameters)
+        public BaseChannel(TChannelParam parameters)
         {
             Parameters = parameters;
         }

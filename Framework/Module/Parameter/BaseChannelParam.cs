@@ -2,11 +2,11 @@
 
 namespace Framework.Module.Parameter
 {
-    public abstract class MinimumChannelParamBase : PropertyHandlers, IParameter
+    public abstract class BaseChannelParam : PropertyHandlers, IParameter
     {
         private string name;
 
-        public MinimumChannelParamBase(string name)
+        public BaseChannelParam(string name)
         {
             this.name = name;
         }

@@ -7,7 +7,7 @@ using static Framework.Module.Definition;
 namespace Framework.Module
 {
     public abstract class BaseDevice<TParams> : IConfigurable<TParams>, IDevice
-        where TParams : MinimumDeviceParamBase
+        where TParams : BaseDeviceParam
     {
         public TParams Parameters { get; set; }
 

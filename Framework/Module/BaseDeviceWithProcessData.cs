@@ -5,7 +5,7 @@ using Framework.ModuleBuilder;
 namespace Framework.Module
 {
     public abstract class BaseDeviceWithProcessData<TParams, TProcessData> : BaseDevice<TParams>, IProcessData<TProcessData>
-        where TParams : MinimumDeviceParamBase
+        where TParams : BaseDeviceParam
         where TProcessData : IParameter
     {
         public TProcessData ProcessData { get; set; }

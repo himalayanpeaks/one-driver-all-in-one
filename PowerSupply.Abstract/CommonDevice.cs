@@ -8,7 +8,7 @@ namespace PowerSupply.Abstract
 {
     public abstract class CommonDevice<TParams, TChannel, TChannelParams, TChannelProcessData> :
         BaseDeviceWithChannelsPd<TParams, TChannel, TChannelParams, TChannelProcessData>, IPowerSupply
-        where TParams : CommonParams
+        where TParams : CommonDeviceParams
         where TChannel : CommonChannel<TChannelParams, TChannelProcessData>
         where TChannelParams : CommonChannelParams
         where TChannelProcessData : CommonProcessData

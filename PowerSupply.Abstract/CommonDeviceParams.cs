@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace PowerSupply.Abstract
 {
-    public class CommonParams : MinimumDeviceParamBase
+    public class CommonDeviceParams : BaseDeviceParam
     {
-        public CommonParams(string name) : base(name)
+        public CommonDeviceParams(string name) : base(name)
         {
         }
     }

@@ -5,9 +5,9 @@ using Framework.ModuleBuilder;
 namespace Framework.Module.ViewModel
 {
     public abstract class BaseDeviceWithChannelsPdViewModel<TParams, TChannel, TChannelParams, TChannelProcessData> : BaseDeviceViewModel
-        where TParams : MinimumDeviceParamBase
-        where TChannel : ChannelWithProcessDataBase<TChannelParams, TChannelProcessData>
-        where TChannelParams : MinimumChannelParamBase
+        where TParams : BaseDeviceParam
+        where TChannel : BaseChannelWithProcessData<TChannelParams, TChannelProcessData>
+        where TChannelParams : BaseChannelParam
         where TChannelProcessData : IParameter
     {
         public readonly BaseDeviceWithChannelsPd<TParams, TChannel, TChannelParams, TChannelProcessData> Device;

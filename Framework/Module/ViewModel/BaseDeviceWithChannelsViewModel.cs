@@ -4,9 +4,9 @@ using Framework.ModuleBuilder;
 namespace Framework.Module.ViewModel
 {
     public abstract class BaseDeviceWithChannelsViewModel<TParams, TChannel, TChannelParams> : BaseDeviceViewModel
-        where TParams : MinimumDeviceParamBase
-        where TChannel : ChannelBase<TChannelParams>
-        where TChannelParams : MinimumChannelParamBase
+        where TParams : BaseDeviceParam
+        where TChannel : BaseChannel<TChannelParams>
+        where TChannelParams : BaseChannelParam
     {
         public readonly BaseDeviceWithChannels<TParams, TChannel, TChannelParams> Device;
 

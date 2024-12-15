@@ -5,9 +5,9 @@ using System.Collections.ObjectModel;
 namespace Framework.Module
 {
     public abstract class BaseDeviceWithChannelsPd<TParams, TChannel, TChannelParams, TChannelProcessData> : BaseDevice<TParams>
-        where TParams : MinimumDeviceParamBase
-        where TChannel : ChannelWithProcessDataBase<TChannelParams, TChannelProcessData>
-        where TChannelParams : MinimumChannelParamBase
+        where TParams : BaseDeviceParam
+        where TChannel : BaseChannelWithProcessData<TChannelParams, TChannelProcessData>
+        where TChannelParams : BaseChannelParam
         where TChannelProcessData : IParameter
 
     {

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace PowerSupply.Abstract.Channels
 {
     public abstract class CommonChannel<TChannelParams, TChannelProcessData>
-        : ChannelWithProcessDataBase<TChannelParams, TChannelProcessData>
+        : BaseChannelWithProcessData<TChannelParams, TChannelProcessData>
         where TChannelParams : CommonChannelParams
         where TChannelProcessData : CommonProcessData
     {

@@ -4,7 +4,7 @@ using Framework.Module.Parameter;
 namespace Framework.Module.ViewModel
 {
     public abstract class BaseDeviceWithProcessDataViewModel<TParams, TProcessData> : BaseDeviceViewModel
-        where TParams : MinimumDeviceParamBase
+        where TParams : BaseDeviceParam
         where TProcessData : IParameter
     {
         public readonly BaseDeviceWithProcessData<TParams, TProcessData> Device;
