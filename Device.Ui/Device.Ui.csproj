@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Framework\Framework.csproj" />
+    <ProjectReference Include="..\TextValidator.Ui\TextValidator.Ui.csproj" />
   </ItemGroup>
 
 </Project>

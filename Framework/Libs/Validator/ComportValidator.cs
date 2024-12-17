@@ -5,7 +5,7 @@ namespace Framework.Libs.Validator
 {
     public class ComportValidator : IValidator
     {
-        private static readonly Regex _validationRegex = new Regex(@"^(COM\d+){1};?(\d+)?", RegexOptions.Compiled);
+        private static readonly Regex _validationRegex = new Regex(@"^(COM\d+){1};?(\d+)?$", RegexOptions.Compiled);
         public Regex ValidationRegex => _validationRegex;
 
         public bool Validate(string inputString)

@@ -1,7 +1,7 @@
 using System.Windows.Controls;
 using Framework.Libs.Validator;
 
-namespace App.Ui.TextValidator
+namespace TextValidator.Ui
 {
     /// <summary>
     /// Interaction logic for UserControl1.xaml
@@ -13,8 +13,6 @@ namespace App.Ui.TextValidator
         public ValidationTextBox()
         {
             InitializeComponent();
-            if(validatorViewModel != null)
-                SetDataContext();
 
         }
         public void SetDataContext()
