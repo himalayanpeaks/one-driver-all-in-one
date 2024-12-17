@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerSupply.General", "Powe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Device.Interface", "Device.Interface\Device.Interface.csproj", "{D95058B6-CC8A-43F2-9895-A450612FEC42}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Device.Ui", "Device.Ui\Device.Ui.csproj", "{33B54412-8D42-4FD7-8424-997E8E5C8759}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D95058B6-CC8A-43F2-9895-A450612FEC42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D95058B6-CC8A-43F2-9895-A450612FEC42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D95058B6-CC8A-43F2-9895-A450612FEC42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33B54412-8D42-4FD7-8424-997E8E5C8759}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33B54412-8D42-4FD7-8424-997E8E5C8759}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33B54412-8D42-4FD7-8424-997E8E5C8759}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33B54412-8D42-4FD7-8424-997E8E5C8759}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

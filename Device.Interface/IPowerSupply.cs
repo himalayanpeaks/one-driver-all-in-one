@@ -1,6 +1,6 @@
 ﻿using Framework.Module;
 
-namespace DeviceInterface
+namespace Device.Interface
 {
     public interface IPowerSupply : IDevice
     {

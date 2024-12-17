@@ -1,7 +1,7 @@
 ﻿using Framework.Module;
 using System.Windows.Input;
 
-namespace DeviceInterface
+namespace Device.Interface
 {
     public interface IPowerSupplyViewModel : IDeviceViewModel
     {

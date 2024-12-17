@@ -19,7 +19,7 @@ namespace Framework.Libs.Validator
         }
         public string GetExample()
         {
-            return "COM23;19200 or COM23";
+            return "COM23;19200";
         }
     }
 }

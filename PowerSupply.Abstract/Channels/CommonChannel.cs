@@ -1,12 +1,4 @@
-﻿using DeviceInterface;
-using Framework.Base;
-using Framework.Module;
-using Framework.Module.Parameter;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Framework.Module.Parameter;
 
 namespace PowerSupply.Abstract.Channels
 {

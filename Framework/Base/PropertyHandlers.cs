@@ -25,7 +25,16 @@ namespace Framework.Base
                 return false;
             }
 
-            OnPropertyChanging(propertyName);
+            try
+            {
+                OnPropertyChanging(propertyName);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                Console.WriteLine($"Validation failed for property '{propertyName}': {ex.Message}");
+                return false; // Prevent field update
+            }
             field = value;
             OnPropertyChanged(propertyName);
             return true;

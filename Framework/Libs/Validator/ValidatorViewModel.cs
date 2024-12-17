@@ -12,12 +12,12 @@ namespace Framework.Libs.Validator
 
         public ValidatorViewModel(IValidator validator)
         {
-            Validator = validator;  
+            Validator = validator;
+            this.PropertyChanged += ValidatorViewModel_PropertyChanged;
+            this.PropertyChanging += ValidatorViewModel_PropertyChanging;
             IsValid = false;
             UserInput = Validator.GetExample();
-            this.PropertyChanged += ValidatorViewModel_PropertyChanged;
-            this.PropertyChanging += ValidatorViewModel_PropertyChanging;   
-            
+           
         }
 
         private void ValidatorViewModel_PropertyChanging(object? sender, PropertyChangingEventArgs e)
@@ -25,8 +25,11 @@ namespace Framework.Libs.Validator
             switch (e.PropertyName)
             {
                 case nameof(UserInput):
-                    if (string.IsNullOrEmpty((string)sender) || !Validator.Validate((string)sender))
-                        throw new ArgumentException("Invalid input");
+                    string s = ((ValidatorViewModel)sender).UserInput;
+                    if (string.IsNullOrEmpty(s) || !Validator.Validate(s))
+                        IsValid = false;
+                    else
+                        IsValid = true;
                     break;
             }
         }
@@ -48,8 +51,7 @@ namespace Framework.Libs.Validator
         {
             get => GetProperty(ref _validator);
             set
-            {
-                _validator = value;
+            {               
                 SetProperty(ref _validator, value); 
                 OnPropertyChanged(nameof(ExampleText));
             }
@@ -59,11 +61,7 @@ namespace Framework.Libs.Validator
         public string UserInput
         {
             get => GetProperty(ref _userInput);
-            set
-            {
-                SetProperty(ref _userInput, value);
-                ValidateInput();
-            }
+            set => SetProperty(ref _userInput, value);            
         }
 
         // Validation result
