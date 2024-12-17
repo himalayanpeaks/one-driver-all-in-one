@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerSupply.Abstract", "Pow
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceInterface", "DeviceInterface\DeviceInterface.csproj", "{1C70CEBB-E2B9-4056-964C-21A8A06365F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerSupply.General", "PowerSupply.General\PowerSupply.General.csproj", "{73C38474-F10A-4F50-9488-0DA00E849BE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerSupply.General", "PowerSupply.General\PowerSupply.General.csproj", "{73C38474-F10A-4F50-9488-0DA00E849BE9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

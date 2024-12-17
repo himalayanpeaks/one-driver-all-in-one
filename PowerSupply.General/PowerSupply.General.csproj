@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DeviceInterface\DeviceInterface.csproj" />
     <ProjectReference Include="..\PowerSupply.Abstract\PowerSupply.Abstract.csproj" />
   </ItemGroup>
 

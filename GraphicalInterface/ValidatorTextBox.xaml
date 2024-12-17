@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="GraphicalInterface.ValidatorTextBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GraphicalInterface"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <!-- Define the BoolToBrushConverter -->
+        <local:BoolToBrushConverter x:Key="BoolToBrushConverter" />
+        <local:BoolToValidationMessageConverter x:Key="BoolToValidationMessageConverter" />
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </UserControl.Resources>
+    
+    <StackPanel>
+        <!-- Example Text -->
+        <TextBlock Text="{Binding ExampleText}" 
+                   Margin="0,0,0,5"
+                   Foreground="Gray" 
+                   FontStyle="Italic" />
+
+        <!-- Input TextBox -->
+        <TextBox Text="{Binding UserInput, UpdateSourceTrigger=PropertyChanged}" 
+                 ToolTip="Enter your input" 
+                 Margin="0,0,0,5"
+                 Background="{Binding IsValid, Converter={StaticResource BoolToBrushConverter}}" />
+
+        <!-- Validation Message -->
+        <TextBlock Text="{Binding IsValid, Converter={StaticResource BoolToValidationMessageConverter}}" 
+                   Foreground="Red"
+                   Visibility="{Binding IsValid, Converter={StaticResource BoolToVisibilityConverter}}" />
+    </StackPanel>
+</UserControl>

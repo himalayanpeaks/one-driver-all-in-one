@@ -1,5 +1,5 @@
 ﻿using DeviceInterface;
-using Framework.Base;
+using Framework.Libs.Validator;
 using Framework.Module;
 using PowerSupply.Abstract.Channels;
 using System.Collections.ObjectModel;

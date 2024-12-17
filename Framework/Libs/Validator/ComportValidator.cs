@@ -1,10 +1,9 @@
-﻿using Framework.Base;
-using System;
+﻿using System;
 using System.Text.RegularExpressions;
 
-namespace Framework.Module.DeviceValidator
+namespace Framework.Libs.Validator
 {
-    public class Comport : IValidator
+    public class ComportValidator : IValidator
     {
         private static readonly Regex _validationRegex = new Regex(@"^COM\d{1,3}(;[1-9]\d{3,5})?$", RegexOptions.Compiled);
         public Regex ValidationRegex => _validationRegex;
