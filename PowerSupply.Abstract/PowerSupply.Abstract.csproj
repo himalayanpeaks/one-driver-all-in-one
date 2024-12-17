@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DeviceInterface\DeviceInterface.csproj" />
+    <ProjectReference Include="..\Device.Interface\Device.Interface.csproj" />
     <ProjectReference Include="..\Framework\Framework.csproj" />
   </ItemGroup>
 
