@@ -20,19 +20,23 @@ namespace Framework.Libs.Validator
            
         }
 
-        private void ValidatorViewModel_PropertyChanging(object? sender, PropertyChangingEventArgs e)
+        private void ValidatorViewModel_PropertyChanging(object sender, PropertyValidationEventArgs e)
         {
             switch (e.PropertyName)
             {
                 case nameof(UserInput):
-                    string s = ((ValidatorViewModel)sender).UserInput;
+                    string s = ((string)e.NewValue);
                     if (string.IsNullOrEmpty(s) || !Validator.Validate(s))
+                    {
                         IsValid = false;
+                    }
                     else
                         IsValid = true;
                     break;
             }
         }
+
+
 
         private void ValidatorViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {

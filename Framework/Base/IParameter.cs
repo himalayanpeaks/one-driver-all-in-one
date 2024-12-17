@@ -2,7 +2,7 @@
 
 namespace Framework.Base
 {
-    public interface IParameter : INotifyPropertyChanged, INotifyPropertyChanging
+    public interface IParameter : INotifyPropertyChanged, IHasValidation
     {
     }
 }

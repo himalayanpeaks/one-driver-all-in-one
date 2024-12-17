@@ -6,18 +6,18 @@ namespace Framework.Base
     public class PropertyHandlers
     {
         public event PropertyChangedEventHandler? PropertyChanged;
-        public event PropertyChangingEventHandler? PropertyChanging;
+        public event PropertyValidationEventHandler? PropertyChanging;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        protected virtual void OnPropertyChanging([CallerMemberName] string? propertyName = null)
+        protected virtual void OnPropertyChanging(object newValue, [CallerMemberName] string propertyName = null)
         {
-            PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
+            PropertyChanging?.Invoke(this, new PropertyValidationEventArgs(propertyName, newValue));
         }
-
+       
         protected bool SetProperty<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
         {
             if (EqualityComparer<T>.Default.Equals(field, value))
@@ -27,7 +27,7 @@ namespace Framework.Base
 
             try
             {
-                OnPropertyChanging(propertyName);
+                OnPropertyChanging(value, propertyName);
             }
             catch (Exception ex)
             {
@@ -43,5 +43,32 @@ namespace Framework.Base
         {
             return field;
         }
+    }
+
+    public delegate void PropertyValidationEventHandler(object sender, PropertyValidationEventArgs e);
+
+    public class PropertyValidationEventArgs : PropertyChangedEventArgs
+    {
+        /// <summary>
+        /// Arguments for validation event
+        /// </summary>
+        /// <param name="propertyName">Name of property which is in changing state but hasn't changed yet</param>
+        /// <param name="newValue">value against which the property has to be validated</param>
+        public PropertyValidationEventArgs(string propertyName, object newValue) : base(propertyName)
+        {
+            NewValue = newValue;
+        }
+        /// <summary>
+        /// value against which the property has to be validated
+        /// </summary>
+        public object NewValue { get; }
+    }
+    /// <summary>
+    /// Implement this interface when it is desired to verify the (passed) value of a property before changing
+    /// If the validation fails, an exception shall be thrown
+    /// </summary>
+    public interface IHasValidation
+    {
+        public event PropertyValidationEventHandler PropertyChanging;
     }
 }
