@@ -4,7 +4,7 @@ using Framework.ModuleBuilder;
 
 namespace Framework.Module.ViewModel
 {
-    public abstract class BaseDeviceWithChannelsPdViewModel<TParams, TChannel, TChannelParams, TChannelProcessData> : BaseDeviceViewModel
+    public abstract class BaseDeviceWithChannelsPdViewModel<TParams, TChannel, TChannelParams, TChannelProcessData> : BaseDeviceViewModel<TParams>
         where TParams : BaseDeviceParam
         where TChannel : BaseChannelWithProcessData<TChannelParams, TChannelProcessData>
         where TChannelParams : BaseChannelParam
@@ -12,27 +12,10 @@ namespace Framework.Module.ViewModel
     {
         public readonly BaseDeviceWithChannelsPd<TParams, TChannel, TChannelParams, TChannelProcessData> Device;
 
-        protected BaseDeviceWithChannelsPdViewModel(BaseDeviceWithChannelsPd<TParams, TChannel, TChannelParams, TChannelProcessData> device)
+        protected BaseDeviceWithChannelsPdViewModel(BaseDeviceWithChannelsPd<TParams, TChannel, TChannelParams, TChannelProcessData> device) : base(device)
         {
             Device = device;
         }
 
-        protected override void Connect()
-        {
-            var result = Device.Connect(InitString);
-            if (result != Definition.DeviceError.NoError)
-            {
-                // Handle connection error
-            }
-        }
-
-        protected override void Disconnect()
-        {
-            var result = Device.Disconnect();
-            if (result != Definition.DeviceError.NoError)
-            {
-                // Handle disconnection error
-            }
-        }
     }
 }

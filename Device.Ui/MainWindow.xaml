@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:libs="clr-namespace:TextValidator.Ui;assembly=TextValidator.Ui"
+        xmlns:configParams="clr-namespace:DeviceParam.Ui;assembly=DeviceParam.Ui" 
         xmlns:local="clr-namespace:Device.Ui"        
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
@@ -15,8 +16,11 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <libs:ValidationTextBox x:Name="ValidationTextBoxControl" Grid.Row="0" Grid.Column="0"/>
+        <configParams:DeviceParamDataGrid x:Name="DeviceParamDataGridControl" Grid.Row="0" Grid.Column="1"/>
+
     </Grid>
 </Window>

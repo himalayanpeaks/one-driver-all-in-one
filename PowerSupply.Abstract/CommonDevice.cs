@@ -1,4 +1,4 @@
-﻿using Device.Interface;
+﻿using Device.Interface.PowerSupply;
 using Framework.Libs.Validator;
 using Framework.Module;
 using PowerSupply.Abstract.Channels;

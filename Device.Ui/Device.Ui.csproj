@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DeviceParam.Ui\DeviceParam.Ui.csproj" />
     <ProjectReference Include="..\TextValidator.Ui\TextValidator.Ui.csproj" />
   </ItemGroup>
 

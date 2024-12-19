@@ -1,4 +1,4 @@
-﻿using Device.Interface;
+﻿using Device.Interface.PowerSupply;
 using Framework.Libs;
 using Framework.Module.ViewModel;
 using PowerSupply.Abstract.Channels;
