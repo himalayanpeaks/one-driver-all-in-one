@@ -6,15 +6,14 @@ using System.Windows.Input;
 
 namespace PowerSupply.Abstract
 {
-    public class CommonDeviceViewModel<TParams, TChannel, TChannelParams, TChannelProcessData> :
-        BaseDeviceWithChannelsPdViewModel<TParams, TChannel, TChannelParams, TChannelProcessData>, IPowerSupplyViewModel
+    public class CommonDeviceViewModel<TParams, TChannelParams, TChannelProcessData> :
+        BaseDeviceWithChannelsPdViewModel<TParams, TChannelParams, TChannelProcessData>, IPowerSupplyViewModel
         where TParams : CommonDeviceParams
-        where TChannel : CommonChannel<TChannelParams, TChannelProcessData>
         where TChannelParams : CommonChannelParams
         where TChannelProcessData : CommonProcessData
     {
-        public CommonDevice<TParams, TChannel, TChannelParams, TChannelProcessData> PowerSupply;
-        public CommonDeviceViewModel(CommonDevice<TParams, TChannel, TChannelParams, TChannelProcessData> device) : base(device)
+        public CommonDevice<TParams, TChannelParams, TChannelProcessData> PowerSupply;
+        public CommonDeviceViewModel(CommonDevice<TParams, TChannelParams, TChannelProcessData> device) : base(device)
         {
             PowerSupply = device;
             CommandAllChannelsOn = new RelayCommand(

@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace PowerSupply.General.Channels
 {
+    /// <summary>
+    /// Unused class
+    /// </summary>
     public class Channel : CommonChannel<ChannelParams, ChannelProcessData>
     {
         public Channel(ChannelParams parameters, ChannelProcessData processData) : base(parameters, processData)

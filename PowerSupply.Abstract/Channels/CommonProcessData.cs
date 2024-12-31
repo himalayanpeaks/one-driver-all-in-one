@@ -1,14 +1,24 @@
 ﻿using Framework.Base;
 using Framework.Module.Parameter;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace PowerSupply.Abstract.Channels
 {
-    public abstract class CommonProcessData: PropertyHandlers, IParameter
+    public class CommonProcessData: BaseProcessData
     {
+        private double _current;        
+        private double _voltage;
+
+        public double Voltage
+        {
+            get => _voltage;
+            set => SetProperty(ref _voltage, value);
+        }
+
+        public double Current
+        {
+            get => _current;
+            set => SetProperty(ref _current, value);
+        }
     }
 }

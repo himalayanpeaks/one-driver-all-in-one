@@ -2,7 +2,12 @@
 
 namespace PowerSupply.Abstract.Channels
 {
-    public abstract class CommonChannel<TChannelParams, TChannelProcessData>
+    /// <summary>
+    /// Unused class
+    /// </summary>
+    /// <typeparam name="TChannelParams"></typeparam>
+    /// <typeparam name="TChannelProcessData"></typeparam>
+    public class CommonChannel<TChannelParams, TChannelProcessData>
         : BaseChannelWithProcessData<TChannelParams, TChannelProcessData>
         where TChannelParams : CommonChannelParams
         where TChannelProcessData : CommonProcessData

@@ -2,7 +2,7 @@
 
 namespace Framework.Module.Parameter
 {
-    public abstract class BaseChannelParam : PropertyHandlers, IParameter
+    public class BaseChannelParam : PropertyHandlers, IParameter
     {
         private string name;
 

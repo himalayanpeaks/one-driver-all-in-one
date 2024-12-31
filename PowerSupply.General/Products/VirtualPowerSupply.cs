@@ -48,7 +48,7 @@ namespace PowerSupply.General.Products
         protected override void FetchDataForTunnel(out InternalDataHAL data)
         {
             data = new InternalDataHAL();
-            while(IsOpen)
+            if(IsOpen)
             {
                 double voltage = 0, current = 0;
                 Random r = new Random();
@@ -83,6 +83,7 @@ namespace PowerSupply.General.Products
         public ConnectionError Close()
         {
             IsOpen = false;
+            StopProcessDataAnnouncer();
             return ConnectionError.NoError;
         }
 
@@ -104,6 +105,7 @@ namespace PowerSupply.General.Products
         public ConnectionError Open(string initString, IValidator validator)
         {
             IsOpen = true;
+            StartProcessDataAnnouncer();
             return ConnectionError.NoError;
         }
 

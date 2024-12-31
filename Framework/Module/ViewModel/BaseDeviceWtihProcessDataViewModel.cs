@@ -5,7 +5,7 @@ namespace Framework.Module.ViewModel
 {
     public abstract class BaseDeviceWithProcessDataViewModel<TParams, TProcessData> : BaseDeviceViewModel<TParams>
         where TParams : BaseDeviceParam
-        where TProcessData : IParameter
+        where TProcessData : BaseProcessData
     {
         public readonly BaseDeviceWithProcessData<TParams, TProcessData> Device;
 

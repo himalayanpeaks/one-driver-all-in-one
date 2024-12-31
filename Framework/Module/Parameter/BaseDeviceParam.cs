@@ -2,7 +2,7 @@
 
 namespace Framework.Module.Parameter
 {
-    public abstract class BaseDeviceParam : PropertyHandlers, IParameter
+    public class BaseDeviceParam : PropertyHandlers, IParameter
     {
         private string name;
 

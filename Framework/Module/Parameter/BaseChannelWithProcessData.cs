@@ -3,9 +3,9 @@ using Framework.ModuleBuilder;
 
 namespace Framework.Module.Parameter
 {
-    public abstract class BaseChannelWithProcessData<TChannelParams, TChannelProcessData> : BaseChannel<TChannelParams>, IProcessData<TChannelProcessData>
+    public class BaseChannelWithProcessData<TChannelParams, TChannelProcessData> : BaseChannel<TChannelParams>, IProcessData<TChannelProcessData>
         where TChannelParams : BaseChannelParam
-        where TChannelProcessData : IParameter
+        where TChannelProcessData : BaseProcessData
     {
         public BaseChannelWithProcessData(TChannelParams parameters, TChannelProcessData processData) : base(parameters)
         {

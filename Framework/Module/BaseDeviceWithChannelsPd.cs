@@ -5,18 +5,17 @@ using System.Collections.ObjectModel;
 
 namespace Framework.Module
 {
-    public abstract class BaseDeviceWithChannelsPd<TParams, TChannel, TChannelParams, TChannelProcessData> : BaseDevice<TParams>
-        where TParams : BaseDeviceParam
-        where TChannel : BaseChannelWithProcessData<TChannelParams, TChannelProcessData>
+    public abstract class BaseDeviceWithChannelsPd<TDeviceParams, TChannelParams, TChannelProcessData> : BaseDevice<TDeviceParams>
+        where TDeviceParams : BaseDeviceParam
         where TChannelParams : BaseChannelParam
-        where TChannelProcessData : IParameter
+        where TChannelProcessData : BaseProcessData
 
     {
-        public BaseDeviceWithChannelsPd(TParams parameters, IValidator validator, ObservableCollection<TChannel> elements, TChannelProcessData channelProcessData) : base(parameters, validator)
+        public BaseDeviceWithChannelsPd(TDeviceParams parameters, IValidator validator, ObservableCollection<BaseChannelWithProcessData<TChannelParams, TChannelProcessData>> elements) : base(parameters, validator)
         {
             Elements = elements;
         }
 
-        public ObservableCollection<TChannel> Elements { get; set; }
+        public ObservableCollection<BaseChannelWithProcessData<TChannelParams, TChannelProcessData>> Elements { get; set; }
     }
 }

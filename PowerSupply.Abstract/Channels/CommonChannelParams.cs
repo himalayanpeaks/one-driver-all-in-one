@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace PowerSupply.Abstract.Channels
 {
-    public abstract class CommonChannelParams : BaseChannelParam
+    public class CommonChannelParams : BaseChannelParam
     {
-        protected CommonChannelParams(string name) : base(name)
+        public CommonChannelParams(string name) : base(name)
         {
         }
     }

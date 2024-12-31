@@ -5,5 +5,10 @@ namespace PowerSupply.General.Channels
 {
     public class ChannelProcessData : CommonProcessData
     {
+        public ChannelProcessData():base()
+        {
+            
+            
+        }
     }
 }

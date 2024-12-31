@@ -7,7 +7,7 @@ namespace Framework.Module
 {
     public abstract class BaseDeviceWithProcessData<TParams, TProcessData> : BaseDevice<TParams>, IProcessData<TProcessData>
         where TParams : BaseDeviceParam
-        where TProcessData : IParameter
+        where TProcessData : BaseProcessData
     {
         public TProcessData ProcessData { get; set; }
 
