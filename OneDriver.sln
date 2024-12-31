@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceParam.Ui", "DevicePar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerSupply.Factory", "PowerSupply.Factory\PowerSupply.Factory.csproj", "{38256CB1-E631-4CA0-8F16-32B0516BBF1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerSupply.App", "PowerSupply.App\PowerSupply.App.csproj", "{18768CCA-6160-4AC6-857E-9BA66AC95B81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerSupply.App", "PowerSupply.App\PowerSupply.App.csproj", "{18768CCA-6160-4AC6-857E-9BA66AC95B81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerSupply.General.UnitTest", "PowerSupply.General.UnitTest\PowerSupply.General.UnitTest.csproj", "{0F68C48B-C0E6-4C70-BB75-EA03079B735E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{18768CCA-6160-4AC6-857E-9BA66AC95B81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18768CCA-6160-4AC6-857E-9BA66AC95B81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18768CCA-6160-4AC6-857E-9BA66AC95B81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F68C48B-C0E6-4C70-BB75-EA03079B735E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F68C48B-C0E6-4C70-BB75-EA03079B735E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F68C48B-C0E6-4C70-BB75-EA03079B735E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F68C48B-C0E6-4C70-BB75-EA03079B735E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

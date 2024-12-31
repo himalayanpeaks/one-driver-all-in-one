@@ -3,7 +3,7 @@ using Device.Interface;
 
 Console.WriteLine("Hello, World!");
 
-var myPowerSupply = PowerSupply.Factory.Factory.CreateDevice(Defines.Devices.PowerSupplyVirtual);
+var myPowerSupply = PowerSupply.Factory.ObjectFactory.CreateDevice(Defines.Devices.PowerSupplyVirtual);
 myPowerSupply.Methods.Connect("COM3");
 
 

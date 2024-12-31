@@ -1,14 +1,10 @@
 ﻿using Framework.Libs.Validator;
 using Framework.Module.Parameter;
-using Framework.ModuleBuilder;
 using PowerSupply.Abstract;
-using PowerSupply.Abstract.Channels;
 using PowerSupply.General.Channels;
 using PowerSupply.General.Products;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Threading.Channels;
-using System.Xml.Linq;
 
 namespace PowerSupply.General
 {
@@ -60,6 +56,15 @@ namespace PowerSupply.General
         protected override int CloseConnection() => (int)_powerSupplyHAL.Close();
         
         protected override int OpenConnection(string initString) => (int)_powerSupplyHAL.Open(initString, validator);
-        
+
+        public override int AllChannelsOff()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int AllChannelsOn()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

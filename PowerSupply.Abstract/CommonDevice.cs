@@ -18,16 +18,8 @@ namespace PowerSupply.Abstract
         {
         }
 
-        public int AllChannelsOff()
-        {
-            throw new NotImplementedException();
-        }
-
-        public int AllChannelsOn()
-        {
-            throw new NotImplementedException();
-        }
-
+        public abstract int AllChannelsOff();
+        public abstract int AllChannelsOn();
 
     }
 }
