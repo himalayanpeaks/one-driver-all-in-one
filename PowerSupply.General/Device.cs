@@ -14,12 +14,11 @@ namespace PowerSupply.General
             base(new DeviceParams(name), validator, new ObservableCollection<BaseChannelWithProcessData<ChannelParams, ChannelProcessData>>())
         {
             _powerSupplyHAL = powerSupplyHAL;
-            Init(name);
+            Init();
         }
 
-        private void Init(string name)
+        private void Init()
         {
-            Parameters = new DeviceParams(name);
             Parameters.PropertyChanging += Parameters_PropertyChanging;
             Parameters.PropertyChanged += Parameters_PropertyChanged;
             _powerSupplyHAL.AttachToProcessDataEvent(ProcessDataChanged);
