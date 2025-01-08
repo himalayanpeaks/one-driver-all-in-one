@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PowerSupply.General.Products
 {
-    public class InternalDataHAL: BaseDataForAnnouncement
+    public class InternalDataHAL : BaseDataForAnnouncement
     {
         public InternalDataHAL(int channelNumber, double voltage, double current)
         {

@@ -4,6 +4,12 @@ namespace DummyDevice.General.Channels
 {
     public class ChannelProcessData : CommonChannelProcessData
     {
-        public int MyProperty { get; set; }
+        private string generalProcessSampleData;
+
+        public string GeneralProcessSampleData 
+        { 
+            get => GetProperty(ref generalProcessSampleData); 
+            set => SetProperty(ref generalProcessSampleData, value); 
+        }
     }
 }

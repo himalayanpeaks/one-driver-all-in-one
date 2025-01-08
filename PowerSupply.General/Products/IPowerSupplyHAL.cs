@@ -5,7 +5,6 @@ using Definition = Device.Interface.PowerSupply.Definition;
 
 namespace PowerSupply.General.Products
 {
-    public delegate void ProcessDataAnnouncer(double[] voltage, double[] current);
     public interface IPowerSupplyHAL : IStringReader, IStringWriter
     {
         ConnectionError Open(string initString, IValidator validator);
@@ -26,7 +25,6 @@ namespace PowerSupply.General.Products
         public double GetDesiredVoltage(double channelNumber);
         public void AllOff();
         public void AllOn();
-        public event ProcessDataAnnouncer ProcessDataAnnouncer;
         public void StartProcessDataAnnouncer();
         public void StopProcessDataAnnouncer();
 

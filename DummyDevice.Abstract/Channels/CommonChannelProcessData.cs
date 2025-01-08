@@ -6,7 +6,7 @@ namespace DummyDevice.Abstract.Channels
     {
         private int commonProcessDataExample;
 
-        public int CommonProcessDataExample
+        public int CommonProcessSampleData
         {
             get => GetProperty(ref commonProcessDataExample);
             set => SetProperty(ref commonProcessDataExample, value);

@@ -31,12 +31,13 @@ namespace PowerSupply.Factory
                     var obj = new General.Device("PowerSupplyVirtual", new ComportValidator(), new VirtualPowerSupply());                    
                     device.Methods = obj;                        
                     device.Parameters = obj.Parameters;
+                    device.Elements = new ObservableCollection<BaseChannelWithProcessData<CommonChannelParams, CommonProcessData>>();
                     foreach (var ch in obj.Elements)
                     {
                         var item = new BaseChannelWithProcessData<CommonChannelParams, CommonProcessData>(new CommonChannelParams(ch.Parameters.Name), new CommonProcessData());
                         item.Parameters = ch.Parameters;
                         item.ProcessData = ch.ProcessData;
-                        device.Elements = [item];
+                        device.Elements.Add(item);
                     }   
                     
                     break;

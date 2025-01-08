@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DummyDevice.General.Products
 {
-    internal class Definition
+    public class Definition
     {
     }
 }
