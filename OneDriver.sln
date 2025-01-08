@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DummyDevice.Abstract", "Dum
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DummyDevice.General", "DummyDevice.General\DummyDevice.General.csproj", "{8B0CD813-C88D-4298-8786-A2D78C8BF742}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DummyDevice.Factory", "DummyDevice.Factory\DummyDevice.Factory.csproj", "{9669BBF4-9EFD-40C9-AE79-015029C81A06}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{8B0CD813-C88D-4298-8786-A2D78C8BF742}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B0CD813-C88D-4298-8786-A2D78C8BF742}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B0CD813-C88D-4298-8786-A2D78C8BF742}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9669BBF4-9EFD-40C9-AE79-015029C81A06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9669BBF4-9EFD-40C9-AE79-015029C81A06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9669BBF4-9EFD-40C9-AE79-015029C81A06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9669BBF4-9EFD-40C9-AE79-015029C81A06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
