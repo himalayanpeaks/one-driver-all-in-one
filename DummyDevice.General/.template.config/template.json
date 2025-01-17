@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Your Name",
+  "classifications": [ "CommonDevice", "Device", "General" ],
+  "identity": "DummyDevice.General.Template",
+  "name": "DummyDevice General Template",
+  "shortName": "devicegeneral",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+
+  "sourceName": "DummyDevice.Abstract",
+  "preferNameDirectory": true,
+  "symbols": {
+    "abstractProjectName": {
+      "type": "parameter",
+      "datatype": "string",
+      "replaces": "DummyDevice.Abstract",
+      "defaultValue": "DummyDevice.Abstract"
+    }
+  },
+  "icon": "icon.png",
+  "primaryOutputs": [
+    {
+      "path": "DummyDevice.General.csproj"
+    }
+  ],
+  "defaultName": "DummyDevice.General",
+  "description": "A template for creating a general device project.",
+  "previewImage": "preview.png"
+}

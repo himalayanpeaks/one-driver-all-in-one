@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Rahul Bajaj",
+  "classifications": [ "CommonDevice", "Device", "Abstract" ],
+  "identity": "DummyDevice.Abstract.Template",
+  "name": "DummyDevice Abstract Template",
+  "shortName": "dummydeviceabstract",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "DummyDevice.Abstract",
+  "preferNameDirectory": true,
+  "icon": "icon.png",
+  "primaryOutputs": [
+    {
+      "path": "DummyDevice.Abstract.csproj"
+    }
+  ],
+  "defaultName": "DummyDevice.Abstract",
+  "description": "A template for creating a abstract device project.",
+  "previewImage": "preview.png"
+}

@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Your Name",
+  "classifications": [ "CommonDevice", "Device", "Factory" ],
+  "identity": "DummyDevice.Factory.Template",
+  "name": "DummyDevice Factory Template",
+  "shortName": "devicefactory",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "DummyDevice.Factory",
+  "preferNameDirectory": true,
+  "symbols": {
+    "projectName": {
+      "type": "parameter",
+      "datatype": "string",
+      "replaces": "DummyDevice.Factory",
+      "defaultValue": "DummyDevice.Factory"
+    },
+    "abstractProjectName": {
+      "type": "parameter",
+      "datatype": "string",
+      "replaces": "DummyDevice.Abstract",
+      "defaultValue": "DummyDevice.Abstract"
+    },
+    "GeneralProjectName": {
+      "type": "parameter",
+      "datatype": "string",
+      "replaces": "DummyDevice.General",
+      "defaultValue": "DummyDevice.General"
+    }
+  },
+  "postActions": [
+    {
+      "actionId": "Microsoft.TemplateEngine.Actions.ProcessValueReplacement",
+      "args": {
+        "files": "DummyDevice.Factory.csproj",
+        "search": "DummyDevice.Abstract",
+        "replace": "{abstractProjectName}"
+      }
+    },
+    {
+      "actionId": "Microsoft.TemplateEngine.Actions.ProcessValueReplacement",
+      "args": {
+        "files": "DummyDevice.Factory.csproj",
+        "search": "DummyDevice.General",
+        "replace": "{GeneralProjectName}"
+      }
+    }
+  ],
+  "icon": "icon.png",
+  "primaryOutputs": [
+    {
+      "path": "DummyDevice.Factory.csproj"
+    }
+  ],
+  "defaultName": "DummyDevice.Factory",
+  "description": "A template for creating a DummyDevice Factory project.",
+  "previewImage": "preview.png"
+}
