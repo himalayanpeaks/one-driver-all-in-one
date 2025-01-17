@@ -12,50 +12,30 @@
   "sourceName": "DummyDevice.Factory",
   "preferNameDirectory": true,
   "symbols": {
-    "projectName": {
+    "generalProjectName": {
       "type": "parameter",
       "datatype": "string",
-      "replaces": "DummyDevice.Factory",
-      "defaultValue": "DummyDevice.Factory"
+      "description": "Enter the name of the general project to reference.",
+      "replaces": "DummyDevice.General",
+      "defaultValue": "DummyDevice.General",
+      "isRequired": true
     },
     "abstractProjectName": {
       "type": "parameter",
       "datatype": "string",
+      "description": "Enter the name of the abstract project to reference indirectly.",
       "replaces": "DummyDevice.Abstract",
-      "defaultValue": "DummyDevice.Abstract"
-    },
-    "GeneralProjectName": {
-      "type": "parameter",
-      "datatype": "string",
-      "replaces": "DummyDevice.General",
-      "defaultValue": "DummyDevice.General"
+      "defaultValue": "DummyDevice.Abstract",
+      "isRequired": true
     }
   },
-  "postActions": [
-    {
-      "actionId": "Microsoft.TemplateEngine.Actions.ProcessValueReplacement",
-      "args": {
-        "files": "DummyDevice.Factory.csproj",
-        "search": "DummyDevice.Abstract",
-        "replace": "{abstractProjectName}"
-      }
-    },
-    {
-      "actionId": "Microsoft.TemplateEngine.Actions.ProcessValueReplacement",
-      "args": {
-        "files": "DummyDevice.Factory.csproj",
-        "search": "DummyDevice.General",
-        "replace": "{GeneralProjectName}"
-      }
-    }
-  ],
-  "icon": "icon.png",
   "primaryOutputs": [
     {
       "path": "DummyDevice.Factory.csproj"
     }
   ],
   "defaultName": "DummyDevice.Factory",
-  "description": "A template for creating a DummyDevice Factory project.",
+  "description": "A template for creating a factory project that references a general device project and indirectly uses an abstract project.",
+  "icon": "icon.png",
   "previewImage": "preview.png"
 }

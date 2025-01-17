@@ -11,6 +11,7 @@ namespace Device.Interface
         public enum Devices
         {
             PowerSupplyVirtual,
+            DummyDeviceVirtual
         }
     }
 }

@@ -22,8 +22,8 @@ namespace DummyDevice.Factory
             BasicDummyDevice device = new BasicDummyDevice();
             switch (deviceType)
             {
-                case Defines.Devices.PowerSupplyVirtual:
-                    var obj = new General.Device("DummySupplyVirtual", new ComportValidator(), new VirtualDevice());
+                case Defines.Devices.DummyDeviceVirtual:
+                    var obj = new DummyDevice.General.Device("DummyDeviceVirtual", new ComportValidator(), new VirtualDevice());
                     device.Methods = obj;
                     device.Parameters = obj.Parameters;
                     device.Elements = new ObservableCollection<BaseChannelWithProcessData<CommonChannelParams, CommonChannelProcessData>>();
