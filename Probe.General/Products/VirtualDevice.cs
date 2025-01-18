@@ -2,12 +2,12 @@
 using Framework.Libs.Validator;
 using Framework.Module;
 
-namespace DummyDevice.General.Products
+namespace Probe.General.Products
 {
-    public class VirtualDevice : DataTunnel<InternalDummyDeviceDataHAL>, IDummyDeviceHAL
+    public class VirtualDevice : DataTunnel<InternalProbeDataHAL>, IDummyDeviceHAL
     {
 
-        public void AttachToProcessDataEvent(DataTunnel<InternalDummyDeviceDataHAL>.DataEventHandler processDataEventHandler) => DataEvent += processDataEventHandler;
+        public void AttachToProcessDataEvent(DataTunnel<InternalProbeDataHAL>.DataEventHandler processDataEventHandler) => DataEvent += processDataEventHandler;
 
 
         public ConnectionError Close()
@@ -31,17 +31,15 @@ namespace DummyDevice.General.Products
 
         public int NumberOfChannels { get; } = 2;
 
-        protected override void FetchDataForTunnel(out InternalDummyDeviceDataHAL data)
+        protected override void FetchDataForTunnel(out InternalProbeDataHAL data)
         {
-            data = new InternalDummyDeviceDataHAL();
+            data = new InternalProbeDataHAL();
             //Example logic to generate process data
             if (IsOpen)
-            {
-                int processedData = 0;
+            {                
                 Random r = new Random();
-                int channel = r.Next(0, NumberOfChannels);
-                processedData = (int)r.NextInt64();
-                data = new InternalDummyDeviceDataHAL(channel, processedData, r.NextSingle().ToString());
+                int channel = r.Next(0, NumberOfChannels);                
+                data = new InternalProbeDataHAL(channel, r.Next(20, 30), r.Next(50, 70));
             }
         }
 

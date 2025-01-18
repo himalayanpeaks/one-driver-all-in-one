@@ -1,18 +1,18 @@
-﻿using DummyDevice.Abstract;
-using DummyDevice.General.Channels;
-using DummyDevice.General.Products;
-using Framework.Libs.Validator;
+﻿using Framework.Libs.Validator;
 using Framework.Module.Parameter;
+using Probe.Abstract;
+using Probe.General.Channels;
+using Probe.General.Products;
 using Serilog;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace DummyDevice.General
+namespace Probe.General
 {
     public class Device : CommonDevice<DeviceParams, ChannelParams, ChannelProcessData>
     {
         IDummyDeviceHAL _deviceHAL { get; set; }
-        public Device(string name, IValidator validator, IDummyDeviceHAL deviceHAL) : 
+        public Device(string name, IValidator validator, IDummyDeviceHAL deviceHAL) :
             base(new DeviceParams(name), validator, new ObservableCollection<BaseChannelWithProcessData<ChannelParams, ChannelProcessData>>())
         {
             _deviceHAL = deviceHAL;
@@ -34,21 +34,19 @@ namespace DummyDevice.General
             }
         }
 
-        private void ProcessDataChanged(object sender, InternalDummyDeviceDataHAL e)
+        private void ProcessDataChanged(object sender, InternalProbeDataHAL e)
         {
             //Transfer data from HAL to ProcessData here
-            Elements[e.ChannelNumber].ProcessData.CommonProcessSampleData = e.InternalSampleData1;
+            Elements[e.ChannelNumber].ProcessData.Temperature = e.CurrentTemperature;
             Elements[e.ChannelNumber].ProcessData.TimeStamp = e.TimeStamp;
-            Elements[e.ChannelNumber].ProcessData.GeneralProcessSampleData = e.InternalSampleData2;  
+            Elements[e.ChannelNumber].ProcessData.Humidity = e.CurrentHumidity;
         }
 
         private void Parameters_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
-                case nameof(Parameters.CommonDeviceParamDataExample):
-                    //What shall happen if this property is chaged
-                    break;
+
             }
         }
 
@@ -57,18 +55,8 @@ namespace DummyDevice.General
             //Write validity before property is changed here
             switch (e.PropertyName)
             {
-                case nameof(Parameters.CommonDeviceParamDataExample):
-                    if ((int)e.NewValue > 25)
-                    {
-                        Log.Error("new value greater than 25 is not allowed");
-                        throw new ArgumentOutOfRangeException();
-                    }                    
-                    break;
+               
             }
-        }
-        public override void DummyDeviceFunction()
-        {
-            _deviceHAL.HALFunction();
         }
         protected override int CloseConnection() => (int)_deviceHAL.Close();
         protected override int OpenConnection(string initString) => (int)_deviceHAL.Open(initString, validator);
