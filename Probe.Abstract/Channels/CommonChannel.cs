@@ -1,6 +1,6 @@
-﻿using Framework.Module.Parameter;
+﻿using OneDriver.Framework.Module.Parameter;
 
-namespace Probe.Abstract.Channels
+namespace OneDriver.Probe.Abstract.Channels
 {
     public class CommonChannel<TChannelParams, TChannelProcessData>
         : BaseChannelWithProcessData<TChannelParams, TChannelProcessData>

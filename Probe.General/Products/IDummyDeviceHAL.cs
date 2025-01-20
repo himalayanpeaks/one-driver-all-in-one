@@ -1,9 +1,9 @@
 ﻿using Device.Interface.HardwareLayer;
-using Framework.Libs.Announcer;
-using Framework.Libs.Validator;
-using Framework.Module;
+using OneDriver.Framework.Libs.Announcer;
+using OneDriver.Framework.Libs.Validator;
+using OneDriver.Framework.Module;
 
-namespace Probe.General.Products
+namespace OneDriver.Probe.General.Products
 {
     public interface IDummyDeviceHAL : IDeviceHAL<InternalProbeDataHAL>
     {

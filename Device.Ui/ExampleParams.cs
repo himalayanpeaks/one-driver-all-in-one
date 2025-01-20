@@ -1,16 +1,9 @@
-﻿using DeviceParam.Ui;
-using Framework.Libs.Validator;
-using Framework.Module;
-using Framework.Module.Parameter;
-using System;
-using System.Collections.Generic;
+﻿using OneDriver.Framework.Libs.Validator;
+using OneDriver.Framework.Module;
+using OneDriver.Framework.Module.Parameter;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Device.Ui.ExampleDevice;
 
-namespace Device.Ui
+namespace OneDriver.Device.Ui
 {
     public class ExampleClass : BaseDeviceViewModel<ExampleParams>
     {
@@ -18,7 +11,7 @@ namespace Device.Ui
 
         public ExampleClass(ExampleDevice device) : base(device)
         {
-            var wrapper = new DynamicPropertyWrapper(device.Parameters);
+            var wrapper = new DeviceParam.Ui.DynamicPropertyWrapper(device.Parameters);
             ParametersCollection = wrapper.Properties;
         }
     }
@@ -37,7 +30,7 @@ namespace Device.Ui
             throw new NotImplementedException();
         }
     }
-        public class ExampleParams : BaseDeviceParam
+    public class ExampleParams : BaseDeviceParam
     {
         private int count;
         private string version;

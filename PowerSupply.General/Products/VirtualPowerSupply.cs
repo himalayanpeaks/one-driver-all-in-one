@@ -1,10 +1,10 @@
 ﻿using Device.Interface.PowerSupply;
-using Framework.Libs.Announcer;
-using Framework.Libs.Validator;
-using Framework.Module;
+using OneDriver.Framework.Libs.Announcer;
+using OneDriver.Framework.Libs.Validator;
+using OneDriver.Framework.Module;
 using System.Security.Cryptography;
 
-namespace PowerSupply.General.Products
+namespace OneDriver.PowerSupply.General.Products
 {
     public class VirtualPowerSupply : DataTunnel<InternalDataHAL>, IPowerSupplyHAL
     {
@@ -47,12 +47,12 @@ namespace PowerSupply.General.Products
         protected override void FetchDataForTunnel(out InternalDataHAL data)
         {
             data = new InternalDataHAL();
-            if(IsOpen)
+            if (IsOpen)
             {
                 double voltage = 0, current = 0;
                 Random r = new Random();
                 int channel = r.Next(0, 2);
-                if(Mode[channel] == Definition.ControlMode.Voltage)
+                if (Mode[channel] == Definition.ControlMode.Voltage)
                 {
                     voltage = VoltageLimit[channel];
                     current = r.NextDouble() * MaxCurrentInAmpere;
@@ -63,7 +63,7 @@ namespace PowerSupply.General.Products
                     voltage = r.NextDouble() * MaxVoltageInVolts;
                 }
                 data = new InternalDataHAL(channel, voltage, current);
-      
+
             }
         }
         public void AllOff()
@@ -73,10 +73,10 @@ namespace PowerSupply.General.Products
 
         public void AllOn()
         {
-            
+
         }
 
-        public void AttachToProcessDataEvent(DataTunnel<InternalDataHAL>.DataEventHandler processDataEventHandler) => DataEvent += processDataEventHandler;
+        public void AttachToProcessDataEvent(DataEventHandler processDataEventHandler) => DataEvent += processDataEventHandler;
 
         private bool IsOpen = false;
         public ConnectionError Close()
@@ -100,7 +100,7 @@ namespace PowerSupply.General.Products
         {
             throw new NotImplementedException();
         }
-        
+
         public ConnectionError Open(string initString, IValidator validator)
         {
             IsOpen = true;
@@ -124,7 +124,7 @@ namespace PowerSupply.General.Products
         public void StopProcessDataAnnouncer() => StopAnnouncingData();
 
         public void Write(string data)
-        { 
+        {
         }
     }
 }

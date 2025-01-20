@@ -1,5 +1,5 @@
 using System.Windows.Controls;
-using Framework.Libs.Validator;
+using OneDriver.Framework.Libs.Validator;
 
 namespace TextValidator.Ui
 {

@@ -1,11 +1,11 @@
-﻿using PowerSupply.Abstract;
+﻿using OneDriver.PowerSupply.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PowerSupply.General
+namespace OneDriver.PowerSupply.General
 {
     public class DeviceParams : CommonDeviceParams
     {

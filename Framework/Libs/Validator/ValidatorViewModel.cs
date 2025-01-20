@@ -1,7 +1,7 @@
-﻿using Framework.Base;
+﻿using OneDriver.Framework.Base;
 using System.ComponentModel;
 
-namespace Framework.Libs.Validator
+namespace OneDriver.Framework.Libs.Validator
 {
     public class ValidatorViewModel : PropertyHandlers, IParameter
     {
@@ -13,11 +13,11 @@ namespace Framework.Libs.Validator
         public ValidatorViewModel(IValidator validator)
         {
             Validator = validator;
-            this.PropertyChanged += ValidatorViewModel_PropertyChanged;
-            this.PropertyChanging += ValidatorViewModel_PropertyChanging;
+            PropertyChanged += ValidatorViewModel_PropertyChanged;
+            PropertyChanging += ValidatorViewModel_PropertyChanging;
             IsValid = false;
             UserInput = Validator.GetExample();
-           
+
         }
 
         private void ValidatorViewModel_PropertyChanging(object sender, PropertyValidationEventArgs e)
@@ -25,7 +25,7 @@ namespace Framework.Libs.Validator
             switch (e.PropertyName)
             {
                 case nameof(UserInput):
-                    string s = ((string)e.NewValue);
+                    string s = (string)e.NewValue;
                     if (string.IsNullOrEmpty(s) || !Validator.Validate(s))
                     {
                         IsValid = false;
@@ -40,23 +40,23 @@ namespace Framework.Libs.Validator
 
         private void ValidatorViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            switch(e.PropertyName)
+            switch (e.PropertyName)
             {
                 case nameof(Validator):
                     OnPropertyChanged(nameof(ExampleText));
-                    break;             
+                    break;
             }
         }
 
-        
+
 
         // The validator instance
         public IValidator Validator
         {
             get => GetProperty(ref _validator);
             set
-            {               
-                SetProperty(ref _validator, value); 
+            {
+                SetProperty(ref _validator, value);
                 OnPropertyChanged(nameof(ExampleText));
             }
         }
@@ -65,7 +65,7 @@ namespace Framework.Libs.Validator
         public string UserInput
         {
             get => GetProperty(ref _userInput);
-            set => SetProperty(ref _userInput, value);            
+            set => SetProperty(ref _userInput, value);
         }
 
         // Validation result

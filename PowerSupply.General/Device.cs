@@ -1,16 +1,17 @@
-﻿using Framework.Libs.Validator;
-using Framework.Module.Parameter;
-using PowerSupply.Abstract;
-using PowerSupply.General.Channels;
-using PowerSupply.General.Products;
+﻿using OneDriver.Framework.Base;
+using OneDriver.Framework.Libs.Validator;
+using OneDriver.Framework.Module.Parameter;
+using OneDriver.PowerSupply.Abstract;
+using OneDriver.PowerSupply.General.Channels;
+using OneDriver.PowerSupply.General.Products;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace PowerSupply.General
+namespace OneDriver.PowerSupply.General
 {
     public class Device : CommonDevice<DeviceParams, ChannelParams, ChannelProcessData>
     {
-        public Device(string name, IValidator validator, IPowerSupplyHAL powerSupplyHAL) : 
+        public Device(string name, IValidator validator, IPowerSupplyHAL powerSupplyHAL) :
             base(new DeviceParams(name), validator, new ObservableCollection<BaseChannelWithProcessData<ChannelParams, ChannelProcessData>>())
         {
             _powerSupplyHAL = powerSupplyHAL;
@@ -31,7 +32,7 @@ namespace PowerSupply.General
                 Elements[i].Parameters.PropertyChanged += Parameters_PropertyChanged;
                 Elements[i].Parameters.PropertyChanging += Parameters_PropertyChanging;
             }
-            
+
         }
 
         private void ProcessDataChanged(object sender, InternalDataHAL e)
@@ -46,14 +47,14 @@ namespace PowerSupply.General
             throw new NotImplementedException();
         }
 
-        private void Parameters_PropertyChanging(object sender, Framework.Base.PropertyValidationEventArgs e)
+        private void Parameters_PropertyChanging(object sender, PropertyValidationEventArgs e)
         {
             throw new NotImplementedException();
         }
 
         IPowerSupplyHAL _powerSupplyHAL;
         protected override int CloseConnection() => (int)_powerSupplyHAL.Close();
-        
+
         protected override int OpenConnection(string initString) => (int)_powerSupplyHAL.Open(initString, validator);
 
         public override int AllChannelsOff()

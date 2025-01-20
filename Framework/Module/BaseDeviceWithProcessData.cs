@@ -1,9 +1,9 @@
-﻿using Framework.Base;
-using Framework.Libs.Validator;
-using Framework.Module.Parameter;
-using Framework.ModuleBuilder;
+﻿using OneDriver.Framework.Base;
+using OneDriver.Framework.Libs.Validator;
+using OneDriver.Framework.Module.Parameter;
+using OneDriver.Framework.ModuleBuilder;
 
-namespace Framework.Module
+namespace OneDriver.Framework.Module
 {
     public abstract class BaseDeviceWithProcessData<TParams, TProcessData> : BaseDevice<TParams>, IProcessData<TProcessData>
         where TParams : BaseDeviceParam

@@ -1,6 +1,6 @@
-﻿using Framework.Base;
+﻿using OneDriver.Framework.Base;
 
-namespace Framework.Module.Parameter
+namespace OneDriver.Framework.Module.Parameter
 {
     public class BaseDeviceParam : PropertyHandlers, IParameter
     {

@@ -1,11 +1,11 @@
-﻿using Probe.Abstract;
+﻿using OneDriver.Probe.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Probe.General
+namespace OneDriver.Probe.General
 {
     public class DeviceParams : CommonDeviceParams
     {

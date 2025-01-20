@@ -1,15 +1,15 @@
-﻿using DummyDevice.Abstract.Channels;
+﻿using OneDriver.DummyDevice.Abstract.Channels;
 
-namespace DummyDevice.General.Channels
+namespace OneDriver.DummyDevice.General.Channels
 {
     public class ChannelProcessData : CommonChannelProcessData
     {
         private string generalProcessSampleData;
 
-        public string GeneralProcessSampleData 
-        { 
-            get => GetProperty(ref generalProcessSampleData); 
-            set => SetProperty(ref generalProcessSampleData, value); 
+        public string GeneralProcessSampleData
+        {
+            get => GetProperty(ref generalProcessSampleData);
+            set => SetProperty(ref generalProcessSampleData, value);
         }
     }
 }

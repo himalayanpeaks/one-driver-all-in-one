@@ -1,13 +1,14 @@
-﻿using Framework.Libs.Validator;
-using Framework.Module.Parameter;
-using Probe.Abstract;
-using Probe.General.Channels;
-using Probe.General.Products;
+﻿using OneDriver.Framework.Base;
+using OneDriver.Framework.Libs.Validator;
+using OneDriver.Framework.Module.Parameter;
+using OneDriver.Probe.Abstract;
+using OneDriver.Probe.General.Channels;
+using OneDriver.Probe.General.Products;
 using Serilog;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace Probe.General
+namespace OneDriver.Probe.General
 {
     public class Device : CommonDevice<DeviceParams, ChannelParams, ChannelProcessData>
     {
@@ -50,12 +51,12 @@ namespace Probe.General
             }
         }
 
-        private void Parameters_PropertyChanging(object sender, Framework.Base.PropertyValidationEventArgs e)
+        private void Parameters_PropertyChanging(object sender, PropertyValidationEventArgs e)
         {
             //Write validity before property is changed here
             switch (e.PropertyName)
             {
-               
+
             }
         }
         protected override int CloseConnection() => (int)_deviceHAL.Close();

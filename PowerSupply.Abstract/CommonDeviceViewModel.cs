@@ -1,10 +1,10 @@
 ﻿using Device.Interface.PowerSupply;
-using Framework.Libs;
-using Framework.Module.ViewModel;
-using PowerSupply.Abstract.Channels;
+using OneDriver.Framework.Libs;
+using OneDriver.Framework.Module.ViewModel;
+using OneDriver.PowerSupply.Abstract.Channels;
 using System.Windows.Input;
 
-namespace PowerSupply.Abstract
+namespace OneDriver.PowerSupply.Abstract
 {
     public class CommonDeviceViewModel<TParams, TChannelParams, TChannelProcessData> :
         BaseDeviceWithChannelsPdViewModel<TParams, TChannelParams, TChannelProcessData>, IPowerSupplyViewModel

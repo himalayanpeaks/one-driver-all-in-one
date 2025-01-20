@@ -1,15 +1,15 @@
 ﻿using Device.Interface;
 using Device.Interface.PowerSupply;
-using Framework.Libs.Validator;
-using Framework.Module.Parameter;
-using PowerSupply.Abstract;
-using PowerSupply.Abstract.Channels;
-using PowerSupply.General;
-using PowerSupply.General.Channels;
-using PowerSupply.General.Products;
+using OneDriver.Framework.Libs.Validator;
+using OneDriver.PowerSupply.General;
+using OneDriver.PowerSupply.General.Channels;
+using OneDriver.PowerSupply.General.Products;
 using System.Runtime.InteropServices.Marshalling;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Design;
+using OneDriver.Framework.Module.Parameter;
+using OneDriver.PowerSupply.Abstract.Channels;
+using OneDriver.PowerSupply.Abstract;
 
 namespace PowerSupply.Factory
 {
@@ -28,7 +28,7 @@ namespace PowerSupply.Factory
             switch (deviceType)
             {
                 case Defines.Devices.PowerSupplyVirtual:
-                    var obj = new General.Device("PowerSupplyVirtual", new ComportValidator(), new VirtualPowerSupply());                    
+                    var obj = new OneDriver.PowerSupply.General.Device("PowerSupplyVirtual", new ComportValidator(), new VirtualPowerSupply());                    
                     device.Methods = obj;                        
                     device.Parameters = obj.Parameters;
                     device.Elements = new ObservableCollection<BaseChannelWithProcessData<CommonChannelParams, CommonProcessData>>();

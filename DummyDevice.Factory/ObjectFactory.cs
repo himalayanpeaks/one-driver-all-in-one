@@ -1,13 +1,13 @@
 ﻿using Device.Interface;
 using Device.Interface.DummyDevice;
-using DummyDevice.Abstract;
-using DummyDevice.Abstract.Channels;
-using DummyDevice.General.Products;
-using Framework.Libs.Validator;
-using Framework.Module.Parameter;
+using OneDriver.DummyDevice.General.Products;
+using OneDriver.Framework.Libs.Validator;
+using OneDriver.DummyDevice.Abstract;
+using OneDriver.DummyDevice.Abstract.Channels;
+using OneDriver.Framework.Module.Parameter;
 using System.Collections.ObjectModel;
 
-namespace DummyDevice.Factory
+namespace OneDriver.DummyDevice.Factory
 {
     public class BasicDummyDevice
     {

@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Windows.Data;
 
-namespace DeviceParam.Ui
+namespace OneDriver.DeviceParam.Ui
 {
     public class DynamicValueConverter : IValueConverter
     {

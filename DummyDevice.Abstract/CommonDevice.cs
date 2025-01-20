@@ -1,14 +1,14 @@
-﻿using Framework.Module;
-using Device.Interface.DummyDevice;
-using Framework.Libs.Validator;
+﻿using Device.Interface.DummyDevice;
 using System.Collections.ObjectModel;
-using Framework.Module.Parameter;
-using DummyDevice.Abstract.Channels;
 using System.ComponentModel;
-using Framework.Base;
 using Serilog;
+using OneDriver.DummyDevice.Abstract.Channels;
+using OneDriver.Framework.Base;
+using OneDriver.Framework.Libs.Validator;
+using OneDriver.Framework.Module;
+using OneDriver.Framework.Module.Parameter;
 
-namespace DummyDevice.Abstract
+namespace OneDriver.DummyDevice.Abstract
 {
     public abstract class CommonDevice<TDeviceParams, TChannelParams, TChannelProcessData> :
         BaseDeviceWithChannelsPd<TDeviceParams, TChannelParams, TChannelProcessData>, IDummyDevice
@@ -44,7 +44,7 @@ namespace DummyDevice.Abstract
 
         private void Parameters_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            switch(e.PropertyName)
+            switch (e.PropertyName)
             {
                 case nameof(Parameters.CommonDeviceParamDataExample):
                     Log.Information("CommonDeviceParamDataExample changed to " + Parameters.CommonDeviceParamDataExample);

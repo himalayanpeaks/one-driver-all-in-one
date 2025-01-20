@@ -1,6 +1,6 @@
-﻿using Framework.Module.Parameter;
+﻿using OneDriver.Framework.Module.Parameter;
 
-namespace PowerSupply.Abstract.Channels
+namespace OneDriver.PowerSupply.Abstract.Channels
 {
     /// <summary>
     /// Unused class

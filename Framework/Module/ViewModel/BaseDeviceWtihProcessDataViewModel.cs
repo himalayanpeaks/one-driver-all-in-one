@@ -1,7 +1,7 @@
-﻿using Framework.Base;
-using Framework.Module.Parameter;
+﻿using OneDriver.Framework.Base;
+using OneDriver.Framework.Module.Parameter;
 
-namespace Framework.Module.ViewModel
+namespace OneDriver.Framework.Module.ViewModel
 {
     public abstract class BaseDeviceWithProcessDataViewModel<TParams, TProcessData> : BaseDeviceViewModel<TParams>
         where TParams : BaseDeviceParam

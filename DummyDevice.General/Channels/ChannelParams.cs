@@ -1,12 +1,12 @@
-﻿using DummyDevice.Abstract.Channels;
-using Framework.Module.Parameter;
+﻿using OneDriver.Framework.Module.Parameter;
+using OneDriver.DummyDevice.Abstract.Channels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DummyDevice.General.Channels
+namespace OneDriver.DummyDevice.General.Channels
 {
     public class ChannelParams : CommonChannelParams
     {

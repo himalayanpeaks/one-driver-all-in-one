@@ -1,6 +1,6 @@
-﻿using Framework.Module.Parameter;
+﻿using OneDriver.Framework.Module.Parameter;
 
-namespace DummyDevice.Abstract.Channels
+namespace OneDriver.DummyDevice.Abstract.Channels
 {
     public class CommonChannelProcessData : BaseProcessData
     {

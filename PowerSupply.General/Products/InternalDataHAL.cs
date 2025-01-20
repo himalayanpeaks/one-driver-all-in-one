@@ -1,11 +1,11 @@
-﻿using Framework.Libs.Announcer;
+﻿using OneDriver.Framework.Libs.Announcer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PowerSupply.General.Products
+namespace OneDriver.PowerSupply.General.Products
 {
     public class InternalDataHAL : BaseDataForAnnouncement
     {

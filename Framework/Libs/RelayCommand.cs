@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Framework.Libs
+namespace OneDriver.Framework.Libs
 {
     public class RelayCommand : ICommand
     {

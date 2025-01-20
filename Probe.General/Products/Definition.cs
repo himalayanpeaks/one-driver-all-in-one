@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Probe.General.Products
+namespace OneDriver.Probe.General.Products
 {
     public class Definition
     {

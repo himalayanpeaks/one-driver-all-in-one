@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeviceParam.Ui
+namespace OneDriver.DeviceParam.Ui
 {
     public class DynamicPropertyWrapper : INotifyPropertyChanged
     {

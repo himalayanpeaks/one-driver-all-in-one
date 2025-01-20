@@ -1,7 +1,7 @@
-﻿using Framework.Base;
-using Framework.ModuleBuilder;
+﻿using OneDriver.Framework.Base;
+using OneDriver.Framework.ModuleBuilder;
 
-namespace Framework.Module.Parameter
+namespace OneDriver.Framework.Module.Parameter
 {
     public class BaseChannelParamPd<TChannelProcessData> : BaseChannelParam, IProcessData<TChannelProcessData>
         where TChannelProcessData : IParameter

@@ -1,4 +1,4 @@
-﻿using Framework.Module;
+﻿using OneDriver.Framework.Module;
 using System.Windows.Input;
 
 namespace Device.Interface.PowerSupply

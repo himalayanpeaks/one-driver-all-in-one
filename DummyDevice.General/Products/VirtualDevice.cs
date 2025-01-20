@@ -1,13 +1,13 @@
-﻿using Framework.Libs.Announcer;
-using Framework.Libs.Validator;
-using Framework.Module;
+﻿using OneDriver.Framework.Libs.Announcer;
+using OneDriver.Framework.Libs.Validator;
+using OneDriver.Framework.Module;
 
-namespace DummyDevice.General.Products
+namespace OneDriver.DummyDevice.General.Products
 {
     public class VirtualDevice : DataTunnel<InternalDummyDeviceDataHAL>, IDummyDeviceHAL
     {
 
-        public void AttachToProcessDataEvent(DataTunnel<InternalDummyDeviceDataHAL>.DataEventHandler processDataEventHandler) => DataEvent += processDataEventHandler;
+        public void AttachToProcessDataEvent(DataEventHandler processDataEventHandler) => DataEvent += processDataEventHandler;
 
 
         public ConnectionError Close()

@@ -1,6 +1,6 @@
-﻿using Framework.Base;
+﻿using OneDriver.Framework.Base;
 
-namespace Framework.ModuleBuilder
+namespace OneDriver.Framework.ModuleBuilder
 {
     public interface IConfigurable<T> where T : IParameter
     {

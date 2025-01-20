@@ -1,11 +1,11 @@
-﻿using Probe.Abstract.Channels;
+﻿using OneDriver.Probe.Abstract.Channels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Probe.General.Channels
+namespace OneDriver.Probe.General.Channels
 {
     public class Channel : CommonChannel<ChannelParams, ChannelProcessData>
     {

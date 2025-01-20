@@ -1,7 +1,7 @@
-﻿using Framework.Base;
+﻿using OneDriver.Framework.Base;
 using System.Collections.ObjectModel;
 
-namespace Framework.ModuleBuilder
+namespace OneDriver.Framework.ModuleBuilder
 {
     public interface IHasConfigurableElements<TParameter>
         where TParameter : IParameter

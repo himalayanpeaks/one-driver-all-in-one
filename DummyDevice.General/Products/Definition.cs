@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DummyDevice.General.Products
+namespace OneDriver.DummyDevice.General.Products
 {
     public class Definition
     {

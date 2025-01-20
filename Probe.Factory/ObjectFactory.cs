@@ -1,10 +1,10 @@
 ﻿using Device.Interface;
 using Device.Interface.Probe;
-using Framework.Libs.Validator;
-using Framework.Module.Parameter;
-using Probe.Abstract;
-using Probe.Abstract.Channels;
-using Probe.General.Products;
+using OneDriver.Framework.Libs.Validator;
+using OneDriver.Framework.Module.Parameter;
+using OneDriver.Probe.Abstract;
+using OneDriver.Probe.Abstract.Channels;
+using OneDriver.Probe.General.Products;
 using System.Collections.ObjectModel;
 
 namespace Probe.Factory
@@ -23,7 +23,7 @@ namespace Probe.Factory
             switch (deviceType)
             {
                 case Defines.Devices.ProbeVirtual:
-                    var obj = new Probe.General.Device("ProbeVirtual", new ComportValidator(), new VirtualDevice());
+                    var obj = new OneDriver.Probe.General.Device("ProbeVirtual", new ComportValidator(), new VirtualDevice());
                     device.Methods = obj;
                     device.Parameters = obj.Parameters;
                     device.Elements = new ObservableCollection<BaseChannelWithProcessData<CommonChannelParams, CommonChannelProcessData>>();

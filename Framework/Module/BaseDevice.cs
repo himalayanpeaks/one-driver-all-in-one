@@ -1,10 +1,10 @@
-﻿using Framework.Libs.Validator;
-using Framework.Module.Parameter;
-using Framework.ModuleBuilder;
+﻿using OneDriver.Framework.Libs.Validator;
+using OneDriver.Framework.Module.Parameter;
+using OneDriver.Framework.ModuleBuilder;
 using Serilog;
-using static Framework.Module.Definition;
+using static OneDriver.Framework.Module.Definition;
 
-namespace Framework.Module
+namespace OneDriver.Framework.Module
 {
     public abstract class BaseDevice<TParams> : IConfigurable<TParams>, IDevice
         where TParams : BaseDeviceParam
@@ -28,15 +28,15 @@ namespace Framework.Module
         {
             if (!validator.Validate(initString))
             {
-                Log.Error("Invalid init string. Example of valid: " + validator.GetExample() );
+                Log.Error("Invalid init string. Example of valid: " + validator.GetExample());
                 return DeviceError.InvalidInitString;
             }
-            if(this.Parameters.IsConnected)
+            if (Parameters.IsConnected)
             {
                 Log.Error("Device is already connected");
                 return DeviceError.AlreadyConnected;
             }
-            if(OpenConnection(initString) != 0)
+            if (OpenConnection(initString) != 0)
             {
                 Log.Error("Error opening connection");
                 return DeviceError.ConnectionError;
@@ -46,12 +46,12 @@ namespace Framework.Module
 
         public DeviceError Disconnect()
         {
-            if(!this.Parameters.IsConnected)
+            if (!Parameters.IsConnected)
             {
                 Log.Error("Device is not connected");
                 return DeviceError.DisconnectionError;
             }
-            if(CloseConnection() != 0)
+            if (CloseConnection() != 0)
             {
                 Log.Error("Error closing connection");
                 return DeviceError.DisconnectionError;

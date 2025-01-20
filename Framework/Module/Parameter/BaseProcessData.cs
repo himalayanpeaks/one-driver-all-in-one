@@ -1,4 +1,4 @@
-﻿using Framework.Base;
+﻿using OneDriver.Framework.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Framework.Module.Parameter
+namespace OneDriver.Framework.Module.Parameter
 {
     public class BaseProcessData : PropertyHandlers, IParameter
     {

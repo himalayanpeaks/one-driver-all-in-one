@@ -1,8 +1,8 @@
-using Framework.Libs.Validator;
 using Moq;
-using PowerSupply.General.Products;
+using OneDriver.Framework.Libs.Validator;
+using OneDriver.PowerSupply.General.Products;
 
-namespace PowerSupply.General.UnitTest
+namespace OneDriver.PowerSupply.General.UnitTest
 {
     public class UnitTest1
     {

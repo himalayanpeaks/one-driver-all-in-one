@@ -1,15 +1,15 @@
 ﻿using Device.Interface.DummyDevice;
 using Device.Interface.Probe;
-using Framework.Base;
-using Framework.Libs.Validator;
-using Framework.Module;
-using Framework.Module.Parameter;
-using Probe.Abstract.Channels;
+using OneDriver.Framework.Base;
+using OneDriver.Framework.Libs.Validator;
+using OneDriver.Framework.Module;
+using OneDriver.Framework.Module.Parameter;
+using OneDriver.Probe.Abstract.Channels;
 using Serilog;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace Probe.Abstract
+namespace OneDriver.Probe.Abstract
 {
     public abstract class CommonDevice<TDeviceParams, TChannelParams, TChannelProcessData> :
         BaseDeviceWithChannelsPd<TDeviceParams, TChannelParams, TChannelProcessData>, IProbe
@@ -33,7 +33,7 @@ namespace Probe.Abstract
         {
             switch (e.PropertyName)
             {
-               
+
             }
         }
 
@@ -44,6 +44,6 @@ namespace Probe.Abstract
 
             }
         }
-        
+
     }
 }

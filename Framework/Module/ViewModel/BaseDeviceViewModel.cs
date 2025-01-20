@@ -1,7 +1,7 @@
-﻿using Framework.Base;
-using Framework.Libs;
-using Framework.Module;
-using Framework.Module.Parameter;
+﻿using OneDriver.Framework.Base;
+using OneDriver.Framework.Libs;
+using OneDriver.Framework.Module;
+using OneDriver.Framework.Module.Parameter;
 using System.Windows.Input;
 
 public abstract class BaseDeviceViewModel<TParams> : IDeviceViewModel

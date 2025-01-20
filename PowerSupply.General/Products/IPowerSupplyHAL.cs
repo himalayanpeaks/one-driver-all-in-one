@@ -1,9 +1,9 @@
-﻿using Framework.Libs.Announcer;
-using Framework.Libs.Validator;
-using Framework.Module;
+﻿using OneDriver.Framework.Libs.Announcer;
+using OneDriver.Framework.Libs.Validator;
+using OneDriver.Framework.Module;
 using Definition = Device.Interface.PowerSupply.Definition;
 
-namespace PowerSupply.General.Products
+namespace OneDriver.PowerSupply.General.Products
 {
     public interface IPowerSupplyHAL : IStringReader, IStringWriter
     {
@@ -17,7 +17,7 @@ namespace PowerSupply.General.Products
         public double MaxVoltageInVolts { get; }
         public string Identification { get; }
         public Definition.ControlMode[] Mode { get; }
-   
+
         public uint NumberOfChannels { get; }
         public int GetError();
         public string GetErrorMessage(int code);

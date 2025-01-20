@@ -1,18 +1,18 @@
-﻿using DummyDevice.Abstract;
-using DummyDevice.General.Channels;
-using DummyDevice.General.Products;
-using Framework.Libs.Validator;
-using Framework.Module.Parameter;
+﻿using OneDriver.DummyDevice.Abstract;
+using OneDriver.DummyDevice.General.Channels;
+using OneDriver.DummyDevice.General.Products;
+using OneDriver.Framework.Libs.Validator;
+using OneDriver.Framework.Module.Parameter;
 using Serilog;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace DummyDevice.General
+namespace OneDriver.DummyDevice.General
 {
     public class Device : CommonDevice<DeviceParams, ChannelParams, ChannelProcessData>
     {
         IDummyDeviceHAL _deviceHAL { get; set; }
-        public Device(string name, IValidator validator, IDummyDeviceHAL deviceHAL) : 
+        public Device(string name, IValidator validator, IDummyDeviceHAL deviceHAL) :
             base(new DeviceParams(name), validator, new ObservableCollection<BaseChannelWithProcessData<ChannelParams, ChannelProcessData>>())
         {
             _deviceHAL = deviceHAL;
@@ -39,7 +39,7 @@ namespace DummyDevice.General
             //Transfer data from HAL to ProcessData here
             Elements[e.ChannelNumber].ProcessData.CommonProcessSampleData = e.InternalSampleData1;
             Elements[e.ChannelNumber].ProcessData.TimeStamp = e.TimeStamp;
-            Elements[e.ChannelNumber].ProcessData.GeneralProcessSampleData = e.InternalSampleData2;  
+            Elements[e.ChannelNumber].ProcessData.GeneralProcessSampleData = e.InternalSampleData2;
         }
 
         private void Parameters_PropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -62,7 +62,7 @@ namespace DummyDevice.General
                     {
                         Log.Error("new value greater than 25 is not allowed");
                         throw new ArgumentOutOfRangeException();
-                    }                    
+                    }
                     break;
             }
         }

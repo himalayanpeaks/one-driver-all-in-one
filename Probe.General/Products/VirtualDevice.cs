@@ -1,13 +1,13 @@
-﻿using Framework.Libs.Announcer;
-using Framework.Libs.Validator;
-using Framework.Module;
+﻿using OneDriver.Framework.Libs.Announcer;
+using OneDriver.Framework.Libs.Validator;
+using OneDriver.Framework.Module;
 
-namespace Probe.General.Products
+namespace OneDriver.Probe.General.Products
 {
     public class VirtualDevice : DataTunnel<InternalProbeDataHAL>, IDummyDeviceHAL
     {
 
-        public void AttachToProcessDataEvent(DataTunnel<InternalProbeDataHAL>.DataEventHandler processDataEventHandler) => DataEvent += processDataEventHandler;
+        public void AttachToProcessDataEvent(DataEventHandler processDataEventHandler) => DataEvent += processDataEventHandler;
 
 
         public ConnectionError Close()
@@ -36,9 +36,9 @@ namespace Probe.General.Products
             data = new InternalProbeDataHAL();
             //Example logic to generate process data
             if (IsOpen)
-            {                
+            {
                 Random r = new Random();
-                int channel = r.Next(0, NumberOfChannels);                
+                int channel = r.Next(0, NumberOfChannels);
                 data = new InternalProbeDataHAL(channel, r.Next(20, 30), r.Next(50, 70));
             }
         }

@@ -1,6 +1,6 @@
-﻿using Framework.ModuleBuilder;
+﻿using OneDriver.Framework.ModuleBuilder;
 
-namespace Framework.Module.Parameter
+namespace OneDriver.Framework.Module.Parameter
 {
     public class BaseChannel<TChannelParam> : IConfigurable<TChannelParam>
             where TChannelParam : BaseChannelParam

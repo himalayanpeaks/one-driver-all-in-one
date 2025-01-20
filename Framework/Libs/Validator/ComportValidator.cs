@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace Framework.Libs.Validator
+namespace OneDriver.Framework.Libs.Validator
 {
     public class ComportValidator : IValidator
     {

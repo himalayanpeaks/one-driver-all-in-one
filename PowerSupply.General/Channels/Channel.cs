@@ -1,12 +1,12 @@
-﻿using Framework.Module.Parameter;
-using PowerSupply.Abstract.Channels;
+﻿using OneDriver.Framework.Module.Parameter;
+using OneDriver.PowerSupply.Abstract.Channels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PowerSupply.General.Channels
+namespace OneDriver.PowerSupply.General.Channels
 {
     /// <summary>
     /// Unused class

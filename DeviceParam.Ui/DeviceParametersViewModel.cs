@@ -1,12 +1,7 @@
-﻿using Framework.Module;
-using Framework.Module.Parameter;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OneDriver.Framework.Module;
+using OneDriver.Framework.Module.Parameter;
 
-namespace DeviceParam.Ui
+namespace OneDriver.DeviceParam.Ui
 {
     public class DeviceParametersViewModel<TParams> : BaseDeviceViewModel<TParams>
         where TParams : BaseDeviceParam

@@ -1,12 +1,12 @@
-﻿using Framework.Base;
-using Framework.Module.Parameter;
+﻿using OneDriver.Framework.Base;
+using OneDriver.Framework.Module.Parameter;
 
 
-namespace PowerSupply.Abstract.Channels
+namespace OneDriver.PowerSupply.Abstract.Channels
 {
-    public class CommonProcessData: BaseProcessData
+    public class CommonProcessData : BaseProcessData
     {
-        private double _current;        
+        private double _current;
         private double _voltage;
 
         public double Voltage

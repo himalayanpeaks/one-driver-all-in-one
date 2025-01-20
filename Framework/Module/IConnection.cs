@@ -1,6 +1,6 @@
-﻿using Framework.Libs.Validator;
+﻿using OneDriver.Framework.Libs.Validator;
 
-namespace Framework.Module
+namespace OneDriver.Framework.Module
 {
     public enum ConnectionError
     {
@@ -9,7 +9,7 @@ namespace Framework.Module
         ErrorInConnecting,
         ErrorInDisconnecting
     }
-    
+
     public interface IConnectionWithInitString
     {
         ConnectionError Open(string initString, IValidator validator);

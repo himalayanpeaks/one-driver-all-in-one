@@ -1,6 +1,6 @@
-﻿using Framework.Module.Parameter;
+﻿using OneDriver.Framework.Module.Parameter;
 
-namespace Probe.Abstract
+namespace OneDriver.Probe.Abstract
 {
     public class CommonDeviceParams : BaseDeviceParam
     {

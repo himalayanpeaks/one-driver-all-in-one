@@ -1,8 +1,8 @@
-﻿using Framework.Libs.Validator;
-using Framework.Module.Parameter;
+﻿using OneDriver.Framework.Libs.Validator;
+using OneDriver.Framework.Module.Parameter;
 using System.Collections.ObjectModel;
 
-namespace Framework.Module
+namespace OneDriver.Framework.Module
 {
     public abstract class BaseDeviceWithChannels<TDeviceParams, TChannelParams> : BaseDevice<TDeviceParams>
         where TDeviceParams : BaseDeviceParam

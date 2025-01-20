@@ -1,11 +1,11 @@
-﻿using Framework.Libs.Announcer;
+﻿using OneDriver.Framework.Libs.Announcer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Probe.General.Products
+namespace OneDriver.Probe.General.Products
 {
     public class InternalProbeDataHAL : BaseDataForAnnouncement
     {

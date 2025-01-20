@@ -1,11 +1,11 @@
 ﻿using Device.Interface.PowerSupply;
-using Framework.Libs.Validator;
-using Framework.Module;
-using Framework.Module.Parameter;
-using PowerSupply.Abstract.Channels;
+using OneDriver.Framework.Libs.Validator;
+using OneDriver.Framework.Module;
+using OneDriver.Framework.Module.Parameter;
+using OneDriver.PowerSupply.Abstract.Channels;
 using System.Collections.ObjectModel;
 
-namespace PowerSupply.Abstract
+namespace OneDriver.PowerSupply.Abstract
 {
     public abstract class CommonDevice<TDeviceParams, TChannelParams, TChannelProcessData> :
         BaseDeviceWithChannelsPd<TDeviceParams, TChannelParams, TChannelProcessData>, IPowerSupply
@@ -13,7 +13,7 @@ namespace PowerSupply.Abstract
         where TChannelParams : CommonChannelParams
         where TChannelProcessData : CommonProcessData
     {
-        protected CommonDevice(TDeviceParams parameters, IValidator validator, 
+        protected CommonDevice(TDeviceParams parameters, IValidator validator,
             ObservableCollection<BaseChannelWithProcessData<TChannelParams, TChannelProcessData>> elements) : base(parameters, validator, elements)
         {
         }

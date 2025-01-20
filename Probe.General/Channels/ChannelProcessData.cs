@@ -1,6 +1,6 @@
-﻿using Probe.Abstract.Channels;
+﻿using OneDriver.Probe.Abstract.Channels;
 
-namespace Probe.General.Channels
+namespace OneDriver.Probe.General.Channels
 {
     public class ChannelProcessData : CommonChannelProcessData
     {

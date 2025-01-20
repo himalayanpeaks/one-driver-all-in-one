@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Framework.Libs.Validator
+namespace OneDriver.Framework.Libs.Validator
 {
     public interface IValidator
     {

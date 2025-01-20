@@ -1,6 +1,6 @@
-﻿using PowerSupply.Abstract.Channels;
+﻿using OneDriver.PowerSupply.Abstract.Channels;
 
-namespace PowerSupply.General.Channels
+namespace OneDriver.PowerSupply.General.Channels
 {
     public class ChannelParams : CommonChannelParams
     {

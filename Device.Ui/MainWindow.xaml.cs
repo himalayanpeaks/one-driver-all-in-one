@@ -1,5 +1,4 @@
-﻿using Framework.Libs.Validator;
-using Framework.Module;
+﻿using OneDriver.Framework.Libs.Validator;
 using System.Windows;
 
 namespace Device.Ui
@@ -21,17 +20,17 @@ namespace Device.Ui
             ValidationTextBoxControl.validatorViewModel = viewmodel;
             ValidationTextBoxControl.SetDataContext();
 
-            var exampleParams = new ExampleParams("ExampleDevice")
+            var exampleParams = new OneDriver.Device.Ui.ExampleParams("ExampleDevice")
             {
                 Count = 10,
                 Version = "1.0.0"
             };
 
             // Create the concrete implementation of the device
-            var exampleDevice = new ExampleDevice(exampleParams);
+            var exampleDevice = new OneDriver.Device.Ui.ExampleDevice(exampleParams);
 
             // Create the ViewModel
-            var viewModel = new ExampleClass(exampleDevice);
+            var viewModel = new OneDriver.Device.Ui.ExampleClass(exampleDevice);
 
             // Bind the ViewModel to the DataContext
             this.DataContext = viewModel;

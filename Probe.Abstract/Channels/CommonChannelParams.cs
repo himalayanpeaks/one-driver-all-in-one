@@ -1,9 +1,9 @@
-﻿using Framework.Module.Parameter;
+﻿using OneDriver.Framework.Module.Parameter;
 
-namespace Probe.Abstract.Channels
+namespace OneDriver.Probe.Abstract.Channels
 {
     public class CommonChannelParams : BaseChannelParam
-    {        
+    {
         public CommonChannelParams(string name) : base(name)
         {
         }

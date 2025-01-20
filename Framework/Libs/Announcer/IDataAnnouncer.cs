@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Framework.Libs.Announcer
+namespace OneDriver.Framework.Libs.Announcer
 {
     public interface IDataAnnouncer<TData>
         where TData : BaseDataForAnnouncement
