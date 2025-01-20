@@ -1,5 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using Device.Interface;
+using OneDriver.Device.Interface;
 using OneDriver.Probe.General.Channels;
 
 internal class Program

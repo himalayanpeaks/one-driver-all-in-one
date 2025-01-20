@@ -1,5 +1,4 @@
-﻿using Device.Interface;
-using Device.Interface.PowerSupply;
+﻿using Device.Interface.PowerSupply;
 using OneDriver.Framework.Libs.Validator;
 using OneDriver.PowerSupply.General;
 using OneDriver.PowerSupply.General.Channels;
@@ -10,6 +9,7 @@ using System.ComponentModel.Design;
 using OneDriver.Framework.Module.Parameter;
 using OneDriver.PowerSupply.Abstract.Channels;
 using OneDriver.PowerSupply.Abstract;
+using OneDriver.Device.Interface;
 
 namespace PowerSupply.Factory
 {

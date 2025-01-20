@@ -1,5 +1,5 @@
-﻿using Device.Interface;
-using Device.Interface.Probe;
+﻿using Device.Interface.Probe;
+using OneDriver.Device.Interface;
 using OneDriver.Framework.Libs.Validator;
 using OneDriver.Framework.Module.Parameter;
 using OneDriver.Probe.Abstract;

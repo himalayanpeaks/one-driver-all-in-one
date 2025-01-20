@@ -18,7 +18,7 @@ namespace OneDriver.Framework.Base
             PropertyChanging?.Invoke(this, new PropertyValidationEventArgs(propertyName, newValue));
         }
 
-        protected bool SetProperty<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
+        public bool SetProperty<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
         {
             if (EqualityComparer<T>.Default.Equals(field, value))
             {

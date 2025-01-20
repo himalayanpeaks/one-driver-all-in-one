@@ -1,6 +1,6 @@
 {
   "$schema": "http://json.schemastore.org/template",
-  "author": "Your Name",
+  "author": "Rahul Bajaj",
   "classifications": [ "CommonDevice", "Device", "Factory" ],
   "identity": "DummyDevice.Factory.Template",
   "name": "DummyDevice Factory Template",
