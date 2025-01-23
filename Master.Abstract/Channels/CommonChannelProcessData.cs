@@ -7,17 +7,17 @@ namespace OneDriver.Master.Abstract.Channels
                 where TSensorParameter : CommonSensorParameter
 
     {
-        private List<TSensorParameter> _processData;
+        private List<TSensorParameter> _pdInCollection;
 
-        public List<TSensorParameter> ProcessData
+        public List<TSensorParameter> PdInCollection
         {
-            get => _processData;
-            set => SetProperty(ref _processData, value);
+            get => _pdInCollection;
+            set => SetProperty(ref _pdInCollection, value);
         }
 
         public CommonChannelProcessData()
         {
-            ProcessData = new List<TSensorParameter>();
+            PdInCollection = new List<TSensorParameter>();
         }
     }
 }

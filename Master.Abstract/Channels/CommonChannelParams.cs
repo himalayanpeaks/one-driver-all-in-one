@@ -7,16 +7,16 @@ namespace OneDriver.Master.Abstract.Channels
     {
         private int _deviceId; //Add
         private string _hashId = string.Empty;
-        private List<TSensorParameter> _specificParameters = new List<TSensorParameter>();
-        private List<TSensorParameter> _standardParameters = new List<TSensorParameter>();
-        private List<TSensorParameter> _systemParameters = new List<TSensorParameter>();
-        private List<TSensorParameter> _commands = new List<TSensorParameter>();
+        private List<TSensorParameter> _specificParameterCollection = new List<TSensorParameter>();
+        private List<TSensorParameter> _standardParameterCollection = new List<TSensorParameter>();
+        private List<TSensorParameter> _systemParameterCollection = new List<TSensorParameter>();
+        private List<TSensorParameter> _commandCollection = new List<TSensorParameter>();
         public CommonChannelParams(string name) : base(name)
         {
-            SpecificParameters = new List<TSensorParameter>();
-            StandardParameters = new List<TSensorParameter>();
-            SystemParameters = new List<TSensorParameter>();
-            Commands = new List<TSensorParameter>();
+            SpecificParameterCollection = new List<TSensorParameter>();
+            StandardParameterCollection = new List<TSensorParameter>();
+            SystemParameterCollection = new List<TSensorParameter>();
+            CommandCollection = new List<TSensorParameter>();
         }
         public int DeviceId
         {
@@ -30,27 +30,27 @@ namespace OneDriver.Master.Abstract.Channels
             set { SetProperty(ref _hashId, value); }
         }
 
-        public List<TSensorParameter> StandardParameters
+        public List<TSensorParameter> StandardParameterCollection
         {
-            get => _standardParameters;
-            set => SetProperty(ref _standardParameters, value);
+            get => _standardParameterCollection;
+            set => SetProperty(ref _standardParameterCollection, value);
         }
 
-        public List<TSensorParameter> SpecificParameters
+        public List<TSensorParameter> SpecificParameterCollection
         {
-            get => _specificParameters;
-            set => SetProperty(ref _specificParameters, value);
+            get => _specificParameterCollection;
+            set => SetProperty(ref _specificParameterCollection, value);
         }
 
-        public List<TSensorParameter> SystemParameters
+        public List<TSensorParameter> SystemParameterCollection
         {
-            get => _systemParameters;
-            set => SetProperty(ref _systemParameters, value);
+            get => _systemParameterCollection;
+            set => SetProperty(ref _systemParameterCollection, value);
         }
-        public List<TSensorParameter> Commands
+        public List<TSensorParameter> CommandCollection
         {
-            get => _commands;
-            set => SetProperty(ref _commands, value);
+            get => _commandCollection;
+            set => SetProperty(ref _commandCollection, value);
         }
     }
 }

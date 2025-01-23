@@ -5,6 +5,7 @@ using OneDriver.Master.Abstract.Channels;
 using OneDriver.Master.Uptp.Channels;
 using OneDriver.Master.Uptp.Products;
 using Serilog;
+using OneDriver.Toolbox;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
@@ -12,8 +13,8 @@ namespace OneDriver.Master.Uptp
 {
     public class Device : CommonDevice<DeviceParams, SensorParameter>
     {
-        IDummyDeviceHAL _deviceHAL { get; set; }
-        public Device(string name, IValidator validator, IDummyDeviceHAL deviceHAL) :
+        IUptHAL _deviceHAL { get; set; }
+        public Device(string name, IValidator validator, IUptHAL deviceHAL) :
             base(new DeviceParams(name), validator, 
                 new ObservableCollection<BaseChannelWithProcessData<CommonChannelParams<SensorParameter>, 
                     CommonChannelProcessData<SensorParameter>>>())
@@ -38,13 +39,13 @@ namespace OneDriver.Master.Uptp
             }
         }
 
-        private void ProcessDataChanged(object sender, InternalDummyDeviceDataHAL e)
+        private void ProcessDataChanged(object sender, InternalDataHAL e)
         {
-            //Transfer data from HAL to ProcessData here
-           /* Elements[e.ChannelNumber].ProcessData.CommonProcessSampleData = e.InternalSampleData1;
-            Elements[e.ChannelNumber].ProcessData.TimeStamp = e.TimeStamp;
-            Elements[e.ChannelNumber].ProcessData.GeneralProcessSampleData = e.InternalSampleData2;
-           */
+            var local = Elements[e.ChannelNumber].ProcessData.PdInCollection.FindAll(x => x.Index == e.Index);
+            foreach (var parameter in local)
+                parameter.Value =
+                    DataConverter.MaskByteArray(e.Data, parameter.Offset, parameter.LengthInBits,
+                        parameter.DataType, true);
         }
 
         private void Parameters_PropertyChanged(object? sender, PropertyChangedEventArgs e)
