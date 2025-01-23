@@ -8,11 +8,11 @@ namespace OneDriver.Device.Interface.Master
 {
     public interface IMaster
     {
-        public int SelectSensorAtPort(int portNumber);
+        public Definition.Error SelectSensorAtPort(int portNumber);
         public int ConnectSensor();
         public int DisconnectSensor();
-        public int UpdateDataFromSensor();
-        public int UpdateDataFromAllSensors();
+        public Definition.Error UpdateDataFromSensor();
+        public void UpdateDataFromAllSensors();
         public int ReadParameterFromSensor(string name, out string? value);
         public int ReadParameterFromSensor<T>(string name, out T? value);
         public int WriteParameterToSensor(string name, string value);

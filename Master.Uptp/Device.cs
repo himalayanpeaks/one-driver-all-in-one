@@ -8,16 +8,17 @@ using Serilog;
 using OneDriver.Toolbox;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using OneDriver.Framework.Libs.DeviceDescriptor;
 
 namespace OneDriver.Master.Uptp
 {
     public class Device : CommonDevice<DeviceParams, SensorParameter>
     {
         IUptHAL _deviceHAL { get; set; }
-        public Device(string name, IValidator validator, IUptHAL deviceHAL) :
+        public Device(string name, IValidator validator, IUptHAL deviceHAL, IDeviceDescriptor parameterDatabank) :
             base(new DeviceParams(name), validator, 
                 new ObservableCollection<BaseChannelWithProcessData<CommonChannelParams<SensorParameter>, 
-                    CommonChannelProcessData<SensorParameter>>>())
+                    CommonChannelProcessData<SensorParameter>>>(), parameterDatabank)
         {
             _deviceHAL = deviceHAL;
             Init();
@@ -68,11 +69,6 @@ namespace OneDriver.Master.Uptp
         protected override int CloseConnection() => (int)_deviceHAL.Close();
         protected override int OpenConnection(string initString) => (int)_deviceHAL.Open(initString, validator);
 
-        public override int SelectSensorAtPort(int portNumber)
-        {
-            throw new NotImplementedException();
-        }
-
         public override int ConnectSensor()
         {
             throw new NotImplementedException();
@@ -83,15 +79,6 @@ namespace OneDriver.Master.Uptp
             throw new NotImplementedException();
         }
 
-        public override int UpdateDataFromSensor()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override int UpdateDataFromAllSensors()
-        {
-            throw new NotImplementedException();
-        }
 
         public override int ReadParameterFromSensor(string name, out string? value)
         {
@@ -134,6 +121,21 @@ namespace OneDriver.Master.Uptp
         }
 
         public override void LoadDataFromPdb(string server, int deviceId, int protocolId)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override int ReadParam(SensorParameter param)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override int WriteParam(SensorParameter param)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override int WriteCommand(SensorParameter command)
         {
             throw new NotImplementedException();
         }

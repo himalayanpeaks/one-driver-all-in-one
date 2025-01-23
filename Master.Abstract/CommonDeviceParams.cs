@@ -18,6 +18,13 @@ namespace OneDriver.Master.Abstract
             get => _mode;
             set => SetProperty(ref _mode, value);
         }
+        private int _selectedChannel;
+
+        public int SelectedChannel
+        {
+            get => _selectedChannel;
+            internal set => SetProperty(ref _selectedChannel, value);
+        }
         public CommonDeviceParams(string name) : base(name)
         {
         }
