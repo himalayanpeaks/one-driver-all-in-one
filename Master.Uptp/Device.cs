@@ -79,17 +79,7 @@ namespace OneDriver.Master.Uptp
             throw new NotImplementedException();
         }
 
-
-        public override int ReadParameterFromSensor(string name, out string? value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override int ReadParameterFromSensor<T>(string name, out T? value) where T : default
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public override int WriteParameterToSensor(string name, string value)
         {
             throw new NotImplementedException();

@@ -29,5 +29,10 @@ namespace OneDriver.Master.Uptp.Channels
         public SensorParameter(string name) : base (name)
         { 
         }
+
+        public SensorParameter() : base("")
+        {
+            
+        }
     }
 }

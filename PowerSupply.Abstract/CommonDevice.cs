@@ -19,6 +19,16 @@ namespace OneDriver.PowerSupply.Abstract
         }
 
         public abstract int AllChannelsOff();
+        public int SetVolts(int channelNumber, double volts)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int SetAmps(int channelNumber, double amps)
+        {
+            throw new NotImplementedException();
+        }
+
         public abstract int AllChannelsOn();
 
     }

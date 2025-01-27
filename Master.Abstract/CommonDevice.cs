@@ -9,6 +9,7 @@ using OneDriver.Master.Abstract.Channels;
 using Serilog;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using OneDriver.Toolbox;
 using Definition = OneDriver.Device.Interface.Master.Definition;
 
 namespace OneDriver.Master.Abstract
@@ -17,7 +18,7 @@ namespace OneDriver.Master.Abstract
         BaseDeviceWithChannelsPd<TDeviceParams, CommonChannelParams<TSensorParam>, 
             CommonChannelProcessData<TSensorParam>>, IMaster
         where TDeviceParams : CommonDeviceParams
-        where TSensorParam : CommonSensorParameter
+        where TSensorParam : CommonSensorParameter, new()
     {
         protected CommonDevice(TDeviceParams parameters, IValidator validator, 
             ObservableCollection<BaseChannelWithProcessData<CommonChannelParams<TSensorParam>,
@@ -107,8 +108,34 @@ namespace OneDriver.Master.Abstract
                 UpdateDataFromSensor();
             }
         }
-        public abstract int ReadParameterFromSensor(string name, out string? value);
-        public abstract int ReadParameterFromSensor<T>(string name, out T? value);
+
+        public int ReadParameterFromSensor(string name, out string? value)
+        {
+            TSensorParam? foundParam = FindParam(name);
+            value = null;
+            if (foundParam == null)
+                return (int)Definition.Error.ParameterNotFound;
+            int err = ReadParameterFromSensor(foundParam);
+            if (err == 0)
+                value = foundParam.Value;
+            return err;
+        }
+
+        public int ReadParameterFromSensor<T>(string name, out T? value)
+        {
+            value = default(T);
+            int err = ReadParameterFromSensor(name, out var readValue);
+
+            if (err != 0)
+                return err;
+            else
+            {
+                if (DataConverter.ConvertTo<T>(readValue, out value) == true)
+                    return 0;
+                else return (int)DataConverter.DataError.UnsupportedDataType;
+            }
+        }
+
         public abstract int WriteParameterToSensor(string name, string value);
         public abstract int WriteParameterToSensor<T>(string name, T value);
         public abstract int WriteCommandToSensor(string name, string value);
@@ -131,7 +158,19 @@ namespace OneDriver.Master.Abstract
             }
             return err;
         }
+        private TSensorParam? FindParam(string name)
+        {
+            TSensorParam? parameter = new TSensorParam();
 
+            if (!Object.Equals((Elements[Parameters.SelectedChannel].Parameters.SpecificParameterCollection.Find(x => x.Name == name)), null))
+                parameter = Elements[Parameters.SelectedChannel].Parameters.SpecificParameterCollection.Find(x => x.Name == name);
+            if (!Object.Equals((Elements[Parameters.SelectedChannel].Parameters.SystemParameterCollection.Find(x => x.Name == name)), null))
+                parameter = Elements[Parameters.SelectedChannel].Parameters.SystemParameterCollection.Find(x => x.Name == name);
+            if (!Object.Equals((Elements[Parameters.SelectedChannel].Parameters.StandardParameterCollection.Find(x => x.Name == name)), null))
+                parameter = Elements[Parameters.SelectedChannel].Parameters.StandardParameterCollection.Find(x => x.Name == name);
+
+            return parameter;
+        }
         protected abstract int ReadParam(TSensorParam param);
         protected abstract int WriteParam(TSensorParam param);
         protected abstract int WriteCommand(TSensorParam command);

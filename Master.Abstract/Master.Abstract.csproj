@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Device.Interface\Device.Interface.csproj" />
     <ProjectReference Include="..\Framework\Framework.csproj" />
+    <ProjectReference Include="..\Toolbox\Toolbox.csproj" />
   </ItemGroup>
 
 </Project>
