@@ -10,7 +10,7 @@ namespace OneDriver.Master.Uptp.Products
 {
     public class InternalDataHAL : BaseDataForAnnouncement
     {
-        public InternalDataHAL(int channelNumber, ushort index, byte[]? data)
+        public InternalDataHAL(int channelNumber, ushort index, byte[] data)
         {
             TimeStamp = DateTime.Now;
             ChannelNumber = channelNumber;

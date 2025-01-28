@@ -62,5 +62,40 @@ namespace OneDriver.Master.Uptp.Products
             }
         }
 
+        public Definition.e_com ConnectSensorWithMaster()
+        {
+            return Definition.e_com.COM_ONLINE;
+        }
+
+        public Definition.e_com DisconnectSensorFromMaster()
+        {
+            return Definition.e_com.COM_ONLINE;
+
+        }
+
+        public Definition.e_error_codes ReadParam(ushort index, out byte[] data)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Definition.e_error_codes WriteParam(ushort index, byte[] data)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Definition.e_error_codes SetProcessData(ushort index, out int lengthInBytes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Definition.e_error_codes PowerOff()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Definition.e_error_codes PowerOn()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

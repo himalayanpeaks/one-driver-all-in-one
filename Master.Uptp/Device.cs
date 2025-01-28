@@ -69,25 +69,25 @@ namespace OneDriver.Master.Uptp
         protected override int CloseConnection() => (int)_deviceHAL.Close();
         protected override int OpenConnection(string initString) => (int)_deviceHAL.Open(initString, validator);
 
-        public override int ConnectSensor()
-        {
-            throw new NotImplementedException();
-        }
+        public override int ConnectSensor() => (int)_deviceHAL.ConnectSensorWithMaster();
 
-        public override int DisconnectSensor()
-        {
-            throw new NotImplementedException();
-        }
+        public override int DisconnectSensor() => (int)_deviceHAL.DisconnectSensorFromMaster();
 
-        
-        public override int WriteParameterToSensor(string name, string value)
-        {
-            throw new NotImplementedException();
-        }
 
-        public override int WriteParameterToSensor<T>(string name, T value)
+        private int WriteParameterToSensor(SensorParameter parameter)
         {
-            throw new NotImplementedException();
+            int err = 0;
+            try
+            {
+                err = WriteParam(parameter);
+            }
+            catch (Exception e)
+            {
+                Log.Error("Error in " + parameter.Index + " " + err + " " + e);
+                return err;
+            }
+
+            return err;
         }
 
         public override int WriteCommandToSensor(string name, string value)

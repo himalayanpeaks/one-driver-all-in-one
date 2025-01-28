@@ -9,6 +9,7 @@
             ParameterNotFound = Int32.MinValue + 1,
             DatabaseNotConnected = Int32.MinValue + 2,
             CommunicationError = Int32.MinValue + 3,
+            CommandNotFound = Int32.MinValue + 4,
         }
 
         public enum Mode
