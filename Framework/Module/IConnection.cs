@@ -6,7 +6,7 @@ namespace OneDriver.Framework.Module
     {
         NoError,
         AccessDenied,
-        ErrorInConnecting,
+        CommunicaionError,
         ErrorInDisconnecting
     }
 

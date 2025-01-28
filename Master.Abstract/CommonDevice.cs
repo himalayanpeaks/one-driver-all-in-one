@@ -126,51 +126,71 @@ namespace OneDriver.Master.Abstract
             value = default(T);
             int err = ReadParameterFromSensor(name, out var readValue);
 
-            if (err != 0)
-                return err;
-            else
+            if (err == 0 && DataConverter.ConvertTo(readValue, out value))
+                return 0;
+            return err != 0 ? err : (int)DataConverter.DataError.UnsupportedDataType;
+        }
+        private TSensorParam FindCommand(string name)
+        {
+            var command = Elements[Parameters.SelectedChannel].Parameters.CommandCollection
+                .FirstOrDefault(x => x.Name == name);
+
+            if (command == null)
             {
-                if (DataConverter.ConvertTo<T>(readValue, out value) == true)
-                    return 0;
-                else return (int)DataConverter.DataError.UnsupportedDataType;
+                Log.Error("Command not found");
+                return new TSensorParam { Value = Definition.Error.CommandNotFound.ToString() };
             }
+
+            return command;
         }
 
-        public abstract int WriteParameterToSensor(string name, string value);
-        public abstract int WriteParameterToSensor<T>(string name, T value);
+        private TSensorParam FindParam(string name)
+        {
+            var parameter = Elements[Parameters.SelectedChannel].Parameters.SpecificParameterCollection
+                                .FirstOrDefault(x => x.Name == name) ??
+                            Elements[Parameters.SelectedChannel].Parameters.SystemParameterCollection
+                                .FirstOrDefault(x => x.Name == name) ??
+                            Elements[Parameters.SelectedChannel].Parameters.StandardParameterCollection
+                                .FirstOrDefault(x => x.Name == name);
+
+            return parameter ?? new TSensorParam();
+        }
+
+        public int WriteParameterToSensor(string name, string value)
+        {
+            if (DataConverter.ConvertTo<TSensorParam>(value, out var toWriteValue) == true)
+                return WriteParameterToSensor(name, toWriteValue);
+            return (int)DataConverter.DataError.InValidData;
+        }
+
+        public int WriteParameterToSensor<T>(string name, T value)
+        {
+            if (DataConverter.ConvertTo(value, out var toWriteValue))
+                return WriteParameterToSensor(name, toWriteValue);
+            return (int)DataConverter.DataError.InValidData;
+        }
+
         public abstract int WriteCommandToSensor(string name, string value);
         public abstract int WriteCommandToSensor<T>(string name, T value);
         public abstract string GetErrorMessage(int errorCode);
         public abstract string?[] GetAllParamsFromSensor();
         public abstract void LoadDataFromPdb(string server, int deviceId, int protocolId);
 
-        private int ReadParameterFromSensor(TSensorParam? parameter)
+        private int ReadParameterFromSensor(TSensorParam parameter)
         {
             int err = 0;
             try
             {
-                err = ReadParam(parameter);
+                if((err = ReadParam(parameter)) != 0)
+                    Log.Error("Error in read: " + GetErrorMessage(err));
             }
             catch (Exception e)
             {
-                if (parameter != null) Log.Error("Error in " + parameter.Index + " " + err + " " + e);
-                return err;
+                Log.Error(e.ToString());
             }
             return err;
         }
-        private TSensorParam? FindParam(string name)
-        {
-            TSensorParam? parameter = new TSensorParam();
 
-            if (!Object.Equals((Elements[Parameters.SelectedChannel].Parameters.SpecificParameterCollection.Find(x => x.Name == name)), null))
-                parameter = Elements[Parameters.SelectedChannel].Parameters.SpecificParameterCollection.Find(x => x.Name == name);
-            if (!Object.Equals((Elements[Parameters.SelectedChannel].Parameters.SystemParameterCollection.Find(x => x.Name == name)), null))
-                parameter = Elements[Parameters.SelectedChannel].Parameters.SystemParameterCollection.Find(x => x.Name == name);
-            if (!Object.Equals((Elements[Parameters.SelectedChannel].Parameters.StandardParameterCollection.Find(x => x.Name == name)), null))
-                parameter = Elements[Parameters.SelectedChannel].Parameters.StandardParameterCollection.Find(x => x.Name == name);
-
-            return parameter;
-        }
         protected abstract int ReadParam(TSensorParam param);
         protected abstract int WriteParam(TSensorParam param);
         protected abstract int WriteCommand(TSensorParam command);
