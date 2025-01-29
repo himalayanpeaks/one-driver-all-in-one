@@ -6,7 +6,9 @@
         {
             PowerSupplyVirtual,
             ProbeVirtual,
-            DummyDeviceVirtual
+            DummyDeviceVirtual,
+            MasterUptVirtual,
+            MasterUpt_1_3,
         }
 
         public enum AccessType

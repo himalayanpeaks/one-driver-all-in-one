@@ -99,7 +99,7 @@ namespace OneDriver.Toolbox
 
 
 
-        public static DataError ToString(byte?[] data, DataType dataType, int lengthInBits, bool isLittleEndian,
+        public static DataError ToString(byte[] data, DataType dataType, int lengthInBits, bool isLittleEndian,
             out string value)
         {
             List<string> valueList = new List<string>();
@@ -108,7 +108,7 @@ namespace OneDriver.Toolbox
                 return DataError.EmptyData;
             if (data.Length < 1)
                 return DataError.EmptyData;
-            value = Encoding.UTF8.GetString(Array.ConvertAll(data, x => x ?? 0));
+            value = Encoding.UTF8.GetString(Array.ConvertAll(data, x => x));
             return DataError.NoError;
         }
 

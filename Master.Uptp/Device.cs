@@ -9,6 +9,11 @@ using OneDriver.Toolbox;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using OneDriver.Framework.Libs.DeviceDescriptor;
+using static OneDriver.Master.Uptp.Products.Definition;
+using ParameterTool.NSwagClass.Generator.Interface;
+using static OneDriver.Device.Interface.Defines;
+using System.Text.RegularExpressions;
+using System.Reflection.Metadata;
 
 namespace OneDriver.Master.Uptp
 {
@@ -57,6 +62,30 @@ namespace OneDriver.Master.Uptp
             }
         }
 
+        protected override void AddData(ParameterDetailsResponse paramDetail, CommonSensorParameter commonParameter)
+        {
+            commonParameter.PropertyChanging += Parameters_PropertyChanging;
+            commonParameter.PropertyChanged += Parameters_PropertyChanged;
+            switch (paramDetail.CategoryName)
+            {
+                case "SpecificParameter":
+                    Elements[Parameters.SelectedChannel].Parameters.SpecificParameterCollection.Add(new SensorParameter(commonParameter));
+                    break;
+                case "StandardParameter":
+                    Elements[Parameters.SelectedChannel].Parameters.StandardParameterCollection.Add(new SensorParameter(commonParameter));
+                    break;
+                case "SystemParameter":
+                    Elements[Parameters.SelectedChannel].Parameters.SystemParameterCollection.Add(new SensorParameter(commonParameter));
+                    break;
+                case "StandardCommand":
+                    Elements[Parameters.SelectedChannel].Parameters.CommandCollection.Add(new SensorParameter(commonParameter));
+                    break;
+                case "ProcessData":
+                    Elements[Parameters.SelectedChannel].ProcessData.PdInCollection.Add(new SensorParameter(commonParameter));
+                    break;
+            }
+        }
+
         private void Parameters_PropertyChanging(object sender, Framework.Base.PropertyValidationEventArgs e)
         {
             //Write validity before property is changed here
@@ -90,44 +119,65 @@ namespace OneDriver.Master.Uptp
             return err;
         }
 
-        public override int WriteCommandToSensor(string name, string value)
+        protected override string GetErrorAsText(int errorCode)
         {
-            throw new NotImplementedException();
+            if (Enum.IsDefined(typeof(e_error_codes), errorCode))
+                return ((e_error_codes)errorCode).ToString();
+
+            return "UnknownError";
         }
 
-        public override int WriteCommandToSensor<T>(string name, T value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override string GetErrorMessage(int errorCode)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override string?[] GetAllParamsFromSensor()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void LoadDataFromPdb(string server, int deviceId, int protocolId)
-        {
-            throw new NotImplementedException();
-        }
 
         protected override int ReadParam(SensorParameter param)
         {
-            throw new NotImplementedException();
+            param.Value = null;
+            var err = _deviceHAL.ReadParam(Convert.ToUInt16(param.Index), out var data);
+
+            if (Equals(data, null))
+                throw new Exception("index: " + param.Index + " read value is null");
+            if (data.Length == 0)
+                throw new Exception("index: " + param.Index + " no data available");
+
+
+            if (param.DataType == DataType.UINT || param.DataType == DataType.INT || param.DataType == DataType.Float32 ||
+                param.DataType == DataType.Byte || param.DataType == DataType.BOOL)
+            {
+                DataConverter.ToNumber(data, param.DataType, param.LengthInBits, true, out string?[] valueData);
+                if (valueData == null)
+                {
+                    param.Value = string.Join(";", data.Select(x => x.ToString()).ToArray());
+                    throw new Exception("index: " + param.Index + " data length mismatch");
+                }
+
+                param.Value = string.Join(";", valueData);
+            }
+
+            if (param.DataType == DataType.CHAR)
+            {
+                DataConverter.ToString(data, param.DataType, param.LengthInBits, true, out var val);
+                param.Value = val;
+            }
+
+            return (int)err;
         }
 
         protected override int WriteParam(SensorParameter param)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(param.Value))
+                Log.Error(param.Name + " Data null");
+
+            string?[] dataToWrite = param.Value.Split(';').ToArray();
+            DataConverter.DataError dataError;
+            if ((dataError = DataConverter.ToByteArray(dataToWrite, param.DataType, param.LengthInBits,
+                    true, out var returnedData, param.ArrayCount)) != DataConverter.DataError.NoError)
+                return (int)dataError;
+            return (int)_deviceHAL.WriteParam((ushort)param.Index, returnedData);
         }
 
         protected override int WriteCommand(SensorParameter command)
         {
-            throw new NotImplementedException();
+            var request = Array.Empty<byte>();
+            return (int)_deviceHAL.WriteCommand((e_sspp_cmds)Convert.ToUInt16(command.Value), ref request);
         }
     }
 }

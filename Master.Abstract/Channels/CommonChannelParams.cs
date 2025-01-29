@@ -7,10 +7,10 @@ namespace OneDriver.Master.Abstract.Channels
     {
         private int _deviceId; //Add
         private string _hashId = string.Empty;
-        private List<TSensorParameter> _specificParameterCollection = new List<TSensorParameter>();
-        private List<TSensorParameter> _standardParameterCollection = new List<TSensorParameter>();
-        private List<TSensorParameter> _systemParameterCollection = new List<TSensorParameter>();
-        private List<TSensorParameter> _commandCollection = new List<TSensorParameter>();
+        private List<TSensorParameter> _specificParameterCollection;
+        private List<TSensorParameter> _standardParameterCollection;
+        private List<TSensorParameter> _systemParameterCollection;
+        private List<TSensorParameter> _commandCollection;
         public CommonChannelParams(string name) : base(name)
         {
             SpecificParameterCollection = new List<TSensorParameter>();

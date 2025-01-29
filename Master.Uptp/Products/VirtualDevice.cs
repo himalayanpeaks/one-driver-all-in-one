@@ -88,6 +88,11 @@ namespace OneDriver.Master.Uptp.Products
             throw new NotImplementedException();
         }
 
+        public Definition.e_error_codes WriteCommand(Definition.e_sspp_cmds command, ref byte[] aRequestData)
+        {
+            return Definition.e_error_codes.ERR_NONE;
+        }
+
         public Definition.e_error_codes PowerOff()
         {
             throw new NotImplementedException();

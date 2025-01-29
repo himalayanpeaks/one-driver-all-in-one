@@ -4,10 +4,8 @@ using OneDriver.Framework.Module;
 using System.Runtime.InteropServices;
 using Serilog;
 using static OneDriver.Master.Uptp.Products.Definition;
-using System.ComponentModel.DataAnnotations;
 using OneDriver.Toolbox;
 using System.Diagnostics;
-using OneDriver.Framework.ModuleBuilder;
 
 namespace OneDriver.Master.Uptp.Products
 {
@@ -162,14 +160,33 @@ namespace OneDriver.Master.Uptp.Products
             return err;
         }
 
+        public e_error_codes WriteCommand(e_sspp_cmds command, ref byte[] aRequestData)
+        {
+            var sSsppResp = new s_sspp_resp();
+            return SSPP_WrCmd(ref sSsppResp, (ushort)command, ref aRequestData, (byte)aRequestData.Length);
+        }
+
         public e_error_codes PowerOff()
         {
-            throw new NotImplementedException();
+            e_error_codes err = e_error_codes.ERR_NONE;
+            Definition.s_uptp_resp uptp_response = new Definition.s_uptp_resp();
+            Byte[] uptp_request_data = new Byte[1];
+            uptp_request_data[0] = (Byte)(Definition.e_intf_sply_on_state.INTF_SUPPLY_OFF);
+            err = UPTP_WrCtrl(ref uptp_response, (Byte)Definition.e_uptp_req.UPTP_REQ_INTF_SPLY, uptp_request_data);
+            if (err != e_error_codes.ERR_NONE)
+                Log.Error("Error in Power OFF: " + err.ToString());
+            return err;
         }
 
         public e_error_codes PowerOn()
         {
-            throw new NotImplementedException();
+            e_error_codes err = e_error_codes.ERR_NONE;
+            Definition.s_uptp_resp uptp_response = new Definition.s_uptp_resp();
+            Byte[] delay = { 136, 19 };
+            err = UPTP_WrCtrl(ref uptp_response, (Byte)Definition.e_uptp_req.UPTP_REQ_SPLY_ON_COM, delay);
+            if (err != e_error_codes.ERR_NONE)
+                Log.Error("Error in Power ON: " + err.ToString());
+            return err;
         }
 
         protected override void FetchDataForTunnel(out InternalDataHAL data)
@@ -283,17 +300,31 @@ namespace OneDriver.Master.Uptp.Products
 
         public e_com DisconnectSensorFromMaster()
         {
-            var err = SSPP_Link("", e_baudrates.BAUDRATE_230400, e_com_state.DISCONNECT);
-            if ( err == e_error_codes.ERR_NONE)
+            var request = Array.Empty<byte>();
+            StopAnnouncingData();
+            Thread.Sleep(50);
+            WriteCommand(e_sspp_cmds.SSPP_RESET, ref request);
+            var ret = set_slave_configuration(e_slave_output_type.OUTPUT_TYPE_PUSH_PULL, SensorPortNumber,
+                e_connection_type.CONNECT_DISCARD, 60);
+            if (Convert.ToBoolean(ret) == false)
+                Log.Information("Could not disconnect");
+            ret = set_slave_configuration(e_slave_output_type.OUTPUT_TYPE_PUSH_PULL, SensorPortNumber,
+                e_connection_type.CONNECT_NOT, 60);
+            if (Convert.ToBoolean(ret) == false)
+                Log.Information("Could not disconnect");
+
+            var uptpResponse = new s_uptp_resp();
+            UPTP_RdStat(ref uptpResponse, (byte)e_uptp_req.UPTP_REQ_COM);
+            var aData = new byte[uptpResponse.obj_len];
+            if (uptpResponse.obj_len > 0)
+                Marshal.Copy(uptpResponse.p_obj_data, aData, 0, uptpResponse.obj_len);
+            if (uptpResponse.obj_len == 1 && aData[0] == (byte)e_com.COM_OFFLINE)
             {
-                Log.Information("UPT master disconnected from PC");
-                return e_com.COM_OFFLINE;
+                Log.Information(e_com.COM_OFFLINE + ". Sensor disconnected");
+                return (e_com)aData[0];
             }
-            else
-            {
-                Log.Error("UPT master - PC disconnect error: " + err + ", error code " + Convert.ToInt16(err));
-                return e_com.COM_ERROR;
-            }
+            Tools.Wait(200);
+            return (e_com)aData[0];
         }
     }
 }

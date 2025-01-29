@@ -4,9 +4,9 @@ using System.Windows.Input;
 namespace OneDriver.Master.Abstract.Channels
 {
     public class CommonChannel<TCommonSensorParameter>
-        : BaseChannelWithProcessData<CommonChannelParams<TCommonSensorParameter>, 
+        : BaseChannelWithProcessData<CommonChannelParams<TCommonSensorParameter>,
             CommonChannelProcessData<TCommonSensorParameter>>
-        where TCommonSensorParameter : CommonSensorParameter        
+        where TCommonSensorParameter : CommonSensorParameter
     {
 
 
@@ -16,6 +16,6 @@ namespace OneDriver.Master.Abstract.Channels
 
         }
 
-      
+
     }
 }
