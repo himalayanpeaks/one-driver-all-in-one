@@ -1,30 +1,26 @@
-﻿using OneDriver.Framework.Libs.Validator;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using OneDriver.Framework.Base;
+using OneDriver.Framework.Libs.DeviceDescriptor;
+using OneDriver.Framework.Libs.Validator;
 using OneDriver.Framework.Module.Parameter;
 using OneDriver.Master.Abstract;
 using OneDriver.Master.Abstract.Channels;
-using OneDriver.Master.Uptp.Channels;
-using OneDriver.Master.Uptp.Products;
-using Serilog;
+using OneDriver.Master.IoLink.Channels;
+using OneDriver.Master.IoLink.Products;
 using OneDriver.Toolbox;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using OneDriver.Framework.Libs.DeviceDescriptor;
-using static OneDriver.Master.Uptp.Products.Definition;
 using ParameterTool.NSwagClass.Generator.Interface;
-using static OneDriver.Device.Interface.Defines;
-using System.Text.RegularExpressions;
-using System.Reflection.Metadata;
-using System.Runtime.CompilerServices;
-using Definition = OneDriver.Device.Interface.Master.Definition;
-
-namespace OneDriver.Master.Uptp
+using Serilog;
+using DataType = OneDriver.Device.Interface.Defines.DataType;
+using static OneDriver.Master.IoLink.Products.Definition;
+namespace OneDriver.Master.IoLink
 {
     public class Device : CommonDevice<DeviceParams, SensorParameter>
     {
-        IUptHAL DeviceHAL { get; set; }
-        public Device(string name, IValidator validator, IUptHAL deviceHAL, IDeviceDescriptor parameterDatabank) :
-            base(new DeviceParams(name), validator, 
-                new ObservableCollection<BaseChannelWithProcessData<CommonChannelParams<SensorParameter>, 
+        private IIoLinkMaster DeviceHAL { get; set; }
+        public Device(string name, IValidator validator, IIoLinkMaster deviceHAL, IDeviceDescriptor parameterDatabank) :
+            base(new DeviceParams(name), validator,
+                new ObservableCollection<BaseChannelWithProcessData<CommonChannelParams<SensorParameter>,
                     CommonChannelProcessData<SensorParameter>>>(), parameterDatabank)
         {
             DeviceHAL = deviceHAL;
@@ -36,13 +32,12 @@ namespace OneDriver.Master.Uptp
             Parameters.PropertyChanging += Parameters_PropertyChanging;
             Parameters.PropertyChanged += Parameters_PropertyChanged;
             Parameters.PropertyReadRequested += Parameters_PropertyReadRequested;
-            Parameters.Mode = Definition.Mode.Communication;
             DeviceHAL.AttachToProcessDataEvent(ProcessDataChanged);
 
             for (var i = 0; i < DeviceHAL.NumberOfChannels; i++)
             {
                 var item = new BaseChannelWithProcessData<CommonChannelParams<SensorParameter>,
-                    CommonChannelProcessData<SensorParameter>> (new CommonChannelParams<SensorParameter>("Param_" + i.ToString()), new ());
+                    CommonChannelProcessData<SensorParameter>>(new CommonChannelParams<SensorParameter>("Param_" + i.ToString()), new());
                 Elements.Add(item);
                 Elements[i].Parameters.PropertyChanged += Parameters_PropertyChanged;
                 Elements[i].Parameters.PropertyChanging += Parameters_PropertyChanging;
@@ -50,13 +45,14 @@ namespace OneDriver.Master.Uptp
         }
 
         private const int HashIndex = 253;
-        private void Parameters_PropertyReadRequested(object sender, Framework.Base.PropertyReadRequestedEventArgs e)
+        private void Parameters_PropertyReadRequested(object sender, PropertyReadRequestedEventArgs e)
         {
             switch (e.PropertyName)
             {
                 case nameof(CommonChannel<CommonSensorParameter>.Parameters.HashId):
-                    var err = DeviceHAL.ReadParam(HashIndex, out var readVal);
-                    if (err == e_error_codes.ERR_NONE)
+                    var err = DeviceHAL.ReadRecord(HashIndex, 0, out var readVal, 
+                        out _ , out _, out _);
+                    if (err == Definition.t_eInternal_Return_Codes.RETURN_OK)
                     {
                         byte[] byteArray = readVal.ToArray();
                         e.Value = BitConverter.ToString(byteArray).Replace("-", "");
@@ -79,18 +75,18 @@ namespace OneDriver.Master.Uptp
             switch (e.PropertyName)
             {
                 case nameof(Parameters.SelectedChannel):
-                    DeviceHAL.SensorPortNumber = (e_slave_com_port)Parameters.SelectedChannel;
+                    DeviceHAL.SensorPortNumber = Parameters.SelectedChannel;
                     break;
                 case nameof(Parameters.Mode):
                     switch (Parameters.Mode)
                     {
-                        case Definition.Mode.Communication:
+                        case OneDriver.Device.Interface.Master.Definition.Mode.Communication:
                             DeviceHAL.StopProcessDataAnnouncer();
                             break;
-                        case Definition.Mode.ProcessData:
+                        case OneDriver.Device.Interface.Master.Definition.Mode.ProcessData:
                             DeviceHAL.StartProcessDataAnnouncer();
                             break;
-                        case Definition.Mode.StandardInputOutput:
+                        case OneDriver.Device.Interface.Master.Definition.Mode.StandardInputOutput:
                             DeviceHAL.StopProcessDataAnnouncer();
                             break;
                     }
@@ -122,12 +118,12 @@ namespace OneDriver.Master.Uptp
             }
         }
 
-        private void Parameters_PropertyChanging(object sender, Framework.Base.PropertyValidationEventArgs e)
+        private void Parameters_PropertyChanging(object sender, OneDriver.Framework.Base.PropertyValidationEventArgs e)
         {
             //Write validity before property is changed here
             switch (e.PropertyName)
             {
-               
+
             }
         }
 
@@ -139,13 +135,11 @@ namespace OneDriver.Master.Uptp
             var err = DeviceHAL.ConnectSensorWithMaster();
             Log.Information(err.ToString());
 
-            return (err == e_com.COM_ONLINE) ? 0
+            return (err == Definition.t_eInternal_Return_Codes.RETURN_OK) ? 0
                 : (int)OneDriver.Device.Interface.Master.Definition.Error.SensorCommunicationError;
         }
 
-
         public override int DisconnectSensor() => (int)DeviceHAL.DisconnectSensorFromMaster();
-
 
         private int WriteParameterToSensor(SensorParameter parameter)
         {
@@ -165,8 +159,8 @@ namespace OneDriver.Master.Uptp
 
         protected override string GetErrorAsText(int errorCode)
         {
-            if (Enum.IsDefined(typeof(e_error_codes), errorCode))
-                return ((e_error_codes)errorCode).ToString();
+            if (Enum.IsDefined(typeof(t_eInternal_Return_Codes), errorCode))
+                return ((t_eInternal_Return_Codes)errorCode).ToString();
 
             return "UnknownError";
         }
@@ -175,7 +169,8 @@ namespace OneDriver.Master.Uptp
         protected override int ReadParam(SensorParameter param)
         {
             param.Value = null;
-            var err = DeviceHAL.ReadParam(Convert.ToUInt16(param.Index), out var data);
+            var err = DeviceHAL.ReadRecord(Convert.ToUInt16(param.Index),
+                Convert.ToByte(param.Subindex), out var data, out _, out _, out _);
 
             if (Equals(data, null))
                 throw new Exception("index: " + param.Index + " read value is null");
@@ -201,7 +196,6 @@ namespace OneDriver.Master.Uptp
                 DataConverter.ToString(data, param.DataType, param.LengthInBits, true, out var val);
                 param.Value = val;
             }
-
             return (int)err;
         }
 
@@ -210,18 +204,15 @@ namespace OneDriver.Master.Uptp
             if (string.IsNullOrEmpty(param.Value))
                 Log.Error(param.Name + " Data null");
 
-            string?[] dataToWrite = param.Value.Split(';').ToArray();
+            string[] dataToWrite = param.Value.Split(';').ToArray();
             DataConverter.DataError dataError;
             if ((dataError = DataConverter.ToByteArray(dataToWrite, param.DataType, param.LengthInBits,
                     true, out var returnedData, param.ArrayCount)) != DataConverter.DataError.NoError)
                 return (int)dataError;
-            return (int)DeviceHAL.WriteParam((ushort)param.Index, returnedData);
+            return (int)DeviceHAL.WriteRecord((ushort)param.Index, (byte)param.Subindex, returnedData,
+                out _, out _);
         }
 
-        protected override int WriteCommand(SensorParameter command)
-        {
-            var request = Array.Empty<byte>();
-            return (int)DeviceHAL.WriteCommand((e_sspp_cmds)Convert.ToUInt16(command.Value), ref request);
-        }
+        protected override int WriteCommand(SensorParameter command) => WriteParam(command);
     }
 }

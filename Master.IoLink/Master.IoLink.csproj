@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	  <RootNamespace>$(SolutionName).$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="TMG.IoLink2.Master" Version="0.0.7" />
+  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Master.Abstract\Master.Abstract.csproj" />
+		<ProjectReference Include="..\Toolbox\Toolbox.csproj" />
+	</ItemGroup>
+</Project>

@@ -20,7 +20,8 @@ namespace OneDriver.Toolbox
             InvalidArrayCount
         }
 
-        public static DataError ToByteArray(string[] values, Defines.DataType dataType, int lengthInBits, bool isLittleEndian, out byte[] data, int arrayCount = 1)
+        public static DataError ToByteArray(string[] values, Defines.DataType dataType, 
+            int lengthInBits, bool isLittleEndian, out byte[] data, int arrayCount = 1)
         {
             data = Array.Empty<byte>();
             if (values.Length != arrayCount)
