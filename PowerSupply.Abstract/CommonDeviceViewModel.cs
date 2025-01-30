@@ -1,4 +1,4 @@
-﻿using Device.Interface.PowerSupply;
+﻿using OneDriver.Device.Interface.PowerSupply;
 using OneDriver.Framework.Libs;
 using OneDriver.Framework.Module.ViewModel;
 using OneDriver.PowerSupply.Abstract.Channels;

@@ -1,4 +1,4 @@
-﻿namespace Device.Interface.PowerSupply
+﻿namespace OneDriver.Device.Interface.PowerSupply
 {
     public class Definition
     {

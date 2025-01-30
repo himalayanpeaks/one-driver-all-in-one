@@ -1,5 +1,4 @@
-﻿using Device.Interface.DummyDevice;
-using OneDriver.Device.Interface.Master;
+﻿using OneDriver.Device.Interface.Master;
 using OneDriver.Framework.Base;
 using OneDriver.Framework.Libs.DeviceDescriptor;
 using OneDriver.Framework.Libs.Validator;
@@ -38,13 +37,36 @@ namespace OneDriver.Master.Abstract
             return (Elements[Parameters.SelectedChannel].Parameters.SpecificParameterCollection.Select(x => x.Name)).ToArray();
 
         }
-        public void LoadDataFromPdb(string server, int deviceId, int protocolId)
+
+        public Definition.Error LoadDataFromPdb(string server, int deviceId, int protocolId)
         {
-            string hash = Elements[Parameters.SelectedChannel].Parameters.HashId;
+            List<ParameterDetailsResponse> ret;
+            try
+            {
+                ret = ParameterDatabank.ReadData(server, deviceId, protocolId);
+                Elements[Parameters.SelectedChannel].Parameters.DeviceId = deviceId;
+                ConvertAbstractData(ret, Elements[Parameters.SelectedChannel].Parameters);
+            }
+            catch (Exception ex) when (
+                ex is HttpRequestException ||
+                ex is TaskCanceledException ||
+                ex is AggregateException
+            )
+            {
+                Log.Error("Check for serverId, deviceId, protocolId");
+            }
+            return Definition.Error.NoError;
+        }
+
+        public Definition.Error LoadDataFromPdb(string server, int protocolId, out string? hashId)
+        {
+            hashId = Elements[Parameters.SelectedChannel].Parameters.HashId;
+            if(string.IsNullOrEmpty(hashId))
+                return Definition.Error.HasdIdNotFound;
 
             try
             {
-                var ret = ParameterDatabank.ReadData(server, hash, protocolId);
+                var ret = ParameterDatabank.ReadData(server, hashId, protocolId);
                 ConvertAbstractData(ret, Elements[Parameters.SelectedChannel].Parameters);
             }
             catch (Exception ex) when (
@@ -55,6 +77,7 @@ namespace OneDriver.Master.Abstract
             {
                 Log.Error("Check for serverId, hashId, protocolId");
             }
+            return Definition.Error.NoError;
         }
         private void ConvertAbstractData(List<ParameterDetailsResponse> dataFromDb, 
             CommonChannelParams<TSensorParam> sensor)
@@ -313,8 +336,8 @@ namespace OneDriver.Master.Abstract
 
             if (Parameters.IsConnected == false)
             {
-                Log.Error("Sensor not connected");
-                return Definition.Error.CommunicationError;
+                Log.Error("UPT not connected");
+                return Definition.Error.UptNotConnected;
             }
 
             foreach (var param in Elements[Parameters.SelectedChannel].Parameters.StandardParameterCollection)

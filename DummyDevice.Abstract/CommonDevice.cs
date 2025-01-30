@@ -1,6 +1,6 @@
-﻿using Device.Interface.DummyDevice;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using OneDriver.Device.Interface.DummyDevice;
 using Serilog;
 using OneDriver.DummyDevice.Abstract.Channels;
 using OneDriver.Framework.Base;

@@ -1,4 +1,4 @@
-﻿using Device.Interface.Probe;
+﻿using OneDriver.Device.Interface.Probe;
 using OneDriver.Device.Interface;
 using OneDriver.Framework.Libs.Validator;
 using OneDriver.Framework.Module.Parameter;
@@ -6,6 +6,7 @@ using OneDriver.Probe.Abstract;
 using OneDriver.Probe.Abstract.Channels;
 using OneDriver.Probe.General.Products;
 using System.Collections.ObjectModel;
+using OneDriver.Device.Interface.Probe;
 
 namespace Probe.Factory
 {

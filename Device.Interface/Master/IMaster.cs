@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OneDriver.Framework.Module;
 
 namespace OneDriver.Device.Interface.Master
 {
-    public interface IMaster
+    public interface IMaster : IDevice
     {
         public Definition.Error SelectSensorAtPort(int portNumber);
         public int ConnectSensor();
@@ -21,6 +22,7 @@ namespace OneDriver.Device.Interface.Master
         public int WriteCommandToSensor<T>(string name, T value);
         public string GetErrorMessage(int errorCode);
         public string?[] GetAllParamsFromSensor();
-        public void LoadDataFromPdb(string server, int deviceId, int protocolId);
+        public Definition.Error LoadDataFromPdb(string server, int deviceId, int protocolId);
+        public Definition.Error LoadDataFromPdb(string server, int protocolId, out string? hashId);
     }
 }

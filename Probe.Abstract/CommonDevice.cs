@@ -1,11 +1,9 @@
-﻿using Device.Interface.DummyDevice;
-using Device.Interface.Probe;
+﻿using OneDriver.Device.Interface.Probe;
 using OneDriver.Framework.Base;
 using OneDriver.Framework.Libs.Validator;
 using OneDriver.Framework.Module;
 using OneDriver.Framework.Module.Parameter;
 using OneDriver.Probe.Abstract.Channels;
-using Serilog;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 

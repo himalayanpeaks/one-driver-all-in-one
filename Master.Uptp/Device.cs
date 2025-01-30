@@ -14,6 +14,7 @@ using ParameterTool.NSwagClass.Generator.Interface;
 using static OneDriver.Device.Interface.Defines;
 using System.Text.RegularExpressions;
 using System.Reflection.Metadata;
+using System.Runtime.CompilerServices;
 
 namespace OneDriver.Master.Uptp
 {
@@ -33,7 +34,8 @@ namespace OneDriver.Master.Uptp
         {
             Parameters.PropertyChanging += Parameters_PropertyChanging;
             Parameters.PropertyChanged += Parameters_PropertyChanged;
-            _deviceHAL.AttachToProcessDataEvent(ProcessDataChanged);
+            Parameters.PropertyReadRequested += Parameters_PropertyReadRequested;
+                _deviceHAL.AttachToProcessDataEvent(ProcessDataChanged);
 
             for (var i = 0; i < _deviceHAL.NumberOfChannels; i++)
             {
@@ -42,6 +44,22 @@ namespace OneDriver.Master.Uptp
                 Elements.Add(item);
                 Elements[i].Parameters.PropertyChanged += Parameters_PropertyChanged;
                 Elements[i].Parameters.PropertyChanging += Parameters_PropertyChanging;
+            }
+        }
+
+        private const int HashIndex = 253;
+        private void Parameters_PropertyReadRequested(object sender, Framework.Base.PropertyReadRequestedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(CommonChannel<CommonSensorParameter>.Parameters.HashId):
+                    var err = _deviceHAL.ReadParam(HashIndex, out var readVal);
+                    if (err == e_error_codes.ERR_NONE)
+                    {
+                        byte[] byteArray = readVal.ToArray();
+                        e.Value = BitConverter.ToString(byteArray).Replace("-", "");
+                    }
+                    break;
             }
         }
 
@@ -58,7 +76,9 @@ namespace OneDriver.Master.Uptp
         {
             switch (e.PropertyName)
             {
-
+                case nameof(Parameters.SelectedChannel):
+                    _deviceHAL.SensorPortNumber = (e_slave_com_port)Parameters.SelectedChannel;
+                    break;
             }
         }
 
@@ -98,7 +118,15 @@ namespace OneDriver.Master.Uptp
         protected override int CloseConnection() => (int)_deviceHAL.Close();
         protected override int OpenConnection(string initString) => (int)_deviceHAL.Open(initString, validator);
 
-        public override int ConnectSensor() => (int)_deviceHAL.ConnectSensorWithMaster();
+        public override int ConnectSensor()
+        {
+            var err = _deviceHAL.ConnectSensorWithMaster();
+            Log.Information(err.ToString());
+
+            return (err == e_com.COM_ONLINE) ? 0
+                : (int)OneDriver.Device.Interface.Master.Definition.Error.SensorCommunicationError;
+        }
+
 
         public override int DisconnectSensor() => (int)_deviceHAL.DisconnectSensorFromMaster();
 

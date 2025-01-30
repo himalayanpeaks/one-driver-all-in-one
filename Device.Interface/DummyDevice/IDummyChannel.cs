@@ -1,6 +1,6 @@
-﻿using static Device.Interface.DummyDevice.Definition;
+﻿using static OneDriver.Device.Interface.DummyDevice.Definition;
 
-namespace Device.Interface.DummyDevice
+namespace OneDriver.Device.Interface.DummyDevice
 {
     public interface IDummyChannel
     {

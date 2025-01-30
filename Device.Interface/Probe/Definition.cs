@@ -1,4 +1,4 @@
-﻿namespace Device.Interface.Probe
+﻿namespace OneDriver.Device.Interface.Probe
 {
     public class Definition
     {

@@ -1,11 +1,11 @@
-﻿using Device.Interface.DummyDevice;
-using OneDriver.DummyDevice.General.Products;
+﻿using OneDriver.DummyDevice.General.Products;
 using OneDriver.Framework.Libs.Validator;
 using OneDriver.DummyDevice.Abstract;
 using OneDriver.DummyDevice.Abstract.Channels;
 using OneDriver.Framework.Module.Parameter;
 using System.Collections.ObjectModel;
 using OneDriver.Device.Interface;
+using OneDriver.Device.Interface.DummyDevice;
 
 namespace OneDriver.DummyDevice.Factory
 {

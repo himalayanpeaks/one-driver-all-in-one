@@ -1,4 +1,4 @@
-﻿using Device.Interface.PowerSupply;
+﻿using OneDriver.Device.Interface.PowerSupply;
 using OneDriver.Framework.Libs.Validator;
 using OneDriver.Framework.Module;
 using OneDriver.Framework.Module.Parameter;

@@ -1,7 +1,7 @@
 ﻿using OneDriver.Framework.Module;
 using System.Windows.Input;
 
-namespace Device.Interface.PowerSupply
+namespace OneDriver.Device.Interface.PowerSupply
 {
     public interface IPowerSupplyViewModel : IDeviceViewModel
     {

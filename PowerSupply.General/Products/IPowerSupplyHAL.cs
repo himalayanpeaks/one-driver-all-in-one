@@ -1,7 +1,7 @@
 ﻿using OneDriver.Framework.Libs.Announcer;
 using OneDriver.Framework.Libs.Validator;
 using OneDriver.Framework.Module;
-using Definition = Device.Interface.PowerSupply.Definition;
+using Definition = OneDriver.Device.Interface.PowerSupply.Definition;
 
 namespace OneDriver.PowerSupply.General.Products
 {

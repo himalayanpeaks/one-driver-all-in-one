@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Device.Interface.HardwareLayer
+namespace OneDriver.Device.Interface.HardwareLayer
 {
 
     public interface IDeviceHAL<TInternalDataHAL> where TInternalDataHAL : BaseDataForAnnouncement, new()

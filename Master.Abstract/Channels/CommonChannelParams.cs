@@ -24,11 +24,7 @@ namespace OneDriver.Master.Abstract.Channels
             set => SetProperty(ref _deviceId, value);
         }
 
-        public string HashId
-        {
-            get => _hashId;
-            set { SetProperty(ref _hashId, value); }
-        }
+        public string HashId => GetProperty<string>();
 
         public List<TSensorParameter> StandardParameterCollection
         {

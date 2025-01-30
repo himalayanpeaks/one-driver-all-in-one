@@ -7,9 +7,8 @@ using OneDriver.Master.Abstract.Channels;
 using OneDriver.Master.Uptp.Channels;
 using OneDriver.Master.Uptp.Products;
 using OneDriver.Toolbox.ParameterDatabank;
-using OneDriver.Framework.Module.Parameter;
 
-namespace Master.Factory
+namespace OneDriver.Master.Factory
 {
     public class BasicMaster
     {
@@ -23,7 +22,16 @@ namespace Master.Factory
         public IEnumerable<CommonSensorParameter> StandardParamCollection { get; set; }
         public IEnumerable<CommonSensorParameter> SystemParamCollection { get; set; }
         public IEnumerable<CommonSensorParameter> CommandCollection { get; set; }
-        public CommonSensorParameter ProcessData { get; set; }
+        public IEnumerable<SensorParameter> ProcessData { get; set; }
+
+        public BaseSensor(IEnumerable<CommonSensorParameter> specificParamCollection, IEnumerable<CommonSensorParameter> standardParamCollection, IEnumerable<CommonSensorParameter> systemParamCollection, IEnumerable<CommonSensorParameter> commandCollection, IEnumerable<SensorParameter> processData)
+        {
+            SpecificParamCollection = specificParamCollection;
+            StandardParamCollection = standardParamCollection;
+            SystemParamCollection = systemParamCollection;
+            CommandCollection = commandCollection;
+            ProcessData = processData;
+        }
     }
 
     public class ObjectCreator
@@ -42,11 +50,8 @@ namespace Master.Factory
                     device.Sensors = new ObservableCollection<BaseSensor>();
                     foreach (var ch in obj.Elements)
                     {
-                        var item = new BaseSensor();
-                        item.SpecificParamCollection = ch.Parameters.SpecificParameterCollection;
-                        item.StandardParamCollection = ch.Parameters.StandardParameterCollection;
-                        item.SystemParamCollection = ch.Parameters.SystemParameterCollection;
-                        item.CommandCollection = ch.Parameters.CommandCollection;
+                        var item = new BaseSensor(ch.Parameters.SpecificParameterCollection, ch.Parameters.SpecificParameterCollection,
+                            ch.Parameters.SystemParameterCollection, ch.Parameters.CommandCollection, ch.ProcessData.PdInCollection);
                         device.Sensors.Add(item);
                     }
                     break;
@@ -58,11 +63,8 @@ namespace Master.Factory
                     device.Sensors = new ObservableCollection<BaseSensor>();
                     foreach (var ch in obj.Elements)
                     {
-                        var item = new BaseSensor();
-                        item.SpecificParamCollection = ch.Parameters.SpecificParameterCollection;
-                        item.StandardParamCollection = ch.Parameters.StandardParameterCollection;
-                        item.SystemParamCollection = ch.Parameters.SystemParameterCollection;
-                        item.CommandCollection = ch.Parameters.CommandCollection;
+                        var item = new BaseSensor(ch.Parameters.SpecificParameterCollection, ch.Parameters.SpecificParameterCollection,
+                            ch.Parameters.SystemParameterCollection, ch.Parameters.CommandCollection, ch.ProcessData.PdInCollection);
                         device.Sensors.Add(item);
                     }
                     break;

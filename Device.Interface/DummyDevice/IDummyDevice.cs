@@ -1,4 +1,4 @@
-﻿namespace Device.Interface.DummyDevice
+﻿namespace OneDriver.Device.Interface.DummyDevice
 {
     public interface IDummyDevice
     {

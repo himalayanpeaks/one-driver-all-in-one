@@ -93,6 +93,8 @@ namespace OneDriver.Master.Uptp.Products
             return Definition.e_error_codes.ERR_NONE;
         }
 
+        public Definition.e_slave_com_port SensorPortNumber { get; set; }
+
         public Definition.e_error_codes PowerOff()
         {
             throw new NotImplementedException();

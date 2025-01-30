@@ -11,5 +11,6 @@ namespace OneDriver.Framework.Module
     {
         DeviceError Connect(string initString);
         DeviceError Disconnect();
+
     }
 }

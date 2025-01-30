@@ -30,7 +30,7 @@ namespace OneDriver.Master.Uptp.Products
             else
             {
                 Log.Information("UPT connected to PC");
-                StartProcessDataAnnouncer();
+                
             }
 
             return ConnectionError.NoError;
@@ -191,9 +191,10 @@ namespace OneDriver.Master.Uptp.Products
 
         protected override void FetchDataForTunnel(out InternalDataHAL data)
         {
-            ReadParam(_processDataIndex, out var readBuffer);
-            data = new InternalDataHAL((int)SensorPortNumber, _processDataIndex, readBuffer);
+                ReadParam(_processDataIndex, out var readBuffer);
+                data = new InternalDataHAL((int)SensorPortNumber, _processDataIndex, readBuffer);
         }
+
         public e_error_codes ReadParam(ushort index, out byte[] data)
         {
             var response = new s_sspp_resp();
@@ -286,6 +287,7 @@ namespace OneDriver.Master.Uptp.Products
                         Log.Information(e_com.COM_ONLINE + ". Time taken to connect " +
                                         (end - start).TotalSeconds);
                         ReadParam(5, out var _);
+                        StartProcessDataAnnouncer();
                         return e_com.COM_ONLINE;
                     }
                     communicationStatus = (e_com)aData[0];
@@ -320,6 +322,7 @@ namespace OneDriver.Master.Uptp.Products
                 Marshal.Copy(uptpResponse.p_obj_data, aData, 0, uptpResponse.obj_len);
             if (uptpResponse.obj_len == 1 && aData[0] == (byte)e_com.COM_OFFLINE)
             {
+                StopProcessDataAnnouncer();
                 Log.Information(e_com.COM_OFFLINE + ". Sensor disconnected");
                 return (e_com)aData[0];
             }

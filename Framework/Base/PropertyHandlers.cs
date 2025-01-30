@@ -17,7 +17,23 @@ namespace OneDriver.Framework.Base
         {
             PropertyChanging?.Invoke(this, new PropertyValidationEventArgs(propertyName, newValue));
         }
+        protected T GetProperty<T>([CallerMemberName] string propertyName = null)
+        {
+            return OnPropertyRequested<T>(propertyName);
+        }
+        protected virtual T OnPropertyRequested<T>([CallerMemberName] string propertyName = null)
+        {
+            var e = new PropertyReadRequestedEventArgs(propertyName);
+            PropertyReadRequested?.Invoke(this, e);
 
+            return (T)e.Value;
+        }
+        public event PropertyReadRequestedEventHandler PropertyReadRequested;
+
+        protected virtual void OnPropertyReadRequest(object newValue, [CallerMemberName] string propertyName = null)
+        {
+            PropertyReadRequested?.Invoke(this, new PropertyReadRequestedEventArgs(propertyName));
+        }
         public bool SetProperty<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
         {
             if (EqualityComparer<T>.Default.Equals(field, value))

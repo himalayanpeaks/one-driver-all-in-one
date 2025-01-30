@@ -11,6 +11,7 @@ namespace OneDriver.Master.Uptp
     {
         public DeviceParams(string name) : base(name)
         {
+            ProtocolId = 1;
         }
     }
 }
