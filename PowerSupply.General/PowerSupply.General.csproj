@@ -8,8 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.IO.Ports" Version="9.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Device.Interface\Device.Interface.csproj" />
     <ProjectReference Include="..\PowerSupply.Abstract\PowerSupply.Abstract.csproj" />
+    <ProjectReference Include="..\Toolbox\Toolbox.csproj" />
   </ItemGroup>
 
 </Project>

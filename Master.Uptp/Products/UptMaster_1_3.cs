@@ -25,7 +25,7 @@ namespace OneDriver.Master.Uptp.Products
             if (err != e_error_codes.ERR_NONE)
             {
                 Log.Error("UPT master - PC connection error: " + err + ", error code " + Convert.ToInt16(err));
-                return ConnectionError.CommunicaionError;
+                return ConnectionError.CommunicationError;
             }
             else
             {
@@ -42,7 +42,7 @@ namespace OneDriver.Master.Uptp.Products
             if (err != e_error_codes.ERR_NONE)
             {
                 Log.Error("UPT master - PC disconnect error: " + err + ", error code " + Convert.ToInt16(err));
-                return ConnectionError.CommunicaionError;
+                return ConnectionError.CommunicationError;
             }
             else
             {

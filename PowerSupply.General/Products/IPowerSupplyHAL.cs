@@ -9,17 +9,11 @@ namespace OneDriver.PowerSupply.General.Products
     {
         ConnectionError Open(string initString, IValidator validator);
         ConnectionError Close();
-        public double[] VoltageLimit { get; }
-        public double[] CurrentLimit { get; }
-        public double[] ActualVoltage { get; }
-        public double[] ActualCurrent { get; }
         public double MaxCurrentInAmpere { get; }
         public double MaxVoltageInVolts { get; }
         public string Identification { get; }
         public Definition.ControlMode[] Mode { get; }
-
         public uint NumberOfChannels { get; }
-        public int GetError();
         public string GetErrorMessage(int code);
         public void SetDesiredVoltage(double channelNumber, double volts);
         public double GetDesiredVoltage(double channelNumber);
@@ -27,7 +21,6 @@ namespace OneDriver.PowerSupply.General.Products
         public void AllOn();
         public void StartProcessDataAnnouncer();
         public void StopProcessDataAnnouncer();
-
         public void AttachToProcessDataEvent(DataTunnel<InternalDataHAL>.DataEventHandler processDataEventHandler);
     }
 }

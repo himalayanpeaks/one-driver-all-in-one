@@ -37,7 +37,7 @@ namespace OneDriver.Master.IoLink.Products
             _handle = IOL_Create(comport);
             Log.Error("TMG master - PC connection: " + (t_eInternal_Return_Codes)_handle + ", error code " + _handle);
             if (_handle <= 0)
-                return ConnectionError.CommunicaionError;
+                return ConnectionError.CommunicationError;
             return ConnectionError.NoError;
         }
 
