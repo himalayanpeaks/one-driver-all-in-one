@@ -8,11 +8,7 @@ namespace OneDriver.PowerSupply.General.Products
 {
     public class Definition
     {
-        public enum ControlMode
-        {
-            Voltage,
-            Current
-        }
+
         public enum ErrorState
         {
             NoError,

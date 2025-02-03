@@ -19,7 +19,8 @@ namespace OneDriver.Framework.Module
             InvalidResponse,
             Timeout,
             UnknownError,
-            AlreadyConnected
+            AlreadyConnected,
+            DataIsNull
         }
         public enum DeviceState
         {

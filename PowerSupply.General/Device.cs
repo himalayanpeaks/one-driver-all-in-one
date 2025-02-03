@@ -6,6 +6,9 @@ using OneDriver.PowerSupply.General.Channels;
 using OneDriver.PowerSupply.General.Products;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Security.Cryptography.X509Certificates;
+using OneDriver.PowerSupply.Abstract.Channels;
+using Serilog;
 
 namespace OneDriver.PowerSupply.General
 {
@@ -31,8 +34,23 @@ namespace OneDriver.PowerSupply.General
                 Elements.Add(item);
                 Elements[i].Parameters.PropertyChanged += Parameters_PropertyChanged;
                 Elements[i].Parameters.PropertyChanging += Parameters_PropertyChanging;
-            }
+                Elements[i].ProcessData.PropertyReadRequested += Parameters_PropertyReadRequested;
 
+            }   
+
+        }
+
+        private void Parameters_PropertyReadRequested(object sender, PropertyReadRequestedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(Parameters.MaxVolts):
+                    e.Value = _powerSupplyHAL.MaxVoltageInVolts;
+                    break;
+                case nameof(Parameters.MaxAmps):
+                    e.Value = _powerSupplyHAL.MaxCurrentInAmpere;
+                    break;
+            }
         }
 
         private void ProcessDataChanged(object sender, InternalDataHAL e)
@@ -44,27 +62,60 @@ namespace OneDriver.PowerSupply.General
 
         private void Parameters_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            int index = -1;
+            switch (e.PropertyName)
+            {
+                case nameof(ChannelParams.DesiredAmps):
+                    var channel = this.Elements.FirstOrDefault(x => x.Parameters == (ChannelParams)sender);
+                    index = this.Elements.IndexOf(channel);
+                    _powerSupplyHAL.SetDesiredAmps(index, (((ChannelParams)sender).DesiredAmps));
+                    break;
+                case nameof(ChannelParams.DesiredVolts):
+                    channel = this.Elements.FirstOrDefault(x => x.Parameters == (ChannelParams)sender);
+                    index = this.Elements.IndexOf(channel);
+                    _powerSupplyHAL.SetDesiredVolts(index, (((ChannelParams)sender).DesiredVolts));
+                    break;
+                case nameof(ChannelParams.ControlMode):
+                    channel = this.Elements.FirstOrDefault(x => x.Parameters == (ChannelParams)sender);
+                    index = this.Elements.IndexOf(channel);
+                    _powerSupplyHAL.SetMode(index, (((ChannelParams)sender).ControlMode));
+                    break;
+            }
         }
 
         private void Parameters_PropertyChanging(object sender, PropertyValidationEventArgs e)
         {
-            throw new NotImplementedException();
+            switch (e.PropertyName)
+            {
+                case nameof(BaseChannelWithProcessData<ChannelParams, ChannelProcessData>.Parameters.DesiredAmps):
+                    if ((double)e.NewValue > Parameters.MaxAmps)
+                    {
+                        Log.Error("Desired Amps is greater than Max Amps");
+                        throw new ArgumentOutOfRangeException(e.PropertyName);
+                    }
+
+                    break;
+                case nameof(BaseChannelWithProcessData<ChannelParams, ChannelProcessData>.Parameters.DesiredVolts):
+                    if ((double)e.NewValue > Parameters.MaxVolts)
+                    {
+                        Log.Error("Desired Volts is greater than Max Volts");
+                        throw new ArgumentOutOfRangeException(e.PropertyName);
+                    }
+                    break;
+            }
         }
 
-        IPowerSupplyHAL _powerSupplyHAL;
+        readonly IPowerSupplyHAL _powerSupplyHAL;
         protected override int CloseConnection() => (int)_powerSupplyHAL.Close();
 
         protected override int OpenConnection(string initString) => (int)_powerSupplyHAL.Open(initString, validator);
 
-        public override int AllChannelsOff()
-        {
-            throw new NotImplementedException();
-        }
+        public override int AllChannelsOff() => (int)_powerSupplyHAL.AllOff();
 
-        public override int AllChannelsOn()
-        {
-            throw new NotImplementedException();
-        }
+        public override int SetVolts(int channelNumber, double volts) => (int)_powerSupplyHAL.SetDesiredVolts(channelNumber, volts);
+
+        public override int SetAmps(int channelNumber, double amps) => (int)_powerSupplyHAL.SetDesiredAmps(channelNumber, amps);
+
+        public override int AllChannelsOn() => (int)_powerSupplyHAL.AllOn();
     }
 }

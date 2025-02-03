@@ -1,8 +1,6 @@
-﻿using OneDriver.Device.Interface.PowerSupply;
-using OneDriver.Framework.Libs.Announcer;
+﻿using OneDriver.Framework.Libs.Announcer;
 using OneDriver.Framework.Libs.Validator;
 using OneDriver.Framework.Module;
-using System.Security.Cryptography;
 
 namespace OneDriver.PowerSupply.General.Products
 {
@@ -19,6 +17,11 @@ namespace OneDriver.PowerSupply.General.Products
         public double MaxCurrentInAmpere { get; }
 
         public double MaxVoltageInVolts { get; }
+        public Framework.Module.Definition.DeviceError SetMode(double channelNumber, OneDriver.Device.Interface.PowerSupply.Definition.ControlMode mode)
+        {
+            throw new NotImplementedException();
+        }
+
         public uint NumberOfChannels { get; } = 2;
         public string Identification { get; }
 
@@ -35,12 +38,12 @@ namespace OneDriver.PowerSupply.General.Products
             VoltageLimit[1] = 40;
             CurrentLimit[0] = 0;
             CurrentLimit[1] = 3;
-            Mode = new Definition.ControlMode[NumberOfChannels];
-            Mode[0] = Definition.ControlMode.Voltage;
-            Mode[1] = Definition.ControlMode.Current;
+            Mode = new OneDriver.Device.Interface.PowerSupply.Definition.ControlMode[NumberOfChannels];
+            Mode[0] = OneDriver.Device.Interface.PowerSupply.Definition.ControlMode.Voltage;
+            Mode[1] = OneDriver.Device.Interface.PowerSupply.Definition.ControlMode.Current;
         }
 
-        public Definition.ControlMode[] Mode { get; }
+        public OneDriver.Device.Interface.PowerSupply.Definition.ControlMode[] Mode { get; }
 
         private double[] SetVoltage { get; }
         private double[] SetCurrent { get; }
@@ -52,12 +55,12 @@ namespace OneDriver.PowerSupply.General.Products
                 double voltage = 0, current = 0;
                 Random r = new Random();
                 int channel = r.Next(0, 2);
-                if (Mode[channel] == Definition.ControlMode.Voltage)
+                if (Mode[channel] == OneDriver.Device.Interface.PowerSupply.Definition.ControlMode.Voltage)
                 {
                     voltage = VoltageLimit[channel];
                     current = r.NextDouble() * MaxCurrentInAmpere;
                 }
-                if (Mode[channel] == Definition.ControlMode.Current)
+                if (Mode[channel] == OneDriver.Device.Interface.PowerSupply.Definition.ControlMode.Current)
                 {
                     current = CurrentLimit[channel];
                     voltage = r.NextDouble() * MaxVoltageInVolts;
@@ -66,14 +69,20 @@ namespace OneDriver.PowerSupply.General.Products
 
             }
         }
-        public void AllOff()
-        {
 
+        public Framework.Module.Definition.DeviceError GetActualAmps(double channelNumber, out double amps)
+        {
+            throw new NotImplementedException();
         }
 
-        public void AllOn()
+        public Framework.Module.Definition.DeviceError AllOff()
         {
+            return Framework.Module.Definition.DeviceError.NoError;
+        }
 
+        public Framework.Module.Definition.DeviceError AllOn()
+        {
+            return Framework.Module.Definition.DeviceError.NoError;
         }
 
         public void AttachToProcessDataEvent(DataEventHandler processDataEventHandler) => DataEvent += processDataEventHandler;
@@ -86,9 +95,16 @@ namespace OneDriver.PowerSupply.General.Products
             return ConnectionError.NoError;
         }
 
-        public double GetDesiredVoltage(double channelNumber)
+        public Framework.Module.Definition.DeviceError GetActualVolts(double channelNumber, out double volts)
         {
-            return VoltageLimit[(int)channelNumber];
+            volts = VoltageLimit[(int)channelNumber];
+            return Framework.Module.Definition.DeviceError.NoError;
+        }
+
+        public Framework.Module.Definition.DeviceError SetDesiredAmps(double channelNumber, double amps)
+        {
+            amps = VoltageLimit[(int)channelNumber];
+            return Framework.Module.Definition.DeviceError.NoError;
         }
 
         public int GetError()
@@ -113,9 +129,10 @@ namespace OneDriver.PowerSupply.General.Products
             return "0";
         }
 
-        public void SetDesiredVoltage(double channelNumber, double volts)
+        public Framework.Module.Definition.DeviceError SetDesiredVolts(double channelNumber, double volts)
         {
             VoltageLimit[(int)channelNumber] = volts;
+            return Framework.Module.Definition.DeviceError.NoError;
         }
 
         public void StartProcessDataAnnouncer() => StartAnnouncingData();
@@ -123,8 +140,15 @@ namespace OneDriver.PowerSupply.General.Products
 
         public void StopProcessDataAnnouncer() => StopAnnouncingData();
 
-        public void Write(string data)
+        public Framework.Module.Definition.DeviceError Write(string data)
         {
+            return Framework.Module.Definition.DeviceError.NoError;
+        }
+
+        public Framework.Module.Definition.DeviceError Read(out string readData)
+        {
+            readData = "0";
+            return Framework.Module.Definition.DeviceError.NoError;
         }
     }
 }

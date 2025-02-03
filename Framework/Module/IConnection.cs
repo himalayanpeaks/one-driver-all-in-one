@@ -53,11 +53,11 @@ namespace OneDriver.Framework.Module
 
     public interface IStringReader
     {
-        string Read();
+        Definition.DeviceError Read(out string readData);
     }
 
     public interface IStringWriter
     {
-        void Write(string data);
+        Definition.DeviceError Write(string data);
     }
 }

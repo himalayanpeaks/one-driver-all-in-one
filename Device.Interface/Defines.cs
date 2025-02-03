@@ -5,6 +5,7 @@
         public enum Devices
         {
             PowerSupplyVirtual,
+            PowerSupplyKd3005p,
             ProbeVirtual,
             DummyDeviceVirtual,
             MasterUptVirtual,
