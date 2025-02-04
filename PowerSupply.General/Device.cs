@@ -25,17 +25,18 @@ namespace OneDriver.PowerSupply.General
         {
             Parameters.PropertyChanging += Parameters_PropertyChanging;
             Parameters.PropertyChanged += Parameters_PropertyChanged;
+            Parameters.PropertyReadRequested += Parameters_PropertyReadRequested;
             _powerSupplyHAL.AttachToProcessDataEvent(ProcessDataChanged);
 
 
             for (var i = 0; i < _powerSupplyHAL.NumberOfChannels; i++)
             {
                 var item = new BaseChannelWithProcessData<ChannelParams, ChannelProcessData>(new ChannelParams("Ch" + i.ToString()), new ChannelProcessData());
+                
+                item.Parameters.PropertyChanged += Parameters_PropertyChanged;
+                item.Parameters.PropertyChanging += Parameters_PropertyChanging;
+                item.Parameters.PropertyReadRequested += Parameters_PropertyReadRequested;
                 Elements.Add(item);
-                Elements[i].Parameters.PropertyChanged += Parameters_PropertyChanged;
-                Elements[i].Parameters.PropertyChanging += Parameters_PropertyChanging;
-                Elements[i].ProcessData.PropertyReadRequested += Parameters_PropertyReadRequested;
-
             }   
 
         }

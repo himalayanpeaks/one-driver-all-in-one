@@ -14,7 +14,7 @@ myPowerSupply.Elements[0].Parameters.DesiredVolts = 5;
 
 myPowerSupply.Elements[0].Parameters.ControlMode = Definition.ControlMode.Current;
 myPowerSupply.Methods.SetAmps(0, 0.4);
-myPowerSupply.Elements[0].Parameters.DesiredVolts = 0.2;
+myPowerSupply.Elements[0].Parameters.DesiredAmps = 0.2;
 while (true)
 {
     var curr1 = myPowerSupply.Elements[0].ProcessData.Current;

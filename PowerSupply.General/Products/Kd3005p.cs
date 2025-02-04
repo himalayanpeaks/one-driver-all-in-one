@@ -185,10 +185,7 @@ namespace OneDriver.PowerSupply.General.Products
             if (err != Framework.Module.Definition.DeviceError.NoError)
                 return err;
             else
-            {
-                Write("ISET" + (channelNumber + 1));
                 Write("OUT" + (channelNumber + 1));
-            }
 
             return Framework.Module.Definition.DeviceError.NoError;
         }
@@ -218,10 +215,7 @@ namespace OneDriver.PowerSupply.General.Products
             if(err != Framework.Module.Definition.DeviceError.NoError)
                 return err;
             else
-            {
-                Write("ISET" + (channelNumber + 1));
                 Write("OUT" + (channelNumber + 1));
-            }
             return Framework.Module.Definition.DeviceError.NoError;
         }
 
