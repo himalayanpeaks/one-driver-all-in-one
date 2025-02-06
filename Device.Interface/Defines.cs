@@ -10,6 +10,7 @@
             DummyDeviceVirtual,
             MasterUptVirtual,
             MasterUpt_1_3,
+            MasterIoLinkTmg,
         }
 
         public enum AccessType

@@ -93,7 +93,10 @@ namespace OneDriver.Master.IoLink
                     break;
             }
         }
-
+        public t_eInternal_Return_Codes AddProcessDataIndex(int processDataIndex)
+        {
+            return DeviceHAL.SetProcessData((ushort)processDataIndex, out var length);
+        }
         protected override void AddData(ParameterDetailsResponse paramDetail, CommonSensorParameter commonParameter)
         {
             commonParameter.PropertyChanging += Parameters_PropertyChanging;

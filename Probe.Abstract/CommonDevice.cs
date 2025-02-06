@@ -43,5 +43,9 @@ namespace OneDriver.Probe.Abstract
             }
         }
 
+        public double ReadTemperature(string channel)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -31,7 +31,7 @@ namespace OneDriver.Master.IoLink.Products
         t_eInternal_Return_Codes GetMasterInfo(out string version, out byte major, out byte minor, out byte build);
         t_eInternal_Return_Codes GetDllInfo(out string build, out string aDate, out string version);
         t_eInternal_Return_Codes SetMode(t_eTargetMode mode);
-
+        t_eInternal_Return_Codes SetProcessData(ushort index, out int lengthInBytes);
 
         t_eInternal_Return_Codes SetCommand(t_eCommands command);
         t_eInternal_Return_Codes GetSensorStatus(out uint sensorStatus);

@@ -394,14 +394,16 @@ namespace OneDriver.Master.Abstract
 
         private TSensorParam FindParam(string name)
         {
-            var parameter = Elements[Parameters.SelectedChannel].Parameters.SpecificParameterCollection
-                                .FirstOrDefault(x => x.Name == name) ??
-                            Elements[Parameters.SelectedChannel].Parameters.SystemParameterCollection
-                                .FirstOrDefault(x => x.Name == name) ??
-                            Elements[Parameters.SelectedChannel].Parameters.StandardParameterCollection
-                                .FirstOrDefault(x => x.Name == name);
+            TSensorParam? parameter = new TSensorParam();
 
-            return parameter ?? new TSensorParam();
+            if (!Object.Equals((Elements[Parameters.SelectedChannel].Parameters.SpecificParameterCollection.Find(x => x.Name == name)), null))
+                parameter = Elements[Parameters.SelectedChannel].Parameters.SpecificParameterCollection.Find(x => x.Name == name);
+            if (!Object.Equals((Elements[Parameters.SelectedChannel].Parameters.SystemParameterCollection.Find(x => x.Name == name)), null))
+                parameter = Elements[Parameters.SelectedChannel].Parameters.SystemParameterCollection.Find(x => x.Name == name);
+            if (!Object.Equals((Elements[Parameters.SelectedChannel].Parameters.StandardParameterCollection.Find(x => x.Name == name)), null))
+                parameter = Elements[Parameters.SelectedChannel].Parameters.StandardParameterCollection.Find(x => x.Name == name);
+
+            return parameter;
         }
 
         public int WriteParameterToSensor(string name, string value)

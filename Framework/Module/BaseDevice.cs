@@ -41,6 +41,8 @@ namespace OneDriver.Framework.Module
                 Log.Error("Error opening connection");
                 return DeviceError.ConnectionError;
             }
+
+            Parameters.IsConnected = true;
             return DeviceError.NoError;
         }
 

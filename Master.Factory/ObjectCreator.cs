@@ -4,6 +4,7 @@ using OneDriver.Device.Interface.Master;
 using OneDriver.Framework.Libs.Validator;
 using OneDriver.Master.Abstract;
 using OneDriver.Master.Abstract.Channels;
+using OneDriver.Master.IoLink.Products;
 using OneDriver.Master.Uptp.Channels;
 using OneDriver.Master.Uptp.Products;
 using OneDriver.Toolbox.ParameterDatabank;
@@ -22,9 +23,9 @@ namespace OneDriver.Master.Factory
         public IEnumerable<CommonSensorParameter> StandardParamCollection { get; set; }
         public IEnumerable<CommonSensorParameter> SystemParamCollection { get; set; }
         public IEnumerable<CommonSensorParameter> CommandCollection { get; set; }
-        public IEnumerable<SensorParameter> ProcessData { get; set; }
+        public IEnumerable<CommonSensorParameter> ProcessData { get; set; }
 
-        public BaseSensor(IEnumerable<CommonSensorParameter> specificParamCollection, IEnumerable<CommonSensorParameter> standardParamCollection, IEnumerable<CommonSensorParameter> systemParamCollection, IEnumerable<CommonSensorParameter> commandCollection, IEnumerable<SensorParameter> processData)
+        public BaseSensor(IEnumerable<CommonSensorParameter> specificParamCollection, IEnumerable<CommonSensorParameter> standardParamCollection, IEnumerable<CommonSensorParameter> systemParamCollection, IEnumerable<CommonSensorParameter> commandCollection, IEnumerable<CommonSensorParameter> processData)
         {
             SpecificParamCollection = specificParamCollection;
             StandardParamCollection = standardParamCollection;
@@ -42,8 +43,23 @@ namespace OneDriver.Master.Factory
             
             switch (deviceType)
             {
+                case Defines.Devices.MasterIoLinkTmg:
+                    var obj1 = new IoLink.Device("TmgMaster", new ComportValidator(), new TmgMaster2(),
+                        new ParamDb());
+                    device.Methods = obj1;
+                    device.Parameters = obj1.Parameters;
+                    device.Sensors = new ObservableCollection<BaseSensor>();
+                    foreach (var ch in obj1.Elements)
+                    {
+                        var item = new BaseSensor(ch.Parameters.SpecificParameterCollection, ch.Parameters.SpecificParameterCollection,
+                            ch.Parameters.SystemParameterCollection, 
+                            ch.Parameters.CommandCollection, 
+                            ch.ProcessData.PdInCollection);
+                        device.Sensors.Add(item);
+                    }
+                    break;
                 case Defines.Devices.MasterUpt_1_3:
-                    var obj = new OneDriver.Master.Uptp.Device("UptMaster", new ComportValidator(), new UptMaster_1_3(),
+                    var obj = new Uptp.Device("UptMaster", new ComportValidator(), new UptMaster_1_3(),
                         new ParamDb());
                     device.Methods = obj;
                     device.Parameters = obj.Parameters;
@@ -56,7 +72,8 @@ namespace OneDriver.Master.Factory
                     }
                     break;
                 case Defines.Devices.MasterUptVirtual:
-                    obj = new OneDriver.Master.Uptp.Device("VirtualUptMaster", new ComportValidator(), new UptMaster_1_3(),
+                    obj = new Uptp.Device("VirtualUptMaster", new ComportValidator(),
+                        new UptMaster_1_3(),
                         new ParamDb());
                     device.Methods = obj;
                     device.Parameters = obj.Parameters;

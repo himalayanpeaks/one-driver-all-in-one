@@ -15,7 +15,7 @@ namespace OneDriver.Master.Uptp.Products
 
         public UptMaster_1_3()
         {
-            NumberOfChannels = 2;
+            NumberOfChannels = 1;
         }
         public ConnectionError Open(string initString, IValidator validator)
         {
@@ -287,7 +287,6 @@ namespace OneDriver.Master.Uptp.Products
                         Log.Information(e_com.COM_ONLINE + ". Time taken to connect " +
                                         (end - start).TotalSeconds);
                         ReadParam(5, out var _);
-                        StartProcessDataAnnouncer();
                         return e_com.COM_ONLINE;
                     }
                     communicationStatus = (e_com)aData[0];

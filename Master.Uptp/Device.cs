@@ -146,6 +146,10 @@ namespace OneDriver.Master.Uptp
 
         public override int DisconnectSensor() => (int)DeviceHAL.DisconnectSensorFromMaster();
 
+        public void AddProcessDataIndex(int processDataIndex)
+        {
+            e_error_codes err = DeviceHAL.SetProcessData((ushort)processDataIndex, out var length);
+        }
 
         private int WriteParameterToSensor(SensorParameter parameter)
         {

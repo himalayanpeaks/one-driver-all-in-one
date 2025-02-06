@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Device.Interface\Device.Interface.csproj" />
+    <ProjectReference Include="..\Master.IoLink\Master.IoLink.csproj" />
     <ProjectReference Include="..\Master.Uptp\Master.Uptp.csproj" />
   </ItemGroup>
 

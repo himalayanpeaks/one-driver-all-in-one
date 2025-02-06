@@ -8,6 +8,7 @@ using OneDriver.Framework.ModuleBuilder;
 using Serilog;
 using System.Reflection.Metadata;
 using static OneDriver.Device.Interface.Master.Definition;
+using System.Xml.Linq;
 
 
 namespace OneDriver.Master.IoLink.Products
@@ -24,7 +25,7 @@ namespace OneDriver.Master.IoLink.Products
                 Log.Error("Process data index " + ProcessDataIndex + " couldn't be read: " + err);
         }
         private readonly t_eIoLinkVersion _mIoLinkDeviceVersion = t_eIoLinkVersion.VERSION_1_1;
-        private int _handle;
+        private int _handle = 0;
 
         public TmgMaster2()
         {
@@ -126,8 +127,6 @@ namespace OneDriver.Master.IoLink.Products
             Definition.t_eIoLinkVersion crid)
         {
             var portConfig = new TPortConfiguration();
-            GetMode(out _, out _, out _, out _, out _, out _, out _, out _);
-            ReadRecord(0, 2, out var _, out var _, out var _, out _);
             portConfig.PortModeDetails = 33;
             portConfig.TargetMode = (byte)mode;
             if (_mIoLinkDeviceVersion == t_eIoLinkVersion.VERSION_1_0)
@@ -151,9 +150,29 @@ namespace OneDriver.Master.IoLink.Products
 
         public Definition.t_eInternal_Return_Codes SetMode(Definition.t_eTargetMode mode, uint cycleTimeInMicroSec)
         {
-            throw new NotImplementedException();
+            Int32 status = 0;
+            TPortConfiguration _portConfig = new TPortConfiguration();
+
+            _portConfig.PortModeDetails = (byte)(cycleTimeInMicroSec);
+            _portConfig.TargetMode = (byte)mode;
+            _portConfig.CRID = (byte)0x11;
+            _portConfig.DSConfigure = (byte)t_eDsConfigureCommands.DS_CFG_ENABLED;
+            _portConfig.InspectionLevel = (byte)t_eValidationMode.SM_VALIDATION_MODE_NONE;
+            _portConfig.InputLength = 32;
+            _portConfig.OutputLength = 32;
+
+            status = IOL_SetPortConfig(_handle, mDevicePort, ref _portConfig);
+            return GetErrorMessage(status);
         }
 
+        public t_eInternal_Return_Codes GetErrorMessage(int aStatusCode)
+        {
+            return Enum.IsDefined(typeof(t_eInternal_Return_Codes), aStatusCode)
+                ? (t_eInternal_Return_Codes)aStatusCode
+                : t_eInternal_Return_Codes.No_details;
+        }
+
+        public UInt32 mDevicePort = 0;
         public Definition.t_eInternal_Return_Codes GetMode(out string aComPort, out byte[] aDeviceId, out byte[] aVendorId,
             out byte[] aFunctionId, out byte aActualMode, out byte aSensorState, out byte aMasterCycle, out byte aBaudRate)
         {
@@ -172,7 +191,32 @@ namespace OneDriver.Master.IoLink.Products
 
         public Definition.t_eInternal_Return_Codes SetMode(Definition.t_eTargetMode mode)
         {
-            return t_eInternal_Return_Codes.RETURN_OK;
+            var portConfig = new TPortConfiguration();
+            portConfig.PortModeDetails = 0;
+            portConfig.TargetMode = (byte)mode;
+            portConfig.CRID = 0x11;
+            portConfig.DSConfigure = (byte)t_eDsConfigureCommands.DS_CFG_ENABLED;
+            portConfig.InspectionLevel = (byte)t_eValidationMode.SM_VALIDATION_MODE_NONE;
+            portConfig.InputLength = 32;
+            portConfig.OutputLength = 32;
+
+            var status = IOL_SetPortConfig(_handle, (uint)SensorPortNumber, ref portConfig);
+            return (t_eInternal_Return_Codes)status;
+        }
+        private ushort _processDataIndex { get; set; }
+
+        public t_eInternal_Return_Codes SetProcessData(ushort index, out int lengthInBytes)
+        {
+            var err = ReadRecord(index, 0, out var readBuffer, out _, out _, out _);
+            lengthInBytes = 0;
+            if (err == t_eInternal_Return_Codes.RETURN_OK)
+            {
+                _processDataIndex = index;
+                if (readBuffer != null) lengthInBytes = readBuffer.Length;
+            }
+            else
+                lengthInBytes = 0;
+            return err;
         }
 
         public Definition.t_eInternal_Return_Codes SetCommand(Definition.t_eCommands command)
