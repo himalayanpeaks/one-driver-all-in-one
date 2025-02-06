@@ -20,6 +20,15 @@ namespace OneDriver.DummyDevice.Abstract
         {
             Parameters.PropertyChanged += Parameters_PropertyChanged;
             Parameters.PropertyChanging += Parameters_PropertyChanging;
+            Parameters.PropertyReadRequested += Parameters_PropertyReadRequested;
+        }
+
+        private void Parameters_PropertyReadRequested(object sender, PropertyReadRequestedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+
+            }
         }
 
         /// <summary>

@@ -8,8 +8,6 @@ namespace OneDriver.PowerSupply.General.Products
 {
     public interface IPowerSupplyHAL : IDeviceHAL<InternalDataHAL>, IStringReader, IStringWriter
     {
-        ConnectionError Open(string initString, IValidator validator);
-        ConnectionError Close();
         public string Identification { get; }
         public OneDriver.Device.Interface.PowerSupply.Definition.ControlMode[] Mode { get; }
         public Framework.Module.Definition.DeviceError SetMode(double channelNumber, OneDriver.Device.Interface.PowerSupply.Definition.ControlMode mode);

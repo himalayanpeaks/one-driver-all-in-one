@@ -11,7 +11,8 @@ namespace OneDriver.Framework.Module
     {
         public TProcessData ProcessData { get; set; }
 
-        public BaseDeviceWithProcessData(TParams deviceParams, IValidator validator, TProcessData processData) : base(deviceParams, validator)
+        public BaseDeviceWithProcessData(TParams deviceParams, IValidator validator, 
+            TProcessData processData) : base(deviceParams, validator)
         {
             ProcessData = processData;
         }
