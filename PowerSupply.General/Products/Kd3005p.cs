@@ -165,10 +165,6 @@ namespace OneDriver.PowerSupply.General.Products
         {
             return Framework.Module.Definition.DeviceError.NoError;
         }
-
-        public uint NumberOfChannels { get; }
-
-
         public string GetErrorMessage(int code)
         {
             if (Enum.IsDefined(typeof(Framework.Module.Definition.DeviceError), code))
@@ -252,5 +248,7 @@ namespace OneDriver.PowerSupply.General.Products
 
         public void AttachToProcessDataEvent(DataEventHandler processDataEventHandler)
             => DataEvent += processDataEventHandler;
+
+        public int NumberOfChannels { get; }
     }
 }

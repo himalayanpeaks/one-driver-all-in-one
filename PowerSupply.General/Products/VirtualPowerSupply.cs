@@ -22,7 +22,7 @@ namespace OneDriver.PowerSupply.General.Products
             throw new NotImplementedException();
         }
 
-        public uint NumberOfChannels { get; } = 2;
+        public int NumberOfChannels { get; } = 2;
         public string Identification { get; }
 
         public VirtualPowerSupply()

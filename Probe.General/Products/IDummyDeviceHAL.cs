@@ -7,6 +7,5 @@ namespace OneDriver.Probe.General.Products
 {
     public interface IDummyDeviceHAL : IDeviceHAL<InternalProbeDataHAL>
     {
-        void HALFunction();
     }
 }

@@ -13,7 +13,5 @@ namespace OneDriver.Probe.General.Channels
         public ChannelParams(string name) : base(name)
         {
         }
-
-        public int MyProperty { get; set; }
     }
 }

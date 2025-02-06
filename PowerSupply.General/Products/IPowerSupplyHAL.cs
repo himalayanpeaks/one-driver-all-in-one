@@ -1,18 +1,18 @@
-﻿using OneDriver.Framework.Libs.Announcer;
+﻿using OneDriver.Device.Interface.HardwareLayer;
+using OneDriver.Framework.Libs.Announcer;
 using OneDriver.Framework.Libs.Validator;
 using OneDriver.Framework.Module;
 using Definition = OneDriver.Device.Interface.PowerSupply.Definition;
 
 namespace OneDriver.PowerSupply.General.Products
 {
-    public interface IPowerSupplyHAL : IStringReader, IStringWriter
+    public interface IPowerSupplyHAL : IDeviceHAL<InternalDataHAL>, IStringReader, IStringWriter
     {
         ConnectionError Open(string initString, IValidator validator);
         ConnectionError Close();
         public string Identification { get; }
         public OneDriver.Device.Interface.PowerSupply.Definition.ControlMode[] Mode { get; }
         public Framework.Module.Definition.DeviceError SetMode(double channelNumber, OneDriver.Device.Interface.PowerSupply.Definition.ControlMode mode);
-        public uint NumberOfChannels { get; }
         public double MaxCurrentInAmpere { get; }
         public double MaxVoltageInVolts { get; }
         public string GetErrorMessage(int code);
@@ -22,8 +22,5 @@ namespace OneDriver.PowerSupply.General.Products
         public Framework.Module.Definition.DeviceError GetActualAmps(double channelNumber, out double amps);
         public Framework.Module.Definition.DeviceError AllOff();
         public Framework.Module.Definition.DeviceError AllOn();
-        public void StartProcessDataAnnouncer();
-        public void StopProcessDataAnnouncer();
-        public void AttachToProcessDataEvent(DataTunnel<InternalDataHAL>.DataEventHandler processDataEventHandler);
     }
 }
