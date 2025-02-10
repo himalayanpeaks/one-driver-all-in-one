@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OneDriver.Framework.Module.Parameter;
+﻿using OneDriver.Framework.Module.Parameter;
 
 namespace OneDriver.Motor.Abstract
 {

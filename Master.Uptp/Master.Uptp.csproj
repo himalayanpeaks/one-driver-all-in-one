@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="sspp_master_api" Version="0.0.7" />
+    <PackageReference Include="Master.Upt.Pf" Version="0.0.71" />
   </ItemGroup>
 
   <ItemGroup>

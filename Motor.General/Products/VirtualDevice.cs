@@ -36,7 +36,7 @@ namespace OneDriver.Motor.General.Products
             {
                 Random r = new Random();
                 int position = r.Next(0, 500);
-                data = new InternalDataHAL( r.NextSingle());
+                data = new InternalDataHAL(200, r.NextSingle());
             }
         }
 

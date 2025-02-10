@@ -1,12 +1,10 @@
-﻿using OneDriver.Device.Interface.DummyDevice;
-using OneDriver.Framework.Base;
+﻿using OneDriver.Framework.Base;
 using OneDriver.Framework.Libs.Validator;
 using OneDriver.Framework.Module;
-using OneDriver.Framework.Module.Parameter;
 using Serilog;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using OneDriver.Device.Interface.Motor;
+using Definition = OneDriver.Device.Interface.Motor.Definition;
 
 namespace OneDriver.Motor.Abstract
 {
@@ -20,6 +18,12 @@ namespace OneDriver.Motor.Abstract
         {
             Parameters.PropertyChanged += Parameters_PropertyChanged;
             Parameters.PropertyChanging += Parameters_PropertyChanging;
+            Parameters.PropertyReadRequested += Parameters_PropertyReadRequested;
+        }
+
+        private void Parameters_PropertyReadRequested(object sender, PropertyReadRequestedEventArgs e)
+        {
+            
         }
 
         /// <summary>
@@ -40,28 +44,104 @@ namespace OneDriver.Motor.Abstract
         {
             switch (e.PropertyName)
             {
-
+                case nameof(Parameters.DesiredSpeed):
+                    if ((double)(Parameters.DesiredSpeed) > Parameters.MaximumSpeed &&
+                        (Parameters.TravelMode == Definition.TravelMode.Absolute
+                         || Parameters.TravelMode == Definition.TravelMode.Relative))
+                    {
+                        Parameters.DesiredSpeed = Parameters.MaximumSpeed;
+                        Log.Information("Desired speed reduced to maximum possible " + Parameters.MaximumSpeed);
+                    }
+                    if ((double)Parameters.DesiredSpeed > Parameters.MaximumReferenceSpeed &&
+                        (Parameters.TravelMode == Definition.TravelMode.ExternalReference
+                         || Parameters.TravelMode == Definition.TravelMode.InternalReference))
+                    {
+                        Parameters.DesiredSpeed = Parameters.MaximumReferenceSpeed;
+                        Log.Information("Desired speed reduced to maximum possible " + Parameters.MaximumReferenceSpeed);
+                    }
+                    break;
+                case nameof(Parameters.DesiredPosition):
+                    if ((double)Parameters.DesiredPosition > Parameters.MaximumPosition)
+                    {
+                        Parameters.DesiredPosition = Parameters.MaximumPosition;
+                        Log.Information("Desired position reduced to maximum possible " +
+                                        Parameters.MaximumPosition);
+                    }
+                    if ((double)Parameters.DesiredPosition < Parameters.MinimumPosition)
+                    {
+                        Parameters.DesiredPosition = Parameters.MinimumPosition;
+                        Log.Information("Desired position reduced to minimum possible " +
+                                        Parameters.MinimumPosition);
+                    }
+                    break;
             }
         }
 
         public int Run(bool waitTillTravelEnds)
         {
-            throw new NotImplementedException();
+            if (Parameters.TravelMode == Definition.TravelMode.Absolute && !Parameters.IsReferenced)
+            {
+                Log.Error("Motor not referenced");
+                return (int)Definition.Errors.MotorNotReferenced;
+            }
+
+            StartTravelMode(Parameters.TravelMode);
+            Log.Information($"Starting run {Parameters.TravelMode} {Parameters.DesiredPosition} {Parameters.Unit} @ {Parameters.DesiredSpeed} {Parameters.Unit}/sec");
+            Task waitTillComplete = Task.Run(() =>
+            {
+                WaitTillPositionReached();
+                if (RequiresErrorReset(Parameters.TravelMode))
+                {
+                    ResetError();
+                }
+            });
+
+            waitTillComplete.ContinueWith(t => Log.Information("Position reached"), TaskScheduler.Default);
+
+            if (waitTillTravelEnds)
+            {
+                waitTillComplete.Wait();
+            }
+
+            return GetLastError();
         }
 
-        public void Stop()
+        // Helper method to start travel based on mode
+        private void StartTravelMode(Definition.TravelMode mode)
         {
-            throw new NotImplementedException();
+            switch (mode)
+            {
+                case Definition.TravelMode.Absolute:
+                    StartAbsoluteRun();
+                    break;
+                case Definition.TravelMode.Relative:
+                    StartRelativeRun();
+                    break;
+                case Definition.TravelMode.ExternalReference:
+                    StartReferenceRun();
+                    break;
+                case Definition.TravelMode.InternalReference:
+                    StartInternalReferenceRun();
+                    break;
+            }
         }
 
-        public int GetLastError()
+        // Determines if error reset is required for certain travel modes
+        private bool RequiresErrorReset(Definition.TravelMode mode)
         {
-            throw new NotImplementedException();
+            return mode == Definition.TravelMode.ExternalReference || mode == Definition.TravelMode.InternalReference;
         }
 
-        public string GetErrorMessage(int errorCode)
-        {
-            throw new NotImplementedException();
-        }
+
+        protected abstract void WaitTillPositionReached();
+        protected abstract void ResetError();
+        public abstract int GetLastError();
+        public abstract string GetErrorMessage(int errorCode);
+        protected abstract void StartReferenceRun();
+        protected abstract void StartInternalReferenceRun();
+        protected abstract void StartAbsoluteRun();
+        protected abstract void StartRelativeRun();
+
+        public abstract void Stop();
     }
 }

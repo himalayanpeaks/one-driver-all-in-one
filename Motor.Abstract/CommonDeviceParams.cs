@@ -62,12 +62,12 @@ namespace OneDriver.Motor.Abstract
         public double MaximumPosition
         {
             get => _maximumPosition;
-            set => SetProperty(ref _maximumPosition, value);
+            protected set => SetProperty(ref _maximumPosition, value);
         }
         public double MinimumPosition
         {
             get => _minimumPosition;
-            set => SetProperty(ref _minimumPosition, value);
+            protected set => SetProperty(ref _minimumPosition, value);
         }
         public double OriginShift
         {

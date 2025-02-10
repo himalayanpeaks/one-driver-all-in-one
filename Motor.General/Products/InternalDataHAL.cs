@@ -9,10 +9,11 @@ namespace OneDriver.Motor.General.Products
 {
     public class InternalDataHAL : BaseDataForAnnouncement
     {
-        public InternalDataHAL(double position)
+        public InternalDataHAL(double position, double distance)
         {
             Position = position;
             TimeStamp = DateTime.Now;
+            Distance = distance;
         }
 
         public InternalDataHAL()
@@ -21,5 +22,6 @@ namespace OneDriver.Motor.General.Products
         }
 
         public double Position { get; }
+        public double Distance { get; }
     }
 }

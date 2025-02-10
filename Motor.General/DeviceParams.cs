@@ -1,9 +1,4 @@
 ﻿using OneDriver.Motor.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OneDriver.Motor.General
 {
@@ -11,6 +6,19 @@ namespace OneDriver.Motor.General
     {
         public DeviceParams(string name) : base(name)
         {
+            PropertyChanged += DeviceParams_PropertyChanged;
+        }
+
+        private void DeviceParams_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(OriginShift):
+                case nameof(AxisLength):
+                    MinimumPosition = -1 * OriginShift;
+                    MaximumPosition = AxisLength - OriginShift;
+                    break;
+            }
         }
     }
 }

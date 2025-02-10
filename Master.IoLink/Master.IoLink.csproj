@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="TMG.IoLink2.Master" Version="0.0.7" />
+    <PackageReference Include="Master.IoLink.Tmg" Version="0.0.71" />
   </ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Master.Abstract\Master.Abstract.csproj" />
