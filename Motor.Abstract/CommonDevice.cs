@@ -8,13 +8,13 @@ using Definition = OneDriver.Device.Interface.Motor.Definition;
 
 namespace OneDriver.Motor.Abstract
 {
-    public abstract class CommonDevice<TDeviceParams, TChannelProcessData> :
-        BaseDeviceWithProcessData<TDeviceParams, TChannelProcessData>, IMotor
+    public abstract class CommonDevice<TDeviceParams, TProcessData> :
+        BaseDeviceWithProcessData<TDeviceParams, TProcessData>, IMotor
         where TDeviceParams : CommonDeviceParams
-        where TChannelProcessData : CommonProcessData
+        where TProcessData : CommonProcessData
     {
         protected CommonDevice(TDeviceParams parameters, IValidator validator,
-            TChannelProcessData processData) : base(parameters, validator, processData)
+            TProcessData processData) : base(parameters, validator, processData)
         {
             Parameters.PropertyChanged += Parameters_PropertyChanged;
             Parameters.PropertyChanging += Parameters_PropertyChanging;

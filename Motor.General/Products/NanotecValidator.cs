@@ -1,8 +1,9 @@
 ﻿using System.Text.RegularExpressions;
+using OneDriver.Framework.Libs.Validator;
 
 namespace OneDriver.Motor.General.Products;
 
-public class NanotecValidator
+public class NanotecValidator : IValidator
 {
     private static readonly Regex _validationRegex = new Regex(@"(?<com>COM\d+)(;{1}\s*)(?<Address>\d+)(;{1}\s*)(?<StepFactor>\d+)", RegexOptions.Compiled);
     public Regex ValidationRegex => _validationRegex;
