@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	  <RootNamespace>$(SolutionName).$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+	  <PlatformTarget>x64</PlatformTarget>      
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NationalInstruments.DAQmx.Bundle" Version="25.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Daq.Abstract\Daq.Abstract.csproj" />
+    <ProjectReference Include="Y:\himalayanpeaks\OneDriver\Toolbox\Toolbox.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -13,8 +13,6 @@ namespace OneDriver.Motor.General.Products
         private int _stepDirection = -1;
         private IComMotorCommands MotorCommands { get; }
 
-        Regex initRegex = new Regex(@"(?<com>COM\d+)(;{1}\s*)(?<Address>\d+)(;{1}\s*)(?<StepFactor>\d+)");
-
         public Nanotec(IComMotorCommands motorCommands)
         {
             MotorCommands = motorCommands;

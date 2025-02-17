@@ -1,18 +1,31 @@
 ﻿using OneDriver.Framework.Module.Parameter;
+using System.Net.NetworkInformation;
+using OneDriver.Device.Interface.Daq;
 
 namespace OneDriver.Daq.Abstract.Channels
 {
     public class CommonChannelParams : BaseChannelParam
     {
-        private int commonParamExample;
+        private Definition.ChannelType _type;
+        private string _physicalAddress;
 
-        public int CommonParamExample
+        public CommonChannelParams(string name, string physicalAddress, Definition.ChannelType type)
+            : base(name)
         {
-            get => GetProperty(ref commonParamExample);
-            set => SetProperty(ref commonParamExample, value);
+            _physicalAddress = physicalAddress;
+            _type = type;
         }
-        public CommonChannelParams(string name) : base(name)
+        public string PhysicalAddress
         {
+            get => _physicalAddress;
+            set => SetProperty(ref _physicalAddress, value);
         }
+
+        public Definition.ChannelType Type
+        {
+            get => _type;
+            set => SetProperty(ref _type, value);
+        }
+
     }
 }

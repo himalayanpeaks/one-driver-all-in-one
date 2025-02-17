@@ -2,12 +2,11 @@
 
 namespace OneDriver.Daq.Abstract.Channels
 {
-    public class CommonChannel<TChannelParams, TChannelProcessData>
-        : BaseChannelWithProcessData<TChannelParams, TChannelProcessData>
+    public class CommonChannel<TChannelParams>
+        : BaseChannel<TChannelParams>
         where TChannelParams : CommonChannelParams
-        where TChannelProcessData : CommonChannelProcessData
     {
-        public CommonChannel(TChannelParams parameters, TChannelProcessData processData) : base(parameters, processData)
+        public CommonChannel(TChannelParams parameters) : base(parameters)
         {
         }
     }

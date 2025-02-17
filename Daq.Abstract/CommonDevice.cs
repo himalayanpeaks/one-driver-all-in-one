@@ -10,13 +10,12 @@ using OneDriver.Device.Interface.Daq;
 
 namespace OneDriver.Daq.Abstract
 {
-    public abstract class CommonDevice<TDeviceParams, TChannelParams, TChannelProcessData> :
-        BaseDeviceWithChannelsPd<TDeviceParams, TChannelParams, TChannelProcessData>, IDaq
+    public abstract class CommonDevice<TDeviceParams, TChannelParams> :
+        BaseDeviceWithChannels<TDeviceParams, TChannelParams>, IDaq
         where TDeviceParams : CommonDeviceParams
         where TChannelParams : CommonChannelParams
-        where TChannelProcessData : CommonChannelProcessData
     {
-        protected CommonDevice(TDeviceParams parameters, IValidator validator, ObservableCollection<BaseChannelWithProcessData<TChannelParams, TChannelProcessData>> elements) : base(parameters, validator, elements)
+        protected CommonDevice(TDeviceParams parameters, IValidator validator, ObservableCollection<BaseChannel<TChannelParams>> elements) : base(parameters, validator, elements)
         {
             Parameters.PropertyChanged += Parameters_PropertyChanged;
             Parameters.PropertyChanging += Parameters_PropertyChanging;
