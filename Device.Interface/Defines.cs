@@ -11,6 +11,7 @@
             MasterUptVirtual,
             MasterUpt_1_3,
             MasterIoLinkTmg,
+            DaqNiUsb
         }
 
         public enum AccessType
