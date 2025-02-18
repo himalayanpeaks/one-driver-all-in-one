@@ -1,4 +1,5 @@
-﻿using OneDriver.Framework.Libs.Announcer;
+﻿using NationalInstruments.DAQmx;
+using OneDriver.Framework.Libs.Announcer;
 using OneDriver.Framework.Libs.Validator;
 using OneDriver.Framework.Module;
 
@@ -121,6 +122,11 @@ namespace OneDriver.Daq.General.Products
         }
 
         public void Reset()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetErrorMessage(int errorCode)
         {
             throw new NotImplementedException();
         }

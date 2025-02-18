@@ -36,6 +36,7 @@ namespace OneDriver.Daq.General.Products
             out double[] aDutyCycleBuffer);
 
         void Reset();
+        string GetErrorMessage(int errorCode);
         public double MaxAIRate { get; }
         public double MaxAORate { get; }
         public double MaxDIRate { get; }

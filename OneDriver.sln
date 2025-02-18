@@ -61,6 +61,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daq.General", "C:\Users\rba
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daq.Factory", "C:\Users\rbajaj\source\repos\himalayanpeaks\OneDriver\Daq.Factory\Daq.Factory.csproj", "{DF9695E3-4FEB-48FE-B8F3-C74AA1060A55}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daq.App", "Daq.App\Daq.App.csproj", "{2645F068-656E-4617-A576-69CEB45C89FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -183,6 +185,10 @@ Global
 		{DF9695E3-4FEB-48FE-B8F3-C74AA1060A55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF9695E3-4FEB-48FE-B8F3-C74AA1060A55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF9695E3-4FEB-48FE-B8F3-C74AA1060A55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2645F068-656E-4617-A576-69CEB45C89FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2645F068-656E-4617-A576-69CEB45C89FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2645F068-656E-4617-A576-69CEB45C89FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2645F068-656E-4617-A576-69CEB45C89FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -326,6 +326,21 @@ namespace OneDriver.Daq.General.Products
         {
             DaqSystem.Local.LoadDevice(CurrentDevice).Reset();
         }
+
+        public string GetErrorMessage(int errorCode)
+        {
+            try
+            {
+                // Attempt to throw an exception with the given error code
+                throw new DaqException("Simulated exception", errorCode);
+            }
+            catch (DaqException ex)
+            {
+                // Return the error message associated with the error code
+                return ex.Message;
+            }
+        }
+
         public int ReadAiChannels(IEnumerable<string> channelsName, double sampleTimeInSecond, double samplesPerSecond,
             out double[,] readBuffer)
         {
